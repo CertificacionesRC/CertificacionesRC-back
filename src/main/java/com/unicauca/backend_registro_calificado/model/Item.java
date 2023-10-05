@@ -16,6 +16,10 @@ public class Item {
 
    private String i_nombre;
 
+   private String i_contenido;
+
+   private String i_guia;
+
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "rc_id")
    private RegistroCalificado rc_id;

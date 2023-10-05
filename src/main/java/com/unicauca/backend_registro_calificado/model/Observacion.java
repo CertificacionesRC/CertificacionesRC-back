@@ -16,11 +16,8 @@ public class Observacion {
     @Id
     private String o_id;
 
-
     private String rc_id;
 
-
-
-
+    private String o_observacion;
 
 }

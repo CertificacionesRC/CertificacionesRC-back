@@ -22,6 +22,4 @@ public class ProgramaAcademico {
 
     private String pa_tipo;
 
-
-
 }
