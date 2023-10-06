@@ -25,8 +25,8 @@ public class Subitem {
     private Subitem parentSubitem;
 
     //Un subitem tiene varios subitems
-    @OneToMany(mappedBy = "parentEnvironment", fetch = FetchType.LAZY)
-    private Set<Subitem> subEnvironments;
+    @OneToMany(mappedBy = "parentSubitem", fetch = FetchType.LAZY)
+    private Set<Subitem> subitems;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "i_id")
