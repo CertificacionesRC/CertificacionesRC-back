@@ -14,9 +14,9 @@ import java.util.Set;
 @Table(name = "subitem")
 public class Subitem {
     @Id
-    private String si_id;
+    private String subitemId;
 
-    private String si_nombre;
+    private String subitemNombre;
 
     //De cada subitem se debe saber a que subitem pertenece
     //Muchos subitems pueden estar en un subitem
@@ -30,10 +30,10 @@ public class Subitem {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "i_id")
-    private Item i_id;
+    private Item itemId;
 
-    private String si_contenido;
+    private String subitemContenido;
 
-    private String si_guia;
+    private String subitemGuia;
 
 }
