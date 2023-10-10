@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "registroCalificado")
 public class RegistroCalificado {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private Date fechaCreacion;

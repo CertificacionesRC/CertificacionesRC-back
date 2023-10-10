@@ -1,16 +1,18 @@
 package com.unicauca.backend_registro_calificado.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Table(name = "observacion_item")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "observacion")
-public class Observacion {
+@NoArgsConstructor
+public class ObservacionItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,7 +20,6 @@ public class Observacion {
     private String observacion;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "registroCalificado_id")
-    private RegistroCalificado registroCalificado;
-
+    @JoinColumn(name = "item_id")
+    private Item item;
 }

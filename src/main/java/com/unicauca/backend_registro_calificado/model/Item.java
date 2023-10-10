@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "item")
 public class Item {
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
 
    private String nombre;
@@ -30,6 +30,6 @@ public class Item {
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
 
-
-
+   @OneToMany(mappedBy = "item")
+   private List<ObservacionItem> observaciones;
 }

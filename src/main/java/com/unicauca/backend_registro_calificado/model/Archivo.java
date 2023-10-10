@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "archivo")
 public class Archivo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String contenido;
