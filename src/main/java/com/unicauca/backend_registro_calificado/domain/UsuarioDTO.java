@@ -7,8 +7,8 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Data
 @NoArgsConstructor
 public class UsuarioDTO {
-    private String usuarioId;
-    private String Nombre;
-    private String u_Correo;
-    private String u_Contrasena;
+    private long id;
+    private String nombre;
+    private String correo;
+    private String contrasena;
 }

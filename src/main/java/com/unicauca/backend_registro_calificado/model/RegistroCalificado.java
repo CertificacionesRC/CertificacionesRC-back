@@ -1,9 +1,11 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -11,22 +13,33 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "registrocalificado")
+@Table(name = "registroCalificado")
 public class RegistroCalificado {
     @Id
-    private String rc_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    private Date rc_fecha_creacion;
+    private Date fechaCreacion;
+
+    private String colaboradores;
+
+    private String autor;
+
+    @Enumerated(EnumType.STRING) // Mapea el enum como una cadena en la base de datos
+    private EstadoRegistroCal estado;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pa_id")
-    private ProgramaAcademico pa_id;
+    @JoinColumn(name = "programa_id")
+    private ProgramaAcademico programaAcademico;
 
-    private String rc_colaboradores;
+    @OneToMany(mappedBy = "registroCalificado")
+    private List<Anexo> Anexos;
 
-    private String rc_autor;
+    @OneToMany(mappedBy = "registroCalificado")
+    private List<Observacion> observaciones;
 
-    private String rc_estado;
+    @OneToMany(mappedBy = "registroCalificado")
+    private List<Item> items;
 
 
 

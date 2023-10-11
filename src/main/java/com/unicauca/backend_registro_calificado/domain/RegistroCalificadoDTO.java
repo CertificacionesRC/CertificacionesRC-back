@@ -1,6 +1,6 @@
 package com.unicauca.backend_registro_calificado.domain;
 
-import com.unicauca.backend_registro_calificado.model.enums.EstadosRegistroCal;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,16 +10,22 @@ import java.util.Date;
 @NoArgsConstructor
 public class RegistroCalificadoDTO {
 
-    private String registroCalificadoId;
+    private Integer id;
 
-    private Date registroCalificadoFecha;
+    private Date fecha;
 
-    private ProgramaAcademicoDTO programaAcademicoIdDTO;
+    private String colaboradores;
 
-    private String registroCalDTOColabo;
+    private String autor;
 
-    private String registroCalificadoAutor;
+    private EstadoRegistroCal estado;
 
-    private EstadosRegistroCal registroCalificadoEstado;
+    private ProgramaAcademicoDTO programaAcademico;
+
+    private AnexoDTO anexo;
+
+    private ObservacionDTO observacion;
+
+    private ItemDTO item;
 
 }

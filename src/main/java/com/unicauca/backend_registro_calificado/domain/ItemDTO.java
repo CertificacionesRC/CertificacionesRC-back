@@ -7,10 +7,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemDTO {
 
-    private String itemId;
+    private Integer id;
 
-    private String itemNombre;
+    private String nombre;
 
-    private String itemGuia;
+    private String guia;
+
+    private RegistroCalificadoDTO registroCalificado;
+
+    private SubItemDTO subitem;
 
 }

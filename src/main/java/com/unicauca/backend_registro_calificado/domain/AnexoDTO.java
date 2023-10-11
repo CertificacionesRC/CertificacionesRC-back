@@ -1,7 +1,11 @@
 package com.unicauca.backend_registro_calificado.domain;
 
-public class ObservacionDTO {
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+public class AnexoDTO {
     private Integer id;
 
     private String contenido;
@@ -11,3 +15,4 @@ public class ObservacionDTO {
 
 
 }
+
