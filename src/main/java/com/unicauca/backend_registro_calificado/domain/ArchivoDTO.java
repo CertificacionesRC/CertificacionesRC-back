@@ -1,13 +1,9 @@
 package com.unicauca.backend_registro_calificado.domain;
 
-public class ObservacionDTO {
-
+public class ArchivoDTO {
     private Integer id;
 
     private String contenido;
 
-    private RegistroCalificadoDTO registroCalificado;
-
-
-
+    private SubItemDTO subItem;
 }

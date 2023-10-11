@@ -9,16 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "observacion")
-public class Observacion {
+@Table(name = "archivo")
+public class Archivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String observacion;
+    private String contenido;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "registroCalificado_id")
-    private RegistroCalificado registroCalificado;
-
+    @JoinColumn(name = "subItem_id")
+    private SubItem subItem;
 }

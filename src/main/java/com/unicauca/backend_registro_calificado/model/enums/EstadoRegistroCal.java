@@ -1,6 +1,6 @@
 package com.unicauca.backend_registro_calificado.model.enums;
 
-public enum EstadosRegistroCal {
+public enum EstadoRegistroCal {
 
     PorAprobar, Enrevisión, Rechazado, Aprobado;
 

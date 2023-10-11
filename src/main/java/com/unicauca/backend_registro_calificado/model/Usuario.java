@@ -1,8 +1,5 @@
 package com.unicauca.backend_registro_calificado.model;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -15,14 +12,16 @@ import lombok.*;
 public class Usuario {
 
     @Id
-    @Column(length = 45)
-    private String usuarioId;
-    @Column(name = "u_nombre", length = 80)
-    private String Nombre;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @Column(length = 80)
-    private String u_Correo;
+    private String nombre;
 
-    @Column( length = 80)
-    private String u_Contrasena;
+    private String correo;
+
+    private String contrasena;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rol_id", nullable = false)
+    private Rol rol;
 }

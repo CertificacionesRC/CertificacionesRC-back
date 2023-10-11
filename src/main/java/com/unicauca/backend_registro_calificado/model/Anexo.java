@@ -9,17 +9,18 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "anexos")
-public class Anexos {
+@Table(name = "anexo")
+public class Anexo {
     @Id
-    private String anexosId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    private String anexosContenido;
+    private String contenido;
 
     //Muchos anexos pueden estar en un registro calificado
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rc_id")
-    private RegistroCalificado registroCaliId;
+    @JoinColumn(name = "registroCalificado_id")
+    private RegistroCalificado registroCalificado;
 
 
 

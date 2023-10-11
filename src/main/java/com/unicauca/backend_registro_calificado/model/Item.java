@@ -3,6 +3,8 @@ package com.unicauca.backend_registro_calificado.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -12,18 +14,22 @@ import lombok.*;
 @Table(name = "item")
 public class Item {
    @Id
-   private String i_id;
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private long id;
 
-   private String i_nombre;
+   private String nombre;
 
-   private String i_contenido;
+   private String contenido;
 
-   private String i_guia;
+   private String guia;
 
    @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "rc_id")
-   private RegistroCalificado rc_id;
+   @JoinColumn(name = "registroCalificado_id")
+   private RegistroCalificado registroCalificado;
 
+   @OneToMany(mappedBy = "item")
+   private List<SubItem> subItems;
 
-
+   @OneToMany(mappedBy = "item")
+   private List<ObservacionItem> observaciones;
 }
