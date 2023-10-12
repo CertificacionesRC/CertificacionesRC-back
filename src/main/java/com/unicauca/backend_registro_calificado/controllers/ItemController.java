@@ -25,5 +25,11 @@ public class ItemController {
         return this.iitemService.findAllItemsByIdRegistroCalificado(idRegistroCalificado);
     }
 
+    @GetMapping("/getItemById")
+    //public Response<ItemDTO> findItemById(@RequestParam String idItem) {
+    public ItemDTO findItemById(@RequestParam String idItem) {
+        return this.iitemService.findItemById(idItem);
+    }
+
 
 }
