@@ -18,11 +18,8 @@ public class RegistroCalificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private Date fechaCreacion;
-
     private String colaboradores;
-
     private String autor;
 
     @Enumerated(EnumType.STRING) // Mapea el enum como una cadena en la base de datos
