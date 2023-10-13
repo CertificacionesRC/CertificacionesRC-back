@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class RegistroCalificadoDTO {
 
     private ObservacionDTO observacion;
 
+    @JsonIgnore
     private ItemDTO item;
 
 }
