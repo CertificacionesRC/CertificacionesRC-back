@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISubItemRepository extends JpaRepository<SubItem, String> {
-    //@Query(value = "SELECT * FROM sub_item s WHERE s.subitemid = :subitemid",nativeQuery = true)
+    @Query(value = "SELECT * FROM sub_item s WHERE s.id = :subItemId",nativeQuery = true)
     SubItem findSubItemById(String subItemId);
 }
