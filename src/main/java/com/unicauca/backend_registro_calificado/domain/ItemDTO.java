@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +10,13 @@ public class ItemDTO {
 
     private Integer id;
 
-    private String nombre;
+    private  String contenido;
 
     private String guia;
 
-    private RegistroCalificadoDTO registroCalificado;
+    private String nombre;
 
-    private SubItemDTO subitem;
+    @JsonIgnore
+    private RegistroCalificadoDTO registroCalificado;
 
 }

@@ -17,11 +17,11 @@ public class Item {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
 
-   private String nombre;
-
    private String contenido;
 
    private String guia;
+
+   private String nombre;
 
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "registroCalificado_id")
