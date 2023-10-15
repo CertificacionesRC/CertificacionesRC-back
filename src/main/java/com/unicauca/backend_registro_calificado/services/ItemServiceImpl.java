@@ -16,15 +16,16 @@ public class ItemServiceImpl implements IitemService{
 
     private final IitemRepository iitemRepository;
 
-    //private final ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     public ItemServiceImpl(IitemRepository iitemRepository) {
         this.iitemRepository = iitemRepository;
 
     }
 
-    @Autowired
-    private ModelMapper modelMapper;
+
 
     @Override
     public Response<List<ItemDTO>> findAllItemsByIdRegistroCalificado(String idRegCalificado) {

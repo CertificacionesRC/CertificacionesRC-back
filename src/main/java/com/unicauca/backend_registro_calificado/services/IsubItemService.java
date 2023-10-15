@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.services;
 
+import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 
 import  com.unicauca.backend_registro_calificado.domain.SubItemDTO;
@@ -13,4 +14,6 @@ public interface IsubItemService {
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene la informacion sobre el resultado de la actualizacion
      */
     public Response<SubItemDTO> updateSubItem(SubItemDTO subitemDTO, String subitemId);
+
+    public SubItemDTO findSubItemById(String IdSubItem);
 }

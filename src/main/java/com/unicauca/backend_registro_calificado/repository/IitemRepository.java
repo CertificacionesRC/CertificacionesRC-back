@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IitemRepository extends JpaRepository<Item, String> {
     //@Query(value = "SELECT * FROM item WHERE item.itemid = :itemid", nativeQuery = true)
-    //item findItemById(String itemid);
+    //Item findItemById(String itemid);
 }
