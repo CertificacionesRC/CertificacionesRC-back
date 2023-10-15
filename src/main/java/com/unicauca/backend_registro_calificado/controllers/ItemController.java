@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/item")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class ItemController {
+public class    ItemController {
     private final IitemService iitemService;
 
     @Autowired

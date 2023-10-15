@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -40,7 +39,6 @@ public class SubItem {
 
     @OneToMany(mappedBy = "subItem", fetch = FetchType.LAZY)
     private List<Archivo> archivos;
-
 
 
 }
