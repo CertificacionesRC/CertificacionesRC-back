@@ -31,5 +31,8 @@ public class    ItemController {
         return this.iitemService.findItemById(idItem);
     }
 
-
+    @PutMapping("/updateItem")
+    public Response<ItemDTO> updateItem(@RequestParam String id, @RequestParam ItemDTO itemDTO) {
+        return this.iitemService.updateItem(id, itemDTO);
+    }
 }

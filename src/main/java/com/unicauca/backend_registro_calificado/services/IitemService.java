@@ -2,6 +2,7 @@ package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
+import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 
 import java.util.List;
 
@@ -11,4 +12,7 @@ public interface IitemService {
 
     //public Response<ItemDTO> findItemById(String IdItem);
     public ItemDTO findItemById(String IdItem);
+
+    public Response<ItemDTO> updateItem(String id,ItemDTO itemDTO);
+
 }

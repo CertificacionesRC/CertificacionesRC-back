@@ -2,8 +2,12 @@ package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
+import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.model.Item;
+import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
@@ -13,7 +17,8 @@ import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements IitemService{
-
+    /** Logger */
+    private static final Logger logger = LoggerFactory.getLogger(subitemServiceImpl.class);
     private final IitemRepository iitemRepository;
 
     @Autowired
@@ -24,8 +29,6 @@ public class ItemServiceImpl implements IitemService{
         this.iitemRepository = iitemRepository;
 
     }
-
-
 
     @Override
     public Response<List<ItemDTO>> findAllItemsByIdRegistroCalificado(String idRegCalificado) {
@@ -47,5 +50,43 @@ public class ItemServiceImpl implements IitemService{
         return modelMapper.map(item, ItemDTO.class);
     };
 
+    @Override
+    public Response<ItemDTO> updateItem(String id, ItemDTO itemDTO){
+        Response<ItemDTO> response = new Response<>();
+        logger.debug("Miremos esto: {}", itemDTO.toString());
+        System.out.println("Miremos esto: " + itemDTO.toString());
+        // Busco el environment a actualizar
+        Item item = null;
+        item = this.iitemRepository.findItemById(id);
+        Item itemUpdate = modelMapper.map(itemDTO, Item.class);
 
+        if (item != null) {
+
+            // actualiza el subItem
+            item.setId(itemUpdate.getId());
+            item.setContenido(itemUpdate.getContenido());
+            item.setGuia(itemUpdate.getGuia());
+            this.iitemRepository.save(item);
+            ItemDTO item1 = modelMapper.map(item, ItemDTO.class);
+            response.setStatus(200);
+            response.setUserMessage("Subitem actualizado");
+            response.setDeveloperMessage("Subitem actualizado");
+            response.setMoreInfo("localhost:8080/api/item");
+            response.setErrorCode("");
+            response.setData(item1);
+            logger.debug("Finish update Subitem Business");
+
+        } else {
+
+            response.setStatus(400);
+            response.setUserMessage("Subitem no actualizado");
+            response.setDeveloperMessage("Subitem actualizado");
+            response.setMoreInfo("localhost:8080/api/subitem");
+            response.setErrorCode("Id del subitem no encontrado");
+            response.setData(null);
+            logger.debug("Finish update Subitem Business");
+
+        }
+        return response;
+    }
 }

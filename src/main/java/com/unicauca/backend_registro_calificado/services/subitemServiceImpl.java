@@ -39,14 +39,14 @@ public class subitemServiceImpl implements IsubItemService {
     }
 
     @Override
-    public Response<SubItemDTO> updateSubItem(SubItemDTO subitemDTO, String subitemId) {
+    public Response<SubItemDTO> updateSubItem(String id, SubItemDTO subItemDTO) {
         Response<SubItemDTO> response = new Response<>();
-        logger.debug("Miremos esto: {}", subitemDTO.toString());
-        System.out.println("Miremos esto: " + subitemDTO.toString());
+        logger.debug("Miremos esto: {}", subItemDTO.toString());
+        System.out.println("Miremos esto: " + subItemDTO.toString());
         // Busco el environment a actualizar
         SubItem subitem = null;
-        subitem = this.subitemRepository.findSubItemById(subitemId);
-        SubItem subItemUpdate = modelMapper.map(subitemDTO, SubItem.class);
+        subitem = this.subitemRepository.findSubItemById(id);
+        SubItem subItemUpdate = modelMapper.map(subItemDTO, SubItem.class);
 
         if (subitem != null) {
 
@@ -77,6 +77,4 @@ public class subitemServiceImpl implements IsubItemService {
         }
         return response;
     }
-
-
 }
