@@ -1,5 +1,7 @@
 package com.unicauca.backend_registro_calificado.controllers;
 
+import com.unicauca.backend_registro_calificado.domain.ItemDTO;
+import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.services.IsubItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +23,10 @@ public class SubItemController {
     public SubItemDTO findSubItemById(@RequestParam String idSubItem) {
         //return  null;
         return this.isubItemService.findSubItemById(idSubItem);
+    }
+
+    @PutMapping("/updateItem")
+    public Response<SubItemDTO> updateSubItem(@RequestParam String id, @RequestParam SubItemDTO subItemDTO) {
+        return this.isubItemService.updateSubItem(id, subItemDTO);
     }
 }
