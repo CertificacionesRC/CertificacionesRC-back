@@ -23,6 +23,6 @@ public class ObservacionRegistroCalificado {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registro_calificado_id")
-    private RegistroCalificado registro_calificado_id;
+    private RegistroCalificado registroCalificado;
 
 }

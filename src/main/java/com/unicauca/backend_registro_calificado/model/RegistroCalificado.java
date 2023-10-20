@@ -33,10 +33,10 @@ public class RegistroCalificado {
     @OneToMany(mappedBy = "registroCalificado")
     private List<Anexo> anexos;
 
-    @OneToMany(mappedBy = "registro_calificado")
+    @OneToMany(mappedBy = "registroCalificado")
     private List<ObservacionRegistroCalificado> observaciones;
 
-    @OneToMany(mappedBy = "registro_calificado")
+    @OneToMany(mappedBy = "registroCalificado")
     private List<Item> items;
 
 

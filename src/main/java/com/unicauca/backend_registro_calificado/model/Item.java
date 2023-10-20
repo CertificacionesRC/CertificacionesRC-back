@@ -29,7 +29,7 @@ public class Item {
 
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "registro_calificado_id")
-   private RegistroCalificado registro_calificado_id;
+   private RegistroCalificado registroCalificado;
 
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
