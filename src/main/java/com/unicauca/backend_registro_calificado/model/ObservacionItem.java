@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +14,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ObservacionItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "observacion_item_id")
+    private long observacionItemId;
 
     private String observacion;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
-    private Item item;
+    private Item item_id;
 }

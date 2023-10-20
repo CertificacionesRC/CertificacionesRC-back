@@ -13,11 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "registroCalificado")
+@Table(name = "registro_calificado")
 public class RegistroCalificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "registro_calificado_id")
+    private long registroCalificadoId;
     private Date fechaCreacion;
     private String colaboradores;
     private String autor;
@@ -26,21 +27,17 @@ public class RegistroCalificado {
     private EstadoRegistroCal estado;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "programa_id")
+    @JoinColumn(name = "programa_academico_id")
     private ProgramaAcademico programaAcademico;
 
     @OneToMany(mappedBy = "registroCalificado")
-    private List<Anexo> Anexos;
+    private List<Anexo> anexos;
 
-    @OneToMany(mappedBy = "registroCalificado")
-    private List<Observacion> observaciones;
+    @OneToMany(mappedBy = "registro_calificado")
+    private List<ObservacionRegistroCalificado> observaciones;
 
-    @OneToMany(mappedBy = "registroCalificado")
+    @OneToMany(mappedBy = "registro_calificado")
     private List<Item> items;
-
-
-
-
 
 
 }

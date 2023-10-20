@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProgramaAcademicoDTO {
 
-    private Integer id;
+    private Integer programa_academico_id;
 
     private String nombre;
 
     private TipoPrograma tipo;
+
+    private String facultad;
 
     private RegistroCalificadoDTO registroCalificado;
 

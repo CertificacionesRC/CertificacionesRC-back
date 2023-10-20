@@ -1,14 +1,20 @@
 package com.unicauca.backend_registro_calificado.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Data
 @NoArgsConstructor
 public class UsuarioDTO {
-    private long id;
+    private long usuario_id;
     private String nombre;
+    private String usuario;
     private String correo;
     private String contrasena;
+    private Boolean estado;
+
+    //pendiente roles
+    @JsonIgnore
+    private RoleDTO roles_id;
 }

@@ -11,9 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class RegistroCalificadoDTO {
 
-    private Integer id;
+    private Integer registro_calificado_id;
 
-    private Date fecha;
+    private Date fecha_creacion;
+
+    private ProgramaAcademicoDTO programa_academico_id;
 
     private String colaboradores;
 
@@ -21,11 +23,11 @@ public class RegistroCalificadoDTO {
 
     private EstadoRegistroCal estado;
 
-    private ProgramaAcademicoDTO programaAcademico;
+    //private AnexoDTO anexo;
 
-    private AnexoDTO anexo;
+    //private ObservacionDTO observacion;
 
-    private ObservacionDTO observacion;
+
 
     @JsonIgnore
     private ItemDTO item;

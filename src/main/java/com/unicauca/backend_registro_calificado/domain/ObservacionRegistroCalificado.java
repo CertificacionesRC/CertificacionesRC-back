@@ -6,19 +6,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ItemDTO {
+public class ObservacionRegistroCalificado {
 
-    private Integer item_id;
+    private Integer observacion_registro_calificado_id;
 
-    private String nombre;
+    private String observacion;
 
     @JsonIgnore
     private RegistroCalificadoDTO registro_calificado_id;
-
-    private  String contenido;
-
-    private String ayuda;
-
-
 
 }

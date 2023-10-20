@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,13 +12,15 @@ import lombok.*;
 @Builder
 @Table(name = "archivo")
 public class Archivo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "archivo_id")
+    private long archivoId;
 
     private String contenido;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subItem_id")
-    private SubItem subItem;
+    @JoinColumn(name = "subitem_id")
+    private SubItem subitem_id;
 }

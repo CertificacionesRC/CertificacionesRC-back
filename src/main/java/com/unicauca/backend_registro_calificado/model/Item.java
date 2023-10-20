@@ -1,5 +1,7 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,23 +15,23 @@ import java.util.List;
 @Builder
 @Table(name = "item")
 public class Item {
+
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private long id;
+   @Column(name = "item_id")
+   private long itemId;
 
    private String contenido;
 
-   private String guia;
+   private String ayuda;
 
    private String nombre;
 
    @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "registroCalificado_id")
-   private RegistroCalificado registroCalificado;
+   @JoinColumn(name = "registro_calificado_id")
+   private RegistroCalificado registro_calificado_id;
 
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
 
-   @OneToMany(mappedBy = "item")
-   private List<ObservacionItem> observaciones;
 }

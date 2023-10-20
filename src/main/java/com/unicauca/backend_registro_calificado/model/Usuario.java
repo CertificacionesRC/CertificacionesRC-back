@@ -13,15 +13,20 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "usuario_id")
+    private long usuarioId;
 
     private String nombre;
+
+    private String usuario;
 
     private String correo;
 
     private String contrasena;
 
+    private Boolean estado;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", nullable = false)
-    private Rol rol;
+    private Rol roleId;
 }

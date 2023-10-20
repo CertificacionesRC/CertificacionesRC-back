@@ -14,20 +14,18 @@ package com.unicauca.backend_registro_calificado.domain;
  */
 public class Response<T> {
 
-    /** Indica el estado de la transaccion */
+    private String errorCode;
+
+    private String moreInfo;
+
+    /** Indica el estado de la transaccion  estado 201 200 403 */
     private int status;
 
-    /** Mensaje informativo para el usuario */
+    /** Mensaje informativo para el usuario  - que paso al usuario */
     private String userMessage;
 
     /** Mensaje informativo para los desarrolladores */
     private String developerMessage;
-
-    /** Codigo de error dentro del sistema */
-    private String errorCode;
-
-    /** Url para consultar mas informacion acerca del error */
-    private String moreInfo;
 
     /** Objeto con la respuesta de la transaccion */
     private T data;

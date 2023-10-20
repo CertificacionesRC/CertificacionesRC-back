@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class AnexoDTO {
-    private Integer id;
+
+    private Integer anexo_id;
 
     private String contenido;
 
-    private RegistroCalificadoDTO registroCalificado;
+    private RegistroCalificadoDTO registro_calificado_id;
 
 
 

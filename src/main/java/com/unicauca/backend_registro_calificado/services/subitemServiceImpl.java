@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import org.modelmapper.ModelMapper;
 
+import java.util.Optional;
+
 @Service
 public class subitemServiceImpl implements IsubItemService {
     /** Logger */
@@ -58,5 +60,13 @@ public class subitemServiceImpl implements IsubItemService {
 
         }
         return response;
+    }
+
+    @Override
+    public SubItemDTO findItemById(String IdSubItem) {
+        Optional<SubItem> Subitemoptional = this.subitemRepository.findById(IdSubItem);
+        SubItem Subitem = Subitemoptional.get();
+
+        return modelMapper.map(Subitem, SubItemDTO.class);
     }
 }
