@@ -23,7 +23,7 @@ public class Rol {
 
     private String descripcion;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Usuario> LstUsuario;
+    @OneToMany(mappedBy = "rol")
+    private List<Usuario> usuarios;
 
 }

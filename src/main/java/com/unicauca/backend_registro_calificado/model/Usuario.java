@@ -26,7 +26,7 @@ public class Usuario {
 
     private Boolean estado;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id", nullable = false)
-    private Rol roleId;
+    private Rol rol;
 }

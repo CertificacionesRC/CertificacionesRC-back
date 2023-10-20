@@ -22,5 +22,5 @@ public class Archivo {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subitem_id")
-    private SubItem subitem_id;
+    private SubItem subItem;
 }
