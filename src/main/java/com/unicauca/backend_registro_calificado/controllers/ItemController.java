@@ -1,11 +1,13 @@
 package com.unicauca.backend_registro_calificado.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.unicauca.backend_registro_calificado.services.IitemService;
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -27,12 +29,15 @@ public class    ItemController {
 
     @GetMapping("/getItemById")
     //public Response<ItemDTO> findItemById(@RequestParam String idItem) {
-    public ItemDTO findItemById(@RequestParam String idItem) {
+    public ItemDTO findItemById(@RequestParam Integer  idItem) {
         return this.iitemService.findItemById(idItem);
     }
 
-    @PutMapping("/updateItem")
-    public Response<ItemDTO> updateItem(@RequestParam String id, @RequestParam ItemDTO itemDTO) {
-        return this.iitemService.updateItem(id, itemDTO);
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PATCH, produces = "application/json")
+    @ResponseBody
+    public Response<ItemDTO> updateEnvironment(@RequestBody ItemDTO ItemDTO,
+                                                      @PathVariable Integer id) {
+        System.out.println("llega al controlador de update");
+        return this.iitemService.updateItem(id, ItemDTO);
     }
 }

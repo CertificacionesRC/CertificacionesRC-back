@@ -2,9 +2,7 @@ package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
-import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.model.Item;
-import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +34,8 @@ public class ItemServiceImpl implements IitemService{
     }
 
     @Override
-    //public Response<ItemDTO> findItemById(String IdItem){
-    public ItemDTO findItemById(String IdItem){
+    //public Response<ItemDTO> findItemById(Integer  IdItem){
+    public ItemDTO findItemById(Integer  IdItem){
         System.out.println("IdItem: " + IdItem);
 
         Optional<Item> itemoptional = this.iitemRepository.findById(IdItem);
@@ -51,7 +49,7 @@ public class ItemServiceImpl implements IitemService{
     };
 
     @Override
-    public Response<ItemDTO> updateItem(String id, ItemDTO itemDTO){
+    public Response<ItemDTO> updateItem(Integer  id, ItemDTO itemDTO){
         Response<ItemDTO> response = new Response<>();
         logger.debug("Miremos esto: {}", itemDTO.toString());
         System.out.println("Miremos esto: " + itemDTO.toString());
