@@ -4,6 +4,7 @@ import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.Item;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -15,12 +16,15 @@ public class ItemServiceImpl implements IitemService{
 
     private final IitemRepository iitemRepository;
 
-    private final ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public ItemServiceImpl(ModelMapper modelMapper, IitemRepository iitemRepository) {
+
+    public ItemServiceImpl(IitemRepository iitemRepository) {
         this.iitemRepository = iitemRepository;
-        this.modelMapper = modelMapper;
+
     }
+
 
 
     @Override
@@ -32,10 +36,15 @@ public class ItemServiceImpl implements IitemService{
     //public Response<ItemDTO> findItemById(String IdItem){
     public ItemDTO findItemById(String IdItem){
         System.out.println("IdItem: " + IdItem);
-        Optional<Item> item = this.iitemRepository.findById(IdItem);
-        System.out.println("IdItem itemid: " + item.get().getId());
-        return modelMapper.map(this.iitemRepository.findById(IdItem), ItemDTO.class);
-        //return null;
+
+        Optional<Item> itemoptional = this.iitemRepository.findById(IdItem);
+        Item item = itemoptional.get();
+
+        //System.out.println("IdItem itemid: " + item.get().getId());
+        //System.out.println("IdItem contenido: " + item.get().getContenido());
+
+        //return modelMapper.map(item2, ItemDTO.class);
+        return modelMapper.map(item, ItemDTO.class);
     };
 
 

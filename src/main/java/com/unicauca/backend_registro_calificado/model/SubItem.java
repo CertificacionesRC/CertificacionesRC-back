@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -12,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "subItem")
+@Table(name = "sub_item")
 public class SubItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +39,6 @@ public class SubItem {
 
     @OneToMany(mappedBy = "subItem", fetch = FetchType.LAZY)
     private List<Archivo> archivos;
-
 
 
 }
