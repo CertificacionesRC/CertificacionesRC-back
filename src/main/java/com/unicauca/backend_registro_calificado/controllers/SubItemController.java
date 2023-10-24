@@ -25,8 +25,11 @@ public class SubItemController {
         return this.isubItemService.findSubItemById(idSubItem);
     }
 
-    @PutMapping("/updateItem")
-    public Response<SubItemDTO> updateSubItem(@RequestParam String id, @RequestParam SubItemDTO subItemDTO) {
-        return this.isubItemService.updateSubItem(id, subItemDTO);
+    @RequestMapping(value = "/updateSubitem/{id}", method = RequestMethod.PATCH, produces = "application/json")
+    @ResponseBody
+    public Response<SubItemDTO> updateSubItem(@RequestBody SubItemDTO SubItemDTO,
+                                        @PathVariable Integer id) {
+        System.out.println("llega al controlador de update");
+        return this.isubItemService.updateSubItem(id, SubItemDTO);
     }
 }

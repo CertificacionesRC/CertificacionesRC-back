@@ -28,7 +28,7 @@ public class SubItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private SubItem parentSubItem;
-
+    // arreglar multiples coincidencias
     //Un subitem tiene varios subitems
     @OneToMany(mappedBy = "parentSubItem", fetch = FetchType.LAZY)
     private List<SubItem> subItems;

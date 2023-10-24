@@ -14,5 +14,5 @@ public interface IsubItemService {
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene la informacion sobre el resultado de la actualizacion
      */
     public SubItemDTO findSubItemById(String IdSubItem);
-    public Response<SubItemDTO> updateSubItem(String id, SubItemDTO subItemDTO);
+    public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO);
 }

@@ -35,7 +35,7 @@ public class    ItemController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PATCH, produces = "application/json")
     @ResponseBody
-    public Response<ItemDTO> updateEnvironment(@RequestBody ItemDTO ItemDTO,
+    public Response<ItemDTO> updateItem(@RequestBody ItemDTO ItemDTO,
                                                       @PathVariable Integer id) {
         System.out.println("llega al controlador de update");
         return this.iitemService.updateItem(id, ItemDTO);

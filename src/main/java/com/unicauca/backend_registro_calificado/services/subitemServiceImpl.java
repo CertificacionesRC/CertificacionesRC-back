@@ -39,7 +39,7 @@ public class subitemServiceImpl implements IsubItemService {
     }
 
     @Override
-    public Response<SubItemDTO> updateSubItem(String id, SubItemDTO subItemDTO) {
+    public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO) {
         Response<SubItemDTO> response = new Response<>();
         logger.debug("Miremos esto: {}", subItemDTO.toString());
         System.out.println("Miremos esto: " + subItemDTO.toString());
