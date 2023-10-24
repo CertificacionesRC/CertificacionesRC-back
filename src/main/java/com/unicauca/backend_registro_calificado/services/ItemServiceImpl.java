@@ -1,8 +1,10 @@
 package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
+import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.Item;
+import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,17 +17,16 @@ import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements IitemService{
-    /** Logger */
-    private static final Logger logger = LoggerFactory.getLogger(subitemServiceImpl.class);
-    private final IitemRepository iitemRepository;
 
+    /** Logger */
+    private static final Logger logger = LoggerFactory.getLogger(ItemServiceImpl.class);
+    private final IitemRepository iitemRepository;
     @Autowired
     private ModelMapper modelMapper;
 
-
-    public ItemServiceImpl(IitemRepository iitemRepository) {
+    public ItemServiceImpl(IitemRepository iitemRepository, ModelMapper modelMapper) {
         this.iitemRepository = iitemRepository;
-
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -83,8 +84,26 @@ public class ItemServiceImpl implements IitemService{
             response.setErrorCode("Id del subitem no encontrado");
             response.setData(null);
             logger.debug("Finish update Subitem Business");
-
         }
         return response;
     }
+
+    @Override
+    public Response<ItemDTO> createItem(ItemDTO itemDTO) {
+        logger.debug("Init createItem Business: {}", itemDTO.toString());
+        Response<ItemDTO> response = new Response<>();
+        Item item = modelMapper.map(itemDTO, Item.class);
+        ItemDTO itemDTO1 = modelMapper.map(iitemRepository.save(item), ItemDTO.class);
+        response.setStatus(200);
+        response.setUserMessage("Item creado exitosamente");
+        response.setDeveloperMessage("Item creado exitosamente");
+        response.setMoreInfo("localhost:8080/api/item");
+        response.setErrorCode("");
+        response.setData(itemDTO1);
+        logger.debug("Finish createItem");
+        return response;
+
+    }
+
+
 }

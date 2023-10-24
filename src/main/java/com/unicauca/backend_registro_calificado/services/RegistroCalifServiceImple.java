@@ -24,7 +24,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
 
     @Override
     public Response<RegistroCalificadoDTO> createRegistroCalificado(RegistroCalificadoDTO registroCalificadoDTO) {
-        logger.debug("Init createCourse Business Course: {}", registroCalificadoDTO.toString());
+        logger.debug("Init createRegistroCalificado: {}", registroCalificadoDTO.toString());
         Response<RegistroCalificadoDTO> response = new Response<>();
         RegistroCalificado registroCalificado = modelMapper.map(registroCalificadoDTO, RegistroCalificado.class);
         RegistroCalificadoDTO registroCalificadoDTO1 = modelMapper.map(iRegistroCalifRepository.save(registroCalificado), RegistroCalificadoDTO.class);
