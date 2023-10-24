@@ -21,7 +21,4 @@ public class SubItemDTO {
 
     private ArchivoDTO archivo;
 
-
-
-
 }

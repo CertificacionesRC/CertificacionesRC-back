@@ -32,4 +32,9 @@ public class SubItemController {
         System.out.println("llega al controlador de update");
         return this.isubItemService.updateSubItem(id, SubItemDTO);
     }
+
+    @PostMapping("/postSubItem")
+    public Response<SubItemDTO> createSubItem(@RequestBody SubItemDTO subItemDTO) {
+        return this.isubItemService.createSubItem(subItemDTO);
+    }
 }

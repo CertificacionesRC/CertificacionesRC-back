@@ -77,4 +77,21 @@ public class subitemServiceImpl implements IsubItemService {
         }
         return response;
     }
+
+    @Override
+    public Response<SubItemDTO> createSubItem(SubItemDTO subItemDTO) {
+        logger.debug("Init createSubItem: {}", subItemDTO.toString());
+        Response<SubItemDTO> response = new Response<>();
+        SubItem subItem = modelMapper.map(subItemDTO, SubItem.class);
+        SubItemDTO subItemDTO1 = modelMapper.map(subitemRepository.save(subItem), SubItemDTO.class);
+        response.setStatus(200);
+        response.setUserMessage("SubItem creado exitosamente");
+        response.setDeveloperMessage("SubItem creado exitosamente");
+        response.setMoreInfo("localhost:8080/api/subitem");
+        response.setErrorCode("");
+        response.setData(subItemDTO1);
+        logger.debug("Finish createSubItem Business");
+
+        return response;
+    }
 }
