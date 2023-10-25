@@ -15,6 +15,5 @@ public interface IsubItemService {
      */
     public SubItemDTO findSubItemById(String IdSubItem);
     public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO);
-
     public Response<SubItemDTO> createSubItem(SubItemDTO subItemDTO);
 }
