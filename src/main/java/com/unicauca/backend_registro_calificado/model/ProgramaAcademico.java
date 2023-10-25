@@ -18,6 +18,7 @@ public class ProgramaAcademico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "programa_academico_id")
     private long id;
 
     private String nombre;

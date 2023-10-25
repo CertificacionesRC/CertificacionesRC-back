@@ -15,6 +15,7 @@ import lombok.Setter;
 public class ObservacionItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "observacion_item_id")
     private long id;
 
     private String observacion;

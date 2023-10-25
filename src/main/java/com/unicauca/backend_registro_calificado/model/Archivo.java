@@ -13,6 +13,7 @@ import lombok.*;
 public class Archivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "archivo_id")
     private long id;
 
     private String contenido;

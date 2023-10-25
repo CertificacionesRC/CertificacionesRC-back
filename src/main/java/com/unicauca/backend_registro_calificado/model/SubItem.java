@@ -15,6 +15,7 @@ import java.util.List;
 public class SubItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subitem_id")
     private long id;
 
     private String nombre;

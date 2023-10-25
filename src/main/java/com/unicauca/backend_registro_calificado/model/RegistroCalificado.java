@@ -17,6 +17,7 @@ import java.util.List;
 public class RegistroCalificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "registro_calificado_id")
     private long id;
     private Date fechaCreacion;
     private String colaboradores;

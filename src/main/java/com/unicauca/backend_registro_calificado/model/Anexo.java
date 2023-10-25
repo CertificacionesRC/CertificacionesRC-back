@@ -13,6 +13,7 @@ import lombok.*;
 public class Anexo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "anexo_id")
     private long id;
 
     private String contenido;
