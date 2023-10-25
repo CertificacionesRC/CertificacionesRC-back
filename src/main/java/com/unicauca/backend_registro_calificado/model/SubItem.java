@@ -15,7 +15,7 @@ import java.util.List;
 public class SubItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "subitem_id")
+    @Column(name = "subitem_id", nullable = true)
     private long id;
 
     private String nombre;
@@ -27,7 +27,7 @@ public class SubItem {
     //De cada subitem se debe saber a que subitem pertenece
     //Muchos subitems pueden estar en un subitem
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", nullable = true)
     private SubItem parentSubItem;
     // arreglar multiples coincidencias
     //Un subitem tiene varios subitems
