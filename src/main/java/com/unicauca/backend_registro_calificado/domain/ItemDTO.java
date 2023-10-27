@@ -16,7 +16,6 @@ public class ItemDTO {
 
     private String nombre;
 
-    @JsonIgnore
     private RegistroCalificadoDTO registroCalificado;
 
 }

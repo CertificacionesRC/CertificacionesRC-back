@@ -32,11 +32,28 @@ public class subitemServiceImpl implements IsubItemService {
     }
 
     @Override
-    public SubItemDTO findSubItemById(String IdSubItem) {
+    public Response<SubItemDTO> findSubItemById(Integer IdSubItem) {
+
+        SubItem subitem = this.subitemRepository.findSubItemById(IdSubItem);
+        SubItemDTO subitemDTO1 = modelMapper.map(subitem, SubItemDTO.class);
+        Response<SubItemDTO> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Subitem successfully");
+        response.setDeveloperMessage("Subitem successfully");
+        response.setMoreInfo("localhost:8080/api/subitem");
+        response.setErrorCode("");
+        response.setData(subitemDTO1);
+        return response;
+
+        /*
         Optional<SubItem> subItemOptional = this.subitemRepository.findById(IdSubItem);
         SubItem subItem = subItemOptional.get();
         return modelMapper.map(subItem, SubItemDTO.class);
+
+         */
     }
+
+
 
     @Override
     public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO) {

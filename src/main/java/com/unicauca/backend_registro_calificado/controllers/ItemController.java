@@ -34,7 +34,7 @@ public class    ItemController {
 
     @GetMapping("/getItemById")
     //public Response<ItemDTO> findItemById(@RequestParam String idItem) {
-    public ItemDTO findItemById(@RequestParam Integer  idItem) {
+    public Response<ItemDTO> findItemById(@RequestParam Integer  idItem) {
         return this.iitemService.findItemById(idItem);
     }
 
