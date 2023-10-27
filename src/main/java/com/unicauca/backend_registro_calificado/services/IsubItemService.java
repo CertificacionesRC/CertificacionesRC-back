@@ -13,7 +13,7 @@ public interface IsubItemService {
      * @param subItemDTO objeto con la informacion a actualizar del subItem
      * @return {@link Response} Objeto de respuesta para el servicio, el cual contiene la informacion sobre el resultado de la actualizacion
      */
-    public SubItemDTO findSubItemById(String IdSubItem);
+    public Response<SubItemDTO> findSubItemById(Integer IdSubItem);
     public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO);
     public Response<SubItemDTO> createSubItem(SubItemDTO subItemDTO);
 }

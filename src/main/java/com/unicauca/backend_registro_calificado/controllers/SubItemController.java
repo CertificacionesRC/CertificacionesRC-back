@@ -20,7 +20,7 @@ public class SubItemController {
     }
 
     @GetMapping("/getSubItemById")
-    public SubItemDTO findSubItemById(@RequestParam String idSubItem) {
+    public Response<SubItemDTO> findSubItemById(@RequestParam Integer idSubItem) {
         //return  null;
         return this.isubItemService.findSubItemById(idSubItem);
     }

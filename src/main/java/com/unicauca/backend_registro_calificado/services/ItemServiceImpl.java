@@ -1,10 +1,8 @@
 package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
-import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.Item;
-import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements IitemService{
@@ -37,17 +34,32 @@ public class ItemServiceImpl implements IitemService{
 
     @Override
     //public Response<ItemDTO> findItemById(Integer  IdItem){
-    public ItemDTO findItemById(Integer  IdItem){
+    public Response<ItemDTO> findItemById(Integer  IdItem){
+
+        Item item = this.iitemRepository.findById(IdItem).get();
+
+        ItemDTO itemDTO1 = modelMapper.map(item, ItemDTO.class);
+
+        Response<ItemDTO> response = new Response<>();
+        response.setStatus(200);
+        response.setUserMessage("Item successfully");
+        response.setDeveloperMessage("Item successfully");
+        response.setMoreInfo("localhost:8080/api/Item");
+        response.setErrorCode("");
+        response.setData(itemDTO1);
+
+        return response;
+        /*
         System.out.println("IdItem: " + IdItem);
 
         Optional<Item> itemoptional = this.iitemRepository.findById(IdItem);
         Item item = itemoptional.get();
-
+        */
         //System.out.println("IdItem itemid: " + item.get().getId());
         //System.out.println("IdItem contenido: " + item.get().getContenido());
 
         //return modelMapper.map(item2, ItemDTO.class);
-        return modelMapper.map(item, ItemDTO.class);
+        //return modelMapper.map(item, ItemDTO.class);
     };
 
     @Override
