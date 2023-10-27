@@ -27,9 +27,9 @@ public class    ItemController {
         return this.iitemService.createItem(itemDTO);
     }
 
-    @GetMapping("/getAllByRegitroCalificado")
-    public Response<List<ItemDTO>> findAllByRegitroCalificado(@RequestParam String idRegistroCalificado) {
-        return this.iitemService.findAllItemsByIdRegistroCalificado(idRegistroCalificado);
+    @GetMapping("/getAllItem")
+    public ResponseEntity<List<ItemDTO>> getAllItem() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.iitemService.findAllItem());
     }
 
     @GetMapping("/getItemById")
