@@ -68,9 +68,11 @@ public class subitemServiceImpl implements IsubItemService {
         if (subitem != null) {
 
             // actualiza el subItem
-            subitem.setId(subItemUpdate.getId());
+            //subitem.setId(subItemUpdate.getId());
             subitem.setContenido(subItemUpdate.getContenido());
             subitem.setGuia(subItemUpdate.getGuia());
+            subitem.setNombre(subItemUpdate.getNombre());
+
             this.subitemRepository.save(subitem);
             SubItemDTO subitem1 = modelMapper.map(subitem, SubItemDTO.class);
             response.setStatus(200);

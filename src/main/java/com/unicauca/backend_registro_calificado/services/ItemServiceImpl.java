@@ -75,9 +75,11 @@ public class ItemServiceImpl implements IitemService{
         if (item != null) {
 
             // actualiza el subItem
-            item.setId(itemUpdate.getId());
+            //item.setId(itemUpdate.getId());
             item.setContenido(itemUpdate.getContenido());
             item.setGuia(itemUpdate.getGuia());
+            item.setNombre(itemUpdate.getNombre());
+
             this.iitemRepository.save(item);
             ItemDTO item1 = modelMapper.map(item, ItemDTO.class);
             response.setStatus(200);
@@ -91,12 +93,12 @@ public class ItemServiceImpl implements IitemService{
         } else {
 
             response.setStatus(400);
-            response.setUserMessage("Subitem no actualizado");
-            response.setDeveloperMessage("Subitem actualizado");
-            response.setMoreInfo("localhost:8080/api/subitem");
-            response.setErrorCode("Id del subitem no encontrado");
+            response.setUserMessage("item no actualizado");
+            response.setDeveloperMessage("item actualizado");
+            response.setMoreInfo("localhost:8080/api/item");
+            response.setErrorCode("Id del item no encontrado");
             response.setData(null);
-            logger.debug("Finish update Subitem Business");
+            logger.debug("Finish update item Business");
         }
         return response;
     }

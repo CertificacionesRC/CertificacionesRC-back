@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface IitemRepository extends JpaRepository<Item, String> {
-    @Query(value = "SELECT * FROM item WHERE item.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM item WHERE item.item_id = :id", nativeQuery = true)
     Item findItemById(Integer id);
 
     Optional<Item> findById(Integer idItem);

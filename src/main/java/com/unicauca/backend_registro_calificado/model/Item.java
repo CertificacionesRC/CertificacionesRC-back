@@ -18,8 +18,10 @@ public class Item {
    @Column(name = "item_id")
    private long id;
 
+   @Column(columnDefinition = "LONGTEXT")
    private String contenido;
 
+   @Column(columnDefinition = "LONGTEXT")
    private String guia;
 
    private String nombre;

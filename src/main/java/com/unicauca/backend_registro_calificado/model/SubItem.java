@@ -20,8 +20,10 @@ public class SubItem {
 
     private String nombre;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String contenido;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String guia;
 
     //De cada subitem se debe saber a que subitem pertenece
