@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class subitemServiceImpl implements IsubItemService {
@@ -29,6 +31,15 @@ public class subitemServiceImpl implements IsubItemService {
     public subitemServiceImpl(ISubItemRepository subitemRepository) {
         this.subitemRepository = subitemRepository;
 
+    }
+
+    @Override
+    public List<SubItemDTO> findAllSubItem() {
+        System.out.println("ProgramServiceImpl.findAllProgram");
+        List<SubItem> subItems = this.subitemRepository.findAll();
+
+        List<SubItemDTO> SubitemDTOS = subItems.stream().map(subItem ->  modelMapper.map(subItem, SubItemDTO.class)).collect(Collectors.toList());
+        return SubitemDTOS;
     }
 
     @Override
@@ -52,8 +63,6 @@ public class subitemServiceImpl implements IsubItemService {
 
          */
     }
-
-
 
     @Override
     public Response<SubItemDTO> updateSubItem(Integer id, SubItemDTO subItemDTO) {
@@ -96,6 +105,7 @@ public class subitemServiceImpl implements IsubItemService {
         }
         return response;
     }
+
     @Override
     public Response<SubItemDTO> createSubItem(SubItemDTO subItemDTO) {
         logger.debug("Init createSubItem: {}", subItemDTO.toString());
@@ -112,4 +122,6 @@ public class subitemServiceImpl implements IsubItemService {
 
         return response;
     }
+
+
 }

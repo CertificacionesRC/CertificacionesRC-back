@@ -5,7 +5,11 @@ import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.services.IsubItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/subItem")
@@ -33,10 +37,16 @@ public class SubItemController {
         return this.isubItemService.updateSubItem(id, SubItemDTO);
     }
 
+    @GetMapping("/getAllSubItem")
+    public ResponseEntity<List<SubItemDTO>> getAllSubitem() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.isubItemService.findAllSubItem());
+    }
 
     @PostMapping("/postSubItem")
     public Response<SubItemDTO> createSubItem(@RequestBody SubItemDTO subItemDTO) {
         return this.isubItemService.createSubItem(subItemDTO);
     }
+
+
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements IitemService{
@@ -27,10 +28,6 @@ public class ItemServiceImpl implements IitemService{
         this.modelMapper = modelMapper;
     }
 
-    @Override
-    public Response<List<ItemDTO>> findAllItemsByIdRegistroCalificado(String idRegCalificado) {
-        return null;
-    }
 
     @Override
     //public Response<ItemDTO> findItemById(Integer  IdItem){
@@ -101,6 +98,15 @@ public class ItemServiceImpl implements IitemService{
             logger.debug("Finish update item Business");
         }
         return response;
+    }
+
+    @Override
+    public List<ItemDTO> findAllItem() {
+        System.out.println("ProgramServiceImpl.findAllProgram");
+        List<Item> items = this.iitemRepository.findAll();
+
+        List<ItemDTO> itemDTOS = items.stream().map(item ->  modelMapper.map(item, ItemDTO.class)).collect(Collectors.toList());
+        return itemDTOS;
     }
 
     @Override
