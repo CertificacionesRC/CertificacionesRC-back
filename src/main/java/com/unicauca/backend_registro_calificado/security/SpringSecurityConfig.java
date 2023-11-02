@@ -56,7 +56,11 @@ public class SpringSecurityConfig {
 
         RequestMatcher publicMatchers = new OrRequestMatcher(new AntPathRequestMatcher("/"),
                 new AntPathRequestMatcher("/css/**"), new AntPathRequestMatcher("/js/**"),
-                new AntPathRequestMatcher("/images/**"));
+                new AntPathRequestMatcher("/images/**"),
+                new AntPathRequestMatcher("/subItem/**"),
+                new AntPathRequestMatcher("/item/**"),
+                new AntPathRequestMatcher("/registrocalificado/**")
+        );
 
         http.authorizeHttpRequests(authorize -> {
                     try {

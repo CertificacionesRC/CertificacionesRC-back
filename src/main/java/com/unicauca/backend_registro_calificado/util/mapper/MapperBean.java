@@ -11,6 +11,8 @@ public class MapperBean {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
                 .setAmbiguityIgnored(true); // Ignorar ambigüedades
+
+        //modelMapper.getConfiguration();
         return modelMapper;
     }
 

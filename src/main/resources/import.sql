@@ -141,6 +141,20 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALU
 
 
 
+-- roles
+INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('1','ADMIN');
+INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','CORDINADOR');
+INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('3','SUPERUSUARIO');
+
+
+-- usuarios
+INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('1','1','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','aaa@gmail.com','juan',1);
+INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('2','2','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','bbb@gmail.com','jose',1);
+INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('3','3','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','ccc@gmail.com','pedro',1);
+
+
+
+
 
 
 
