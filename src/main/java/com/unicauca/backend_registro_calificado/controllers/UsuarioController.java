@@ -39,4 +39,9 @@ public class UsuarioController {
     public Response<Boolean> disableUusario(@PathVariable Long id){
         return  this.iUsuarioService.disableUsuario(id);
     }
+    @Secured("ADMIN")
+    @PatchMapping("/enableUsuario/{id}")
+    public Response<Boolean> enableUsuario(@PathVariable Long id){
+        return  this.iUsuarioService.enableUsuario(id);
+    }
 }

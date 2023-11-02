@@ -7,6 +7,7 @@ import com.unicauca.backend_registro_calificado.model.Rol;
 import com.unicauca.backend_registro_calificado.model.Usuario;
 import com.unicauca.backend_registro_calificado.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,11 @@ public class JpaUserDetailsService implements UserDetailsService{
         	logger.error("Error en el Login: no existe el usuario registrado con el correo'" + correo + "' en el sistema!");
         	throw new UsernameNotFoundException("Correo: " + correo + " no existe en el sistema!");
         }
+
+		if(!usuario.getEstado()){
+			logger.error("Error en el Login: no existe el usuario registrado con el correo'" + correo + "' en el sistema!");
+			throw new UsernameNotFoundException("Correo: " + correo + " deshabilitado	 en el sistema!");
+		}
 		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
