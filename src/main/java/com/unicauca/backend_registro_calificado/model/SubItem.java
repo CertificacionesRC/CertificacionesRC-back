@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,19 +29,21 @@ public class SubItem {
 
     //De cada subitem se debe saber a que subitem pertenece
     //Muchos subitems pueden estar en un subitem
+    @JsonIgnore()
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", nullable = true)
     private SubItem parentSubItem;
     // arreglar multiples coincidencias
     //Un subitem tiene varios subitems
-    @OneToMany(mappedBy = "parentSubItem", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parentSubItem", fetch = FetchType.EAGER)
     private List<SubItem> subItems;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @OneToMany(mappedBy = "subItem", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "subItem", fetch = FetchType.EAGER)
     private List<Archivo> archivos;
 
 

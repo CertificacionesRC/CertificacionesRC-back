@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class Item {
    @JoinColumn(name = "registroCalificado_id")
    private RegistroCalificado registroCalificado;
 
+//   @JsonIgnore()
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
 
