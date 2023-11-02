@@ -54,6 +54,11 @@ public class SubItemController {
         return this.isubItemService.createSubItem(subItemDTO);
     }
 
+    @GetMapping("/getAllSubItemsByItem/{idItem}")
+    public ResponseEntity<List<SubItemDTO>> getAllSubItemsByItem_IdAndParent_IdIsNull(@PathVariable Integer idItem) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.isubItemService.findSubItemsByItem_IdAndParent_IdIsNull(idItem));
+    }
+
 
 
 }

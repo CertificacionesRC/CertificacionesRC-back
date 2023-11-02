@@ -30,7 +30,6 @@ public class ItemServiceImpl implements IitemService{
 
 
     @Override
-    //public Response<ItemDTO> findItemById(Integer  IdItem){
     public Response<ItemDTO> findItemById(Integer  IdItem){
 
         Item item = this.iitemRepository.findById(IdItem).get();
