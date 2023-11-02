@@ -28,6 +28,10 @@ public class SubItemController {
         //return  null;
         return this.isubItemService.findSubItemById(idSubItem);
     }
+    @GetMapping("/getSubitemsbyParentId")
+    public Response<List<SubItemDTO>> findAllByParentId(@RequestParam Integer parentId) {
+        return this.isubItemService.findAllByParentId(parentId);
+    }
 
     @RequestMapping(value = "/updateSubitem/{id}", method = RequestMethod.PATCH, produces = "application/json")
     @ResponseBody
@@ -41,6 +45,9 @@ public class SubItemController {
     public ResponseEntity<List<SubItemDTO>> getAllSubitem() {
         return ResponseEntity.status(HttpStatus.OK).body(this.isubItemService.findAllSubItem());
     }
+
+
+
 
     @PostMapping("/postSubItem")
     public Response<SubItemDTO> createSubItem(@RequestBody SubItemDTO subItemDTO) {

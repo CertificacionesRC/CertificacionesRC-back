@@ -20,4 +20,7 @@ public interface IsubItemService {
     public Response<SubItemDTO> createSubItem(SubItemDTO subItemDTO);
 
     List<SubItemDTO> findAllSubItem();
+
+    public Response<List<SubItemDTO>> findAllByParentId(Integer parentId);
+
 }

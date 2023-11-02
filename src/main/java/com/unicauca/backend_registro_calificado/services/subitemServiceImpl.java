@@ -30,16 +30,39 @@ public class subitemServiceImpl implements IsubItemService {
 
     public subitemServiceImpl(ISubItemRepository subitemRepository) {
         this.subitemRepository = subitemRepository;
-
     }
 
     @Override
     public List<SubItemDTO> findAllSubItem() {
         System.out.println("ProgramServiceImpl.findAllProgram");
         List<SubItem> subItems = this.subitemRepository.findAll();
-
         List<SubItemDTO> SubitemDTOS = subItems.stream().map(subItem ->  modelMapper.map(subItem, SubItemDTO.class)).collect(Collectors.toList());
         return SubitemDTOS;
+    }
+
+    @Override
+    public Response<List<SubItemDTO>> findAllByParentId(Integer parentId) {
+        List<SubItem> subitemslist = this.subitemRepository.findAllByParentId(parentId);
+        Response<List<SubItemDTO>> response = new Response<>();
+        //List<SubItemDTO> subitemDTOlist = modelMapper.map(subitemslist,new TypeToken<List<SubItemDTO>>() {}.getType());
+        List<SubItemDTO> SubItemsDTOHijos = subitemslist.stream().map(subItem ->  modelMapper.map(subItem, SubItemDTO.class)).collect(Collectors.toList());
+        if(SubItemsDTOHijos.size()>0) {
+            response.setStatus(200);
+            response.setUserMessage("List of subitems Finded successfully");
+            response.setDeveloperMessage("List of subitems Finded successfully");
+            response.setMoreInfo("localhost:8081/api/subitem(toDO)");
+            response.setErrorCode("");
+            response.setData(SubItemsDTOHijos);
+        }else{
+            response.setStatus(400);
+            response.setUserMessage("List of subitems not found");
+            response.setDeveloperMessage("List of subitems not found");
+            response.setMoreInfo("localhost:8081/api/subitem(toDO)");
+            response.setErrorCode("400");
+            response.setData(SubItemsDTOHijos);
+        }
+
+        return response;
     }
 
     @Override
@@ -55,7 +78,6 @@ public class subitemServiceImpl implements IsubItemService {
         response.setErrorCode("");
         response.setData(subitemDTO1);
         return response;
-
         /*
         Optional<SubItem> subItemOptional = this.subitemRepository.findById(IdSubItem);
         SubItem subItem = subItemOptional.get();
