@@ -43,6 +43,14 @@ public class subitemServiceImpl implements IsubItemService {
     }
 
     @Override
+    public List<SubItemDTO> findSubItemsByItem_IdAndParent_IdIsNull(Integer idItem) {
+        List<SubItem> subItems = this.subitemRepository.findSubItemsByItem_IdAndParentSubItem_Id(idItem, null);
+        List<SubItemDTO> SubitemDTOS = subItems.stream().map(
+                subItem -> modelMapper.map(subItem, SubItemDTO.class)).collect(Collectors.toList());
+        return SubitemDTOS;
+    }
+
+    @Override
     public Response<SubItemDTO> findSubItemById(Integer IdSubItem) {
 
         SubItem subitem = this.subitemRepository.findSubItemById(IdSubItem);

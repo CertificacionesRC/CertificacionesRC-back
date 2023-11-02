@@ -15,8 +15,8 @@ public class SubItemDTO {
     private String nombre;
     private String contenido;
     private String guia;
-    private ItemDTO item;
-    private List<SubItemDTO> subItems;
+//    private ItemDTO item;
+//    private List<SubItemDTO> subItems;
     private ArchivoDTO archivo;
 
 }
