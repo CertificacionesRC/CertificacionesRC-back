@@ -137,4 +137,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
         return response;
     }
+
+    @Override
+    public Response<Boolean> enableUsuario(Long id) {
+        Usuario userEntity = this.iUsuarioRepository.findById(id).get();
+        Response<Boolean> response = new Response<>();
+        if (userEntity != null) {
+            if (!userEntity.getEstado()) {
+                userEntity.setEstado(true);
+                this.iUsuarioRepository.save(userEntity);
+                response.setStatus(200);
+                response.setUserMessage("Usuario habilitado con éxito");
+                response.setMoreInfo("http://localhost:8081/api/usuario/enableUsuario/{id}");
+                response.setData(true);
+            } else {
+                response.setStatus(500);
+                response.setUserMessage("El usuario ya esta habilitado");
+                response.setMoreInfo("http://localhost:8081/api/usuario/enableUsuario/{id}");
+                response.setData(false);
+            }
+        }
+        return response;
+    }
 }
