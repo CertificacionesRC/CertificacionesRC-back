@@ -85,13 +85,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = jwtService.create(authResult);
 		
 		// Guardamos el token en el parametro Authorization, e indicamos el prefijo Bearer
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Reemplaza con el origen de tu aplicación React
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+		response.setHeader("Access-Control-Allow-Headers", "*");
+		response.setHeader("Access-Control-Max-Age", "3600");
+
 		response.addHeader(JWTServiceImpl.HEADER_STRING, JWTServiceImpl.TOKEN_PREFIX + token);
 		Map<String, Object> body = new HashMap<String, Object>();
 		body.put("token", token);
 		body.put("user", (org.springframework.security.core.userdetails.User) authResult.getPrincipal());
 		body.put("mensaje", String.format("Hola %s, has iniciado sesión con éxito",
 				((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername()));
-
+		System.out.println();
 		// ObjectMapper: convertir el objeto map a un objeto de tipo json
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);

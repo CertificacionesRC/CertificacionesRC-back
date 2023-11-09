@@ -19,6 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
@@ -59,7 +65,8 @@ public class SpringSecurityConfig {
                 new AntPathRequestMatcher("/images/**"),
                 new AntPathRequestMatcher("/subItem/**"),
                 new AntPathRequestMatcher("/item/**"),
-                new AntPathRequestMatcher("/registrocalificado/**")
+                new AntPathRequestMatcher("/registrocalificado/**"),
+                new AntPathRequestMatcher("/usuario/**")
         );
 
         http.authorizeHttpRequests(authorize -> {
