@@ -16,7 +16,7 @@ public class Observacion {
     @Column(name = "observacion_id")
     private long id;
 
-    private String observacion;
+    private String contenido;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registroCalificado_id")
