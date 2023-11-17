@@ -13,9 +13,10 @@ import lombok.*;
 public class Observacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "observacion_id")
     private long id;
 
-    private String observacion;
+    private String contenido;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registroCalificado_id")

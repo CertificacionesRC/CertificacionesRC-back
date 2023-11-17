@@ -1,10 +1,10 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -17,8 +17,10 @@ import java.util.List;
 public class RegistroCalificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "registro_calificado_id")
     private long id;
-    private Date fechaCreacion;
+    
+    private Date fecha_creacion;
     private String colaboradores;
     private String autor;
 

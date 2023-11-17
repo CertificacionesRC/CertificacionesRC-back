@@ -1,5 +1,6 @@
 package com.unicauca.backend_registro_calificado.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,10 +16,13 @@ import java.util.List;
 public class Item {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "item_id")
    private long id;
 
+   @Column(columnDefinition = "LONGTEXT")
    private String contenido;
 
+   @Column(columnDefinition = "LONGTEXT")
    private String guia;
 
    private String nombre;
@@ -27,6 +31,7 @@ public class Item {
    @JoinColumn(name = "registroCalificado_id")
    private RegistroCalificado registroCalificado;
 
+//   @JsonIgnore()
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
 
