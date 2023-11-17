@@ -1,11 +1,9 @@
 package com.unicauca.backend_registro_calificado.controllers;
-import com.unicauca.backend_registro_calificado.domain.ObservacionDTO;
 import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
-import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
-import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
 import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
 import org.apache.poi.xwpf.usermodel.*;
+import org.jsoup.select.Elements;
 import org.openxmlformats.schemas.drawingml.x2006.main.CTHyperlink;
 import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff;
 import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff1;
@@ -13,7 +11,6 @@ import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff1;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import com.unicauca.backend_registro_calificado.domain.Response;
 
@@ -22,8 +19,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,32 +45,33 @@ public class RegistroCalificadoController {
     public Response<RegistroCalificadoDTO> createRegistro(@RequestBody RegistroCalificadoDTO registroCalificadoDTO) {
         return this.registroCalificadoBusiness.createRegistroCalificado(registroCalificadoDTO);
     }
-    @Secured("ADMIN")
-    @PostMapping("/updateStateRegistroCalificado")
-    public ResponseEntity<?> updateStateRegistroCalificado(@RequestBody ObservacionDTO observacion, @RequestParam EstadoRegistroCal estado) {
-        return this.registroCalificadoBusiness.updateStateRegistroCalificado(observacion, estado);
-    }
-    @Secured("ADMIN")
-    @GetMapping("/findAllByEstado")
-    public Response<List<RegistroCalificadoDTO>> findAllByEstado(@RequestParam EstadoRegistroCal estado){
-        return this.registroCalificadoBusiness.findAllByEstado(estado);
-    }
-
-    @Secured("ADMIN")
-    @GetMapping("/findAllByDate")
-    public Response<List<RegistroCalificadoDTO>> findAllByDate(@RequestParam String fechaInicio, @RequestParam String fechaFin) {
-        try {
-            return this.registroCalificadoBusiness.findAllByDate(fechaInicio, fechaFin);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public static void CreatefileDocx(){
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
-        String htmlText = "<p>Esta es otra prueba</p>";
+        String htmlText = "<table>\n" +
+                "        <thead>\n" +
+                "            <tr>\n" +
+                "                <th>Encabezado 1</th>\n" +
+                "                <th>Encabezado 2</th>\n" +
+                "                <th>Encabezado 3</th>\n" +
+                "            </tr>\n" +
+                "        </thead>\n" +
+                "        <tbody>\n" +
+                "            <tr>\n" +
+                "                <td>Dato 1</td>\n" +
+                "                <td>Dato 2</td>\n" +
+                "                <td>Dato 3</td>\n" +
+                "            </tr>\n" +
+                "            <tr>\n" +
+                "                <td>Dato 4</td>\n" +
+                "                <td>Dato 5</td>\n" +
+                "                <td>Dato 6</td>\n" +
+                "            </tr>\n" +
+                "            <!-- Agrega más filas según sea necesario -->\n" +
+                "        </tbody>\n" +
+                "    </table>";
 
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
@@ -114,7 +110,7 @@ public class RegistroCalificadoController {
 
         //intentamos guardar el documento word
         try {
-            document.write(new FileOutputStream("/Users/alvarodanieleraso/Desktop/output.docx"));
+            document.write(new FileOutputStream("C:\\Users\\stive\\OneDrive\\Documentos\\Documentos prueba proyecto 2\\PruebaRegistro.docx"));
             document.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,7 +118,7 @@ public class RegistroCalificadoController {
 
     }
 
-    private static void processElement(Element element, XWPFDocument document) {
+    /*private static void processElement(Element element, XWPFDocument document) {
 
         String tagName = element.tagName();
 
@@ -132,22 +128,91 @@ public class RegistroCalificadoController {
             //processList(element, document, paragraph); //metodo que procesa listas
         } else if ("img".equals(tagName)) {
             //processImage(element, document, paragraph); //metodo que procesa imagenes
+        }else if ("table".equals(tagName)) {
+            processTable(element, document);
         }
 
         //para procesar sub elementos de ese elemento
         for (Element child : element.children()) {
             processElement(child, document);
         }
+    }*/
+
+    private static void processElement(Element element, Object container) {
+        String tagName = element.tagName();
+
+        if ("p".equals(tagName)) {
+            processParagraph(element, container);
+        } else if ("ul".equals(tagName) || "ol".equals(tagName)) {
+            //processList(element, container); // ajustar este método también
+        } else if ("img".equals(tagName)) {
+            //processImage(element, container); // ajustar este método también
+        } else if ("table".equals(tagName)) {
+            processTable(element, container);
+        }
+
+        // Para procesar subelementos de ese elemento
+        for (Element child : element.children()) {
+            processElement(child, container);
+        }
     }
 
-    private static void processParagraph(Element element, XWPFDocument document) {
+    private static void processTable(Element tableElement, Object container) {
+        if (container instanceof XWPFDocument) {
+            // Crear una nueva tabla en el documento
+            XWPFTable table = ((XWPFDocument) container).createTable();
+
+            // Procesar filas (tr)
+            for (Element rowElement : tableElement.select("tr")) {
+                XWPFTableRow row = table.createRow();
+                // Procesar celdas (th o td)
+                Elements cells = rowElement.select("th, td");
+                for (int i = 0; i < cells.size(); i++) {
+                    XWPFTableCell cell = row.getCell(i);
+                    processElement(cells.get(i), cell);
+                }
+            }
+        } /*else if (container instanceof XWPFTableCell) {
+            // Aquí manejarías la lógica específica de la celda de la tabla, si es necesario
+        }*/
+    }
+
+    /*private static void processTable(Element tableElement, XWPFDocument document) {
+        // Crear una nueva tabla en el documento
+        XWPFTable table = document.createTable();
+
+        // Procesar filas (tr)
+        for (Element rowElement : tableElement.select("tr")) {
+            XWPFTableRow row = table.createRow();
+            // Procesar celdas (th o td)
+            Elements cells = rowElement.select("th, td");
+            for (int i = 0; i < cells.size(); i++) {
+                XWPFTableCell cell = row.getCell(i);
+                processElement(cells.get(i), cell);
+            }
+        }
+    }*/
+
+    // Procesar elementos dentro de las celdas
+    /*private static void processParagraph(Element element, XWPFDocument document) {
         //creamos el parrafo y se lo agregarmos al documento
         //obtenemos el texto de la etiqueta
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
         run.setText(element.text());
+    }*/
+    private static void processParagraph(Element element, Object container) {
+        if (container instanceof XWPFDocument) {
+            // Crear un nuevo párrafo y agregarlo al documento
+            XWPFParagraph paragraph = ((XWPFDocument) container).createParagraph();
+            XWPFRun run = paragraph.createRun();
+            run.setText(element.text());
+        } else if (container instanceof XWPFTableCell) {
+            // Agregar texto a la celda de la tabla
+            XWPFTableCell cell = (XWPFTableCell) container;
+            cell.setText(element.text());
+        }
     }
-
     //metodo para crear la tabla de contenido
     private static void crearIndice(XWPFDocument document) {
         // Crear un párrafo para el título del índice
@@ -208,7 +273,7 @@ public class RegistroCalificadoController {
         this.CreatefileDocx();
 
         //ruta del archivo
-        String filepath = "/Users/alvarodanieleraso/Desktop/prueba_download_file.docx";
+        String filepath = "C:\\Users\\stive\\OneDrive\\Documentos\\Documentos prueba proyecto 2\\PruebaRegistro.docx";
 
         File file = new File(filepath);
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -217,7 +282,7 @@ public class RegistroCalificadoController {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "registroCalificado.docx");
+        headers.setContentDispositionFormData("attachment", "PruebaRegistro.docx");
 
         //lee el contenido del archivo en un array de bytes
         byte[] fileContent = new byte[(int)file.length()];
