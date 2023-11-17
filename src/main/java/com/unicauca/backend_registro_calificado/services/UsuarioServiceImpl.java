@@ -17,8 +17,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
     IUsuarioRepository iUsuarioRepository;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    //@Autowired
+    //private BCryptPasswordEncoder passwordEncoder;
     @Override
     public Response<List<UsuarioDTO>> findAllUsuarios() {
         List<Usuario> LstUsuarios = iUsuarioRepository.findAll();
@@ -68,7 +68,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         if(usuario != null){
             Usuario usuarioEntity = modelMapper.map(usuario, Usuario.class);
             usuarioEntity.setEstado(true);
-            usuarioEntity.setContrasena(passwordEncoder.encode(usuarioEntity.getContrasena()));
+            //usuarioEntity.setContrasena(passwordEncoder.encode(usuarioEntity.getContrasena()));
             this.iUsuarioRepository.save(usuarioEntity);
             UsuarioDTO usuarioDTO = this.modelMapper.map(usuarioEntity, UsuarioDTO.class);
             response.setStatus(200);
@@ -94,9 +94,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
             Usuario usuarioEntity1 = modelMapper.map(usuario, Usuario.class);
             usuarioEntity.setNombre(usuarioEntity1.getNombre());
             usuarioEntity.setCorreo(usuarioEntity1.getCorreo());
-            if(!passwordEncoder.matches(usuarioEntity.getContrasena(), usuarioEntity.getContrasena())) {
+            /*if(!passwordEncoder.matches(usuarioEntity.getContrasena(), usuarioEntity.getContrasena())) {
                 usuarioEntity.setContrasena(passwordEncoder.encode(usuarioEntity.getContrasena()));
-            }
+            }*/
             this.iUsuarioRepository.save(usuarioEntity);
             response.setStatus(200);
             response.setUserMessage("Usuario actualizado con éxito");

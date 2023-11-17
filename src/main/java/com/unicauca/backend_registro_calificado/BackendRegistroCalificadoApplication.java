@@ -9,13 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class BackendRegistroCalificadoApplication {
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	//@Autowired
+	//private BCryptPasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(BackendRegistroCalificadoApplication.class, args);
 		System.out.println("Inicio app");
 	}
-
+	/*
 	@PostConstruct
 	public void encodePasswords() {
 		String password = "usuario";
@@ -24,6 +24,6 @@ public class BackendRegistroCalificadoApplication {
 			String bcryptPassword = passwordEncoder.encode(password);
 			System.out.println(bcryptPassword);
 		}
-	}
+	}*/
 
 }
