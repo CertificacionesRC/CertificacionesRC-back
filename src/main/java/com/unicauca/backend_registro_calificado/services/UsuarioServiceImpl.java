@@ -6,6 +6,7 @@ import com.unicauca.backend_registro_calificado.model.Usuario;
 import com.unicauca.backend_registro_calificado.repository.IUsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,51 +22,55 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private BCryptPasswordEncoder passwordEncoder;
     @Override
     public Response<List<UsuarioDTO>> findAllUsuarios() {
-        List<Usuario> LstUsuarios = iUsuarioRepository.findAll();
         Response<List<UsuarioDTO>> response = new Response<>();
-        if(LstUsuarios.isEmpty()){
-            response.setStatus(404);
-            response.setUserMessage("No se encontraron los usuarios");
-            response.setDeveloperMessage("No se encontraron los usuarios");
-            response.setMoreInfo("http://localhost:8081/api/usuario/findAllUsuarios");
-            response.setData(null);
-        }else{
+        try{
+            List<Usuario> LstUsuarios = iUsuarioRepository.findAll();
             List<UsuarioDTO> usuariosDTO= LstUsuarios.stream().map(usuario ->  modelMapper.map(usuario, UsuarioDTO.class)).collect(Collectors.toList());
             response.setStatus(200);
             response.setUserMessage("Usuarios encontrados con éxito");
             response.setDeveloperMessage("Usuarios encontrados con éxito");
             response.setMoreInfo("http://localhost:8081/api/usuario/findAllUsuarios");
             response.setData(usuariosDTO);
+            return response;
+        }catch (Exception e){
+            response.setStatus(404);
+            response.setUserMessage("No se encontraron los usuarios. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("No se encontraron los usuarios. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/usuario/findAllUsuarios");
+            response.setData(null);
+            return response;
         }
-        return response;
+
     }
 
     @Override
     public Response<UsuarioDTO> findUsuarioById(Long id) {
-        Usuario usuario = this.iUsuarioRepository.findById(id).get();
         Response<UsuarioDTO> response = new Response<>();
-        if(usuario != null){
+        try {
+            Usuario usuario = this.iUsuarioRepository.findById(id).get();
             UsuarioDTO usuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
             response.setStatus(200);
             response.setUserMessage("Usuario encontrado con éxito");
             response.setDeveloperMessage("Usuario encontrado con éxito");
             response.setMoreInfo("http://localhost:8081/api/usuraio/findUsuarioById");
             response.setData(usuarioDTO);
-        }else {
+            return response;
+        }catch (Exception e){
+            System.out.println("Error: "+ e);
             response.setStatus(404);
-            response.setUserMessage("Usuario no encontrado");
-            response.setDeveloperMessage("Usuario no encontrado");
+            response.setUserMessage("Usuario no encontrado. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Usuario no encontrado. Causado por: "+e.getMessage());
             response.setMoreInfo("http://localhost:8081/api/usuraio/findUsuarioById");
             response.setData(null);
+            return response;
         }
-        return response;
     }
 
     @Override
     public Response<UsuarioDTO> saveUsuario(UsuarioDTO usuario) {
-        System.out.println("rol"+usuario.getRol().getRolNombre());
+        System.out.println("rol"+usuario.getCorreo());
         Response<UsuarioDTO> response = new Response<>();
-        if(usuario != null){
+        try{
             Usuario usuarioEntity = modelMapper.map(usuario, Usuario.class);
             usuarioEntity.setEstado(true);
             usuarioEntity.setContrasena(passwordEncoder.encode(usuarioEntity.getContrasena()));
@@ -76,24 +81,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
             response.setDeveloperMessage("Usuario guardado con éxito");
             response.setMoreInfo("http://localhost:8081/api/usuraio/saveUsuario");
             response.setData(usuarioDTO);
-        }else {
+            return response;
+        }catch (Exception e){
+            System.out.println("Error: "+ e);
             response.setStatus(404);
-            response.setUserMessage("Error al guardar usuario");
-            response.setDeveloperMessage("Error al guardar usuario");
+            response.setUserMessage("Error al guardar usuario. Causado por: " +e.getMessage());
+            response.setDeveloperMessage("Error al guardar usuario. Causado por: " +e.getMessage());
             response.setMoreInfo("http://localhost:8081/api/usuraio/saveUsuario");
             response.setData(null);
+            return response;
         }
-        return response;
     }
 
     @Override
     public Response<UsuarioDTO> updateUsuario(Long id, UsuarioDTO usuario) {
         Response<UsuarioDTO> response = new Response<>();
-        if(usuario != null){
+        try{
             Usuario usuarioEntity = this.iUsuarioRepository.findById(id).get();
-            Usuario usuarioEntity1 = modelMapper.map(usuario, Usuario.class);
-            usuarioEntity.setNombre(usuarioEntity1.getNombre());
-            usuarioEntity.setCorreo(usuarioEntity1.getCorreo());
+            Usuario usuarioEntityAux = modelMapper.map(usuario, Usuario.class);
+            usuarioEntity.setNombre(usuarioEntityAux.getNombre());
+            usuarioEntity.setCorreo(usuarioEntityAux.getCorreo());
             if(!passwordEncoder.matches(usuarioEntity.getContrasena(), usuarioEntity.getContrasena())) {
                 usuarioEntity.setContrasena(passwordEncoder.encode(usuarioEntity.getContrasena()));
             }
@@ -104,21 +111,24 @@ public class UsuarioServiceImpl implements IUsuarioService {
             response.setMoreInfo("http://localhost:8081/api/usuraio/updateUsuario");
             UsuarioDTO usuarioDTO = this.modelMapper.map(usuarioEntity, UsuarioDTO.class);
             response.setData(usuarioDTO);
-        }else{
+            return response;
+        }catch (Exception e){
+            System.out.println("Error: "+ e);
             response.setStatus(404);
-            response.setUserMessage("El usuario no se ha podido actualizar");
-            response.setDeveloperMessage("El usuario no se ha podido actualizar");
+            response.setUserMessage("Error al actualizar usuario. Causado por: " +e.getMessage());
+            response.setDeveloperMessage("Error al actualizar usuario. Causado por: " +e.getMessage());
             response.setMoreInfo("http://localhost:8081/api/usuraio/updateUsuario");
             response.setData(null);
+            return response;
         }
-        return response;
     }
 
     @Override
     public Response<Boolean> disableUsuario(Long id) {
-        Usuario userEntity = this.iUsuarioRepository.findById(id).get();
+
         Response<Boolean> response = new Response<>();
-        if (userEntity != null) {
+        try {
+            Usuario userEntity = this.iUsuarioRepository.findById(id).get();
             if (userEntity.getEstado() == true) {
                 // el usuario aun no esta deshabilitado
                 userEntity.setEstado(false);
@@ -134,15 +144,24 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 response.setMoreInfo("http://localhost:8081/api/usuario/DisableUsuario/{id}");
                 response.setData(false);
             }
+            return response;
+        }catch (Exception e) {
+            response.setStatus(404);
+            response.setUserMessage("No se encontró el usuario. Causado por: " + e.getMessage());
+            response.setDeveloperMessage("No se encontró el usuario. Causado por: " + e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/usuario/DisableUsuario/{id}");
+            response.setData(false);
+            return response;
         }
-        return response;
+
     }
 
     @Override
     public Response<Boolean> enableUsuario(Long id) {
-        Usuario userEntity = this.iUsuarioRepository.findById(id).get();
+
         Response<Boolean> response = new Response<>();
-        if (userEntity != null) {
+        try{
+            Usuario userEntity = this.iUsuarioRepository.findById(id).get();
             if (!userEntity.getEstado()) {
                 userEntity.setEstado(true);
                 this.iUsuarioRepository.save(userEntity);
@@ -156,7 +175,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 response.setMoreInfo("http://localhost:8081/api/usuario/enableUsuario/{id}");
                 response.setData(false);
             }
+            return response;
+        }catch (Exception e) {
+            response.setStatus(404);
+            response.setUserMessage("No se encontró el usuario. Causado por: " + e.getMessage());
+            response.setDeveloperMessage("No se encontró el usuario. Causado por: " + e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/usuario/enableUsuario/{id}");
+            response.setData(false);
+            return response;
         }
-        return response;
     }
 }
