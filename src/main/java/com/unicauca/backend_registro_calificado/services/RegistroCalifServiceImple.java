@@ -121,11 +121,6 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
 
             Date inicio = dateFormat.parse(fechaInicio);
             Date fin = dateFormat.parse(fechaFin);
-            System.out.println("Inicio "+inicio.getTime());
-            System.out.println("Fin "+fin.getTime());
-            System.out.println("pruebaa 0"+lstRegistroCal.get(0).getFecha_creacion().getTime());
-            System.out.println("pruebaa 1"+lstRegistroCal.get(1).getFecha_creacion().getTime());
-            System.out.println("pruebaa 2"+lstRegistroCal.get(2).getFecha_creacion().getTime());
 
             lstRegistroCal=lstRegistroCal.stream()
                     .filter(registroCalificado -> registroCalificado.getFecha_creacion().equals(new Date(inicio.getTime())) ||
