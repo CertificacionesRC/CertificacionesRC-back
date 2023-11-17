@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootApplication()
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class BackendRegistroCalificadoApplication {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
