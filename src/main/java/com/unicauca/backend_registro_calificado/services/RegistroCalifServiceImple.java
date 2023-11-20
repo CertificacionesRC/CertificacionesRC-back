@@ -5,7 +5,9 @@ import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.UsuarioDTO;
 import com.unicauca.backend_registro_calificado.model.Observacion;
+import com.unicauca.backend_registro_calificado.model.ProgramaAcademico;
 import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
+import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
 import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepo;
@@ -102,27 +104,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         return new ResponseEntity("LA OPERACION NO SE HA PODIDO REALIZAR", HttpStatus.BAD_REQUEST);
     }
 
-    @Override
-    public Response<List<RegistroCalificadoDTO>> findAllByEstado(EstadoRegistroCal estado) {
-        System.out.println("estado "+estado);
-        List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
-        Response<List<RegistroCalificadoDTO>> response = new Response<>();
-        if(lstRegistroCal.isEmpty()){
-            response.setStatus(404);
-            response.setUserMessage("No se encontraron los registros calificados");
-            response.setDeveloperMessage("No se encontraron los registros calificados");
-            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
-            response.setData(null);
-        }else{
-            List<RegistroCalificadoDTO> registrosCalificadosDTO= lstRegistroCal.stream().map(registroCalificado ->  modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
-            response.setStatus(200);
-            response.setUserMessage("Registros calificados encontrados con éxito");
-            response.setDeveloperMessage("Registros calificados encontrados con éxito");
-            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
-            response.setData(registrosCalificadosDTO);
-        }
-        return response;
-    }
+
 
     @Override
     public Response<List<RegistroCalificadoDTO>> findAllByDate(String fechaInicio, String fechaFin) throws ParseException {
@@ -167,16 +149,38 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         return response;
     }
 
-    /**
-     * Este método permite crear un documento de word con la información de los registros calificados
-     * @throws IOException
-     */
+    @Override
+    public Response<List<RegistroCalificadoDTO>> findAllByEstado(EstadoRegistroCal estado) {
+        System.out.println("estado "+estado);
+        List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
+        Response<List<RegistroCalificadoDTO>> response = new Response<>();
+        if(lstRegistroCal.isEmpty()){
+            response.setStatus(404);
+            response.setUserMessage("No se encontraron los registros calificados");
+            response.setDeveloperMessage("No se encontraron los registros calificados");
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
+            response.setData(null);
+        }else{
+            List<RegistroCalificadoDTO> registrosCalificadosDTO= lstRegistroCal.stream().map(registroCalificado ->  modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
+            response.setStatus(200);
+            response.setUserMessage("Registros calificados encontrados con éxito");
+            response.setDeveloperMessage("Registros calificados encontrados con éxito");
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
+            response.setData(registrosCalificadosDTO);
+        }
+        return response;
+    }
 
     @Override
     public ResponseEntity<byte[]> downloadWordFile() throws IOException {
 
-        //llamamos a la funcion de crear documento
-        this.CreatefileDocx();
+        long id = 1;
+        //ProgramaAcademico programaAcademico = new ProgramaAcademico();
+        List<ProgramaAcademico> lstProgramaAcade = this.iProgramaAcademicoRepo.findByRegistroId(id);
+        System.out.println("lista de programas academicos: "+lstProgramaAcade.size());
+
+            //llamamos a la funcion de crear documento
+        this.CreatefileDocx(lstProgramaAcade);
 
         //ruta del archivo
         String filepath = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx";
@@ -206,7 +210,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
     }
 
 
-    public static void CreatefileDocx() throws IOException {
+    public static void CreatefileDocx(List<ProgramaAcademico> lstProgramaAcade ) throws IOException {
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
 
@@ -242,7 +246,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         Document doc = Jsoup.parse(htmlText);
         Element body = doc.body();
 
-        //portadaFile(document);
+        portadaFile(document, lstProgramaAcade );
 
         for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
@@ -275,11 +279,16 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    /*
-    private static void portadaFile(XWPFDocument document){
+
+    private static void portadaFile(XWPFDocument document, List<ProgramaAcademico> lstProgramaAcade ){
+
+        //ProgramaAcademico programaAcademico = new ProgramaAcademico();
+
+        //List<ProgramaAcademico> listProgramaAcade = this.iProgramaAcademicoRepo.findByRegistroId(id);
+
+        //List<ProgramaAcademico> lstProgramaAcade = iProgramaAcademicoRepo.findByEstado(1);
 
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
@@ -288,7 +297,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         run.setFontSize(24);
 
         // Agregamos el texto de la etiqueta al párrafo
-        run.setText("Facultad de " );
+        run.setText("Facultad de ");
 
         // Agregamos un salto de línea después del párrafo
         document.createParagraph().createRun().addBreak();
@@ -297,9 +306,11 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
 
         document.createParagraph().createRun().addBreak();
 
-        //long id = 1;
+        run.setText("Programa de " + lstProgramaAcade.get(0).getNombre() );
+
+
     }
-*/
+
 
     private static void processElement(Element element, XWPFDocument document) throws IOException {
 
@@ -324,7 +335,6 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
             processElement(child, document);
         }
     }
-
 
 
     private static void processh1(Element element, XWPFDocument document) {

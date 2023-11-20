@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface IProgramaAcademicoRepo extends JpaRepository<ProgramaAcademico, String> {
 
-        //@Query(value = "SELECT * FROM programa_academico WHERE .estado=?1", nativeQuery = true)
-        //List<ProgramaAcademico> findByRegistroId(Long programa_academico_id);
+        @Query(value = "SELECT * FROM programa_academico WHERE programa_academico_id = :programa_academico_id", nativeQuery = true)
+        List<ProgramaAcademico> findByRegistroId(Long programa_academico_id);
 
         }
 
