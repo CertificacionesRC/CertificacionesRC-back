@@ -12,4 +12,6 @@ public interface IRegistroCalifRepository extends JpaRepository<RegistroCalifica
 
     //@Query(value = "SELECT * FROM registro_calificado WHERE registro_calificado.estado=?1", nativeQuery = true)
     List<RegistroCalificado> findByEstado(EstadoRegistroCal estado);
+
+
 }

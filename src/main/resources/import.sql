@@ -152,6 +152,19 @@ INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES
 INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('2','2','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','bbb@gmail.com','jose',1);
 INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('3','3','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','ccc@gmail.com','pedro',1);
 
+--Configuraciones
+
+
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('rector','Deibar René Hurtado Herrera');
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_academico','Aida Patricia González Nieva');
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_administrativo','Jorge Enrique Barrera Moreno');
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_investigaciones','Francisco José Pino Correa');
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_cultura_bienestar','César Alfaro Mosquera Dorado');
+INSERT INTO `configuraciones` (nombre_variable, contenido) values ('secretaria_general','Laura Ismenia Castellanos Vivas');
+
+
+
+
 
 
 

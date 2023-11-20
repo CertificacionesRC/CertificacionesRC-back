@@ -1,16 +1,17 @@
 package com.unicauca.backend_registro_calificado.domain;
 
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AnexoDTO {
+public class ConfiguracionesDTO {
     private Integer id;
 
-    private String contenido;
+    private String nombreVariable;
 
-    private RegistroCalificadoDTO registroCalificado;
+    private String contenido;
 
 }
 
