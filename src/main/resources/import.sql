@@ -143,7 +143,7 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALU
 
 -- roles
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('1','ADMIN');
-INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','CORDINADOR');
+INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','COORDINADOR');
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('3','SUPERUSUARIO');
 
 

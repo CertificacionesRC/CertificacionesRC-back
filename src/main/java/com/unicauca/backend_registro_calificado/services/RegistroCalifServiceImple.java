@@ -87,12 +87,11 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         Response<List<RegistroCalificadoDTO>> response = new Response<>();
         try{
             List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
-            List<RegistroCalificadoDTO> registrosCalificadosDTO= lstRegistroCal.stream().map(registroCalificado ->  modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
-            response.setStatus(200);
-            response.setUserMessage("Registros calificados encontrados con éxito");
-            response.setDeveloperMessage("Registros calificados encontrados con éxito");
+            response.setStatus(!lstRegistroCal.isEmpty() ? 200 : 404);
+            response.setUserMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : "No se encuentran registros calificados asociados a este estado");
+            response.setDeveloperMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : null);
             response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
-            response.setData(registrosCalificadosDTO);
+            response.setData(!lstRegistroCal.isEmpty() ? lstRegistroCal.stream().map(registroCalificado -> modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList()) : null);
             return response;
         }catch (Exception e){
             response.setStatus(500);
@@ -119,9 +118,6 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
             Date fin = dateFormat.parse(fechaFin);
             System.out.println("Inicio "+inicio.getTime());
             System.out.println("Fin "+fin.getTime());
-            System.out.println("pruebaa 0"+lstRegistroCal.get(0).getFecha_creacion().getTime());
-            System.out.println("pruebaa 1"+lstRegistroCal.get(1).getFecha_creacion().getTime());
-            System.out.println("pruebaa 2"+lstRegistroCal.get(2).getFecha_creacion().getTime());
 
             lstRegistroCal=lstRegistroCal.stream()
                     .filter(registroCalificado -> registroCalificado.getFecha_creacion().equals(new Date(inicio.getTime())) ||
@@ -142,6 +138,48 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
             response.setUserMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
             response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
             response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByDate");
+            response.setData(null);
+            return response;
+        }
+    }
+
+    @Override
+    public Response<List<RegistroCalificadoDTO>> findAll() {
+        Response<List<RegistroCalificadoDTO>> response = new Response<>();
+        try{
+            List<RegistroCalificado> lstRegistroCal = this.iRegistroCalifRepository.findAll();
+            response.setStatus(!lstRegistroCal.isEmpty() ? 200 : 404);
+            response.setUserMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : "No se encuentran registros calificados ");
+            response.setDeveloperMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : null);
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAll");
+            response.setData(!lstRegistroCal.isEmpty() ? lstRegistroCal.stream().map(registroCalificado -> modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList()) : null);
+            return response;
+        } catch (Exception e){
+            response.setStatus(500);
+            response.setUserMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAll");
+            response.setData(null);
+            return response;
+        }
+    }
+
+    @Override
+    public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(Long programId) {
+        Response<List<RegistroCalificadoDTO>> response = new Response<>();
+        try{
+            List<RegistroCalificado> lstRegistroCal = this.iRegistroCalifRepository.findAllByProgramaAcademicoId(programId);
+            response.setStatus(!lstRegistroCal.isEmpty() ? 200 : 404);
+            response.setUserMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : "No se encuentran registros calificados asociados a este programa academico");
+            response.setDeveloperMessage(!lstRegistroCal.isEmpty() ? "Registros calificados encontrados con éxito" : null);
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByProgramaAcademico");
+            response.setData(!lstRegistroCal.isEmpty() ? lstRegistroCal.stream().map(registroCalificado -> modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList()) : null);
+            return response;
+        } catch (Exception e){
+            response.setStatus(500);
+            response.setUserMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByProgramaAcademico");
             response.setData(null);
             return response;
         }

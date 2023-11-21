@@ -1,5 +1,7 @@
 package com.unicauca.backend_registro_calificado.repository;
 
+import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
+import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +14,8 @@ public interface IRegistroCalifRepository extends JpaRepository<RegistroCalifica
 
     //@Query(value = "SELECT * FROM registro_calificado WHERE registro_calificado.estado=?1", nativeQuery = true)
     List<RegistroCalificado> findByEstado(EstadoRegistroCal estado);
+
+    List<RegistroCalificado> findAllByProgramaAcademicoId(Long programaId);
+
+
 }

@@ -71,6 +71,17 @@ public class RegistroCalificadoController {
         }
     }
 
+    @Secured("COORDINADOR")
+    @GetMapping("/findAll")
+    public Response<List<RegistroCalificadoDTO>> findAll() {
+        return this.registroCalificadoBusiness.findAll();
+    }
+
+    @Secured("COORDINADOR")
+    @GetMapping("/findAllByProgramaAcademico/{programaId}")
+    public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(@PathVariable Long programaId) {
+        return this.registroCalificadoBusiness.findAllByProgramaAcademico(programaId);
+    }
 
     public static void CreatefileDocx(){
 
