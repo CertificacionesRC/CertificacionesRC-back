@@ -84,7 +84,6 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
     @Override
     public Response<List<RegistroCalificadoDTO>> findAllByEstado(EstadoRegistroCal estado) {
         System.out.println("estado "+estado);
-        List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
         Response<List<RegistroCalificadoDTO>> response = new Response<>();
         try{
             List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);

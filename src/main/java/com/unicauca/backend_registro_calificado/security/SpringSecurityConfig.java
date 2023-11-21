@@ -1,4 +1,4 @@
-/*package com.unicauca.backend_registro_calificado.security;
+package com.unicauca.backend_registro_calificado.security;
 
 import com.unicauca.backend_registro_calificado.security.auth.Filter.JWTAuthenticationFilter;
 import com.unicauca.backend_registro_calificado.security.auth.Filter.JWTAuthorizationFilter;
@@ -83,6 +83,4 @@ public class SpringSecurityConfig {
 
         return http.build();
     }
-
 }
-*/
