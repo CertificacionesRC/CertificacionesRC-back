@@ -41,43 +41,44 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
     public Response<RegistroCalificadoDTO> createRegistroCalificado(RegistroCalificadoDTO registroCalificadoDTO) {
 
         logger.debug("Init createRegistroCalificado: {}", registroCalificadoDTO.toString());
-
         Response<RegistroCalificadoDTO> response = new Response<>();
 
-        RegistroCalificado registroCalificado = modelMapper.map(registroCalificadoDTO, RegistroCalificado.class);
-
-        RegistroCalificadoDTO registroCalificadoDTO1 = modelMapper.map(iRegistroCalifRepository.save(registroCalificado), RegistroCalificadoDTO.class);
-
-        System.out.println("Miremos esto: " + registroCalificadoDTO1.toString());
-
-        response.setStatus(200);
-        response.setUserMessage("Registro Calificado creado exitosamente");
-        response.setDeveloperMessage("Registro Calificado creado exitosamente");
-        response.setMoreInfo("localhost:8080/api/registroCalificado");
-        response.setErrorCode("");
-        response.setData(registroCalificadoDTO1);
-        logger.debug("Finish createRegistroCalificado Business");
-
-        return response;
+        try{
+            RegistroCalificado registroCalificado = modelMapper.map(registroCalificadoDTO, RegistroCalificado.class);
+            RegistroCalificadoDTO registroCalificadoDTO1 = modelMapper.map(iRegistroCalifRepository.save(registroCalificado), RegistroCalificadoDTO.class);
+            System.out.println("Miremos esto: " + registroCalificadoDTO1.toString());
+            response.setStatus(200);
+            response.setUserMessage("Registro Calificado creado exitosamente");
+            response.setDeveloperMessage("Registro Calificado creado exitosamente");
+            response.setMoreInfo("localhost:8080/api/registroCalificado");
+            response.setErrorCode("");
+            response.setData(registroCalificadoDTO1);
+            logger.debug("Finish createRegistroCalificado Business");
+            return response;
+        }catch(Exception e){
+            logger.error("Error createRegistroCalificado: {}", e.getMessage());
+            response.setStatus(500);
+            response.setUserMessage("Error al crear el registro calificado"+e.getMessage());
+            response.setDeveloperMessage("Error al crear el registro calificado"+e.getMessage());
+            response.setMoreInfo("localhost:8080/api/registroCalificado");
+            response.setData(null);
+            return response;
+        }
     }
-    /**
-     * Este método permite actualizar el estado del documento cuando se aprueba o se rechaza
-     * @param objObservacion es la observación realizada por el administrador
-     * @param estado indica si es rechazado o aprobado
-     * @return un mensaje indicando si la operación se realizó con éxito
-     */
+
+
     @Override
     public ResponseEntity<?> updateStateRegistroCalificado(ObservacionDTO objObservacion, EstadoRegistroCal estado) {
-        if(objObservacion!=null){
+        try{
             Observacion objObservacionEnt = modelMapper.map(objObservacion, Observacion.class);
             RegistroCalificado objR = objObservacionEnt.getRegistroCalificado();
             objR.setEstado(estado);
             iRegistroCalifRepository.save(objR);
             iObservacionRepository.save(objObservacionEnt);
-
             return new ResponseEntity("Operación realizada con exito", HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity("LA OPERACION NO SE HA PODIDO REALIZAR. Causado por: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("LA OPERACION NO SE HA PODIDO REALIZAR", HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -85,21 +86,23 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         System.out.println("estado "+estado);
         List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
         Response<List<RegistroCalificadoDTO>> response = new Response<>();
-        if(lstRegistroCal.isEmpty()){
-            response.setStatus(404);
-            response.setUserMessage("No se encontraron los registros calificados");
-            response.setDeveloperMessage("No se encontraron los registros calificados");
-            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
-            response.setData(null);
-        }else{
+        try{
+            List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findByEstado(estado);
             List<RegistroCalificadoDTO> registrosCalificadosDTO= lstRegistroCal.stream().map(registroCalificado ->  modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
             response.setStatus(200);
             response.setUserMessage("Registros calificados encontrados con éxito");
             response.setDeveloperMessage("Registros calificados encontrados con éxito");
             response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
             response.setData(registrosCalificadosDTO);
+            return response;
+        }catch (Exception e){
+            response.setStatus(500);
+            response.setUserMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByEstado");
+            response.setData(null);
+            return response;
         }
-        return response;
     }
 
     @Override
@@ -107,20 +110,19 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
         System.out.println("fecha inicio: "+fechaInicio);
         System.out.println("fecha fin: "+fechaFin);
 
-        List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findAll();
         Response<List<RegistroCalificadoDTO>> response = new Response<>();
-        if(lstRegistroCal.isEmpty()){
-            response.setStatus(404);
-            response.setUserMessage("No se encontraron los registros calificados");
-            response.setDeveloperMessage("No se encontraron los registros calificados");
-            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByDate");
-            response.setData(null);
-        }else{
+        try{
+            List<RegistroCalificado> lstRegistroCal = iRegistroCalifRepository.findAll();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
             Date inicio = dateFormat.parse(fechaInicio);
             Date fin = dateFormat.parse(fechaFin);
+            System.out.println("Inicio "+inicio.getTime());
+            System.out.println("Fin "+fin.getTime());
+            System.out.println("pruebaa 0"+lstRegistroCal.get(0).getFecha_creacion().getTime());
+            System.out.println("pruebaa 1"+lstRegistroCal.get(1).getFecha_creacion().getTime());
+            System.out.println("pruebaa 2"+lstRegistroCal.get(2).getFecha_creacion().getTime());
 
             lstRegistroCal=lstRegistroCal.stream()
                     .filter(registroCalificado -> registroCalificado.getFecha_creacion().equals(new Date(inicio.getTime())) ||
@@ -129,16 +131,21 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
                             registroCalificado.getFecha_creacion().equals(new Date(fin.getTime())))
                     .collect(Collectors.toList());
 
-
             List<RegistroCalificadoDTO> lstRegistroDTO = lstRegistroCal.stream().map(registroCalificado -> modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
             response.setStatus(200);
             response.setUserMessage("Registros calificados encontrados con éxito");
             response.setDeveloperMessage("Registros calificados encontrados con éxito");
             response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByDate");
             response.setData(lstRegistroDTO);
+            return response;
+        }catch (Exception e){
+            response.setStatus(500);
+            response.setUserMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByDate");
+            response.setData(null);
+            return response;
         }
-        return response;
-
     }
 }
 

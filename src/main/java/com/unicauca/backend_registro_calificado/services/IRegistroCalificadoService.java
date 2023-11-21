@@ -13,6 +13,12 @@ import java.util.List;
 public interface IRegistroCalificadoService {
 
     public Response<RegistroCalificadoDTO> createRegistroCalificado(RegistroCalificadoDTO registroCalificadoDTO);
+    /**
+     * Este método permite actualizar el estado del documento cuando se aprueba o se rechaza
+     * @param objObservacion es la observación realizada por el administrador
+     * @param estado indica si es rechazado o aprobado
+     * @return un mensaje indicando si la operación se realizó con éxito
+     */
     public ResponseEntity<?> updateStateRegistroCalificado(ObservacionDTO objObservacion, EstadoRegistroCal estado);
 
     public Response<List<RegistroCalificadoDTO>> findAllByEstado(EstadoRegistroCal estado);
