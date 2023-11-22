@@ -44,7 +44,10 @@ public class DocumentoServiceimple implements IDocumentoService {
     }
 
     @Override
-    public ResponseEntity<byte[]> downloadWordFile() throws IOException {
+    public ResponseEntity<byte[]> downloadWordFile(Integer IdRegistroCalificado) throws IOException {
+        //id del registro calificado
+
+        System.out.println("id registro: " +IdRegistroCalificado);
 
         long id = 1;
         //ProgramaAcademico programaAcademico = new ProgramaAcademico();

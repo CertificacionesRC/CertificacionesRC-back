@@ -53,7 +53,7 @@ public class RegistroCalificadoController {
     }
 
     @GetMapping("/getDocumento")
-    public ResponseEntity<byte[]> downloadWordFile() throws Exception {
-        return documentoService.downloadWordFile();
+    public ResponseEntity<byte[]> downloadWordFile(@RequestParam Integer IdRegistroCalificado) throws Exception {
+        return documentoService.downloadWordFile(IdRegistroCalificado);
     }
 }

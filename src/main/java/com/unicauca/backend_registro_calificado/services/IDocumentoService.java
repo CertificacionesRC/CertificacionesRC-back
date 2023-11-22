@@ -4,5 +4,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface IDocumentoService {
 
-    public ResponseEntity<byte[]> downloadWordFile() throws Exception;
+    public ResponseEntity<byte[]> downloadWordFile(Integer IdRegistroCalificado) throws Exception;
 }
