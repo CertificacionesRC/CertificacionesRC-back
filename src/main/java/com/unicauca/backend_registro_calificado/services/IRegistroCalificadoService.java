@@ -18,6 +18,5 @@ public interface IRegistroCalificadoService {
     public Response<List<RegistroCalificadoDTO>> findAllByEstado(EstadoRegistroCal estado);
     public Response<List<RegistroCalificadoDTO>> findAllByDate(String fechaInicio, String fechaFin) throws ParseException;
 
-    public ResponseEntity<byte[]> downloadWordFile() throws Exception;
 
 }
