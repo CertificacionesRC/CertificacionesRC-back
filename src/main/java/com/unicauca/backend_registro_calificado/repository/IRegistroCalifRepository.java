@@ -14,4 +14,6 @@ public interface IRegistroCalifRepository extends JpaRepository<RegistroCalifica
     List<RegistroCalificado> findByEstado(EstadoRegistroCal estado);
 
 
+
+
 }

@@ -103,7 +103,6 @@ public class ItemServiceImpl implements IitemService{
     public List<ItemDTO> findAllItem() {
         System.out.println("ProgramServiceImpl.findAllProgram");
         List<Item> items = this.iitemRepository.findAll();
-
         List<ItemDTO> itemDTOS = items.stream().map(item ->  modelMapper.map(item, ItemDTO.class)).collect(Collectors.toList());
         return itemDTOS;
     }

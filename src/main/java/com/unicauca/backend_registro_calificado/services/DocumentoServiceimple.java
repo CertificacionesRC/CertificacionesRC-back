@@ -1,6 +1,10 @@
 package com.unicauca.backend_registro_calificado.services;
 
+import com.unicauca.backend_registro_calificado.model.Configuraciones;
 import com.unicauca.backend_registro_calificado.model.ProgramaAcademico;
+import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
+import com.unicauca.backend_registro_calificado.model.SubItem;
+import com.unicauca.backend_registro_calificado.repository.IConfiguracionesRepo;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
 import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepo;
 import com.unicauca.backend_registro_calificado.repository.IRegistroCalifRepository;
@@ -25,7 +29,11 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class DocumentoServiceimple implements IDocumentoService {
@@ -36,26 +44,31 @@ public class DocumentoServiceimple implements IDocumentoService {
     private final IObservacionRepository iObservacionRepository;
     private final IProgramaAcademicoRepo iProgramaAcademicoRepo;
 
-    public DocumentoServiceimple(ModelMapper modelMapper, IRegistroCalifRepository iRegistroCalifRepository, IObservacionRepository iObservacionRepository, IProgramaAcademicoRepo iProgramaAcademicoRepo) {
+    private final IConfiguracionesRepo iConfiguracionesRepo;
+
+    public DocumentoServiceimple(ModelMapper modelMapper, IRegistroCalifRepository iRegistroCalifRepository, IObservacionRepository iObservacionRepository,
+                                 IProgramaAcademicoRepo iProgramaAcademicoRepo, IConfiguracionesRepo iConfiguracionesRepo) {
         this.modelMapper = modelMapper;
         this.iRegistroCalifRepository = iRegistroCalifRepository;
         this.iObservacionRepository = iObservacionRepository;
         this.iProgramaAcademicoRepo = iProgramaAcademicoRepo;
+        this.iConfiguracionesRepo = iConfiguracionesRepo;
     }
 
     @Override
     public ResponseEntity<byte[]> downloadWordFile(Integer IdRegistroCalificado) throws IOException {
         //id del registro calificado
+        String idregistro = String.valueOf(IdRegistroCalificado);
 
-        System.out.println("id registro: " +IdRegistroCalificado);
+        RegistroCalificado registroCal = this.iRegistroCalifRepository.findById(idregistro).get();
 
-        long id = 1;
-        //ProgramaAcademico programaAcademico = new ProgramaAcademico();
-        List<ProgramaAcademico> lstProgramaAcade = this.iProgramaAcademicoRepo.findByRegistroId(id);
-        System.out.println("lista de programas academicos: "+lstProgramaAcade.size());
+        ProgramaAcademico ProgramaAcade = this.iProgramaAcademicoRepo.findById(registroCal.getProgramaAcademico().getId());
+
+        List<Configuraciones> configuraciones = this.iConfiguracionesRepo.findAll();
+
 
         //llamamos a la funcion de crear documento
-        this.CreatefileDocx(lstProgramaAcade);
+        this.CreatefileDocx(ProgramaAcade,configuraciones);
 
         //ruta del archivo
         String filepath = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx";
@@ -84,7 +97,7 @@ public class DocumentoServiceimple implements IDocumentoService {
                 .body(fileContent);
     }
 
-    public static void CreatefileDocx(List<ProgramaAcademico> lstProgramaAcade ) throws IOException {
+    public static void CreatefileDocx(ProgramaAcademico ProgramaAcade, List<Configuraciones> configuraciones ) throws IOException {
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
 
@@ -114,13 +127,11 @@ public class DocumentoServiceimple implements IDocumentoService {
                 "    <h2>Secretaria General</h2>";
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
-
+        portadaFile(document, ProgramaAcade,configuraciones );
         //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
         //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
         Document doc = Jsoup.parse(htmlText);
         Element body = doc.body();
-
-        portadaFile(document, lstProgramaAcade );
 
         for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
@@ -156,35 +167,80 @@ public class DocumentoServiceimple implements IDocumentoService {
     }
 
 
-    private static void portadaFile(XWPFDocument document, List<ProgramaAcademico> lstProgramaAcade ){
+    private static void portadaFile(XWPFDocument document, ProgramaAcademico ProgramaAcade, List<Configuraciones> configuraciones ) throws IOException {
 
-        //ProgramaAcademico programaAcademico = new ProgramaAcademico();
+        processImage(3,document);
 
-        //List<ProgramaAcademico> listProgramaAcade = this.iProgramaAcademicoRepo.findByRegistroId(id);
+        procesarTitulo(3, document, "Facultad de Electronica y Telecomunicaciones");
 
-        //List<ProgramaAcademico> lstProgramaAcade = iProgramaAcademicoRepo.findByEstado(1);
+        procesarTitulo(0, document, "Condiciones de Calidad");
 
+        String Tprograma = "Programa de " + ProgramaAcade.getTipo() + ": "+ ProgramaAcade.getNombre();
+
+        procesarTitulo(4, document, Tprograma );
+
+        procesarTitulo(0, document, "Popayan");
+
+        LocalDate fechaActual = LocalDate.now();
+
+        // Obtener el año, mes y día por separado
+        String anio = String.valueOf(fechaActual.getYear());
+        Month mes = fechaActual.getMonth();
+        String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+
+        procesarTitulo(0, document, nombreMes);
+
+        procesarTitulo(0, document, anio);
+
+        System.out.println("configuraciones: "+configuraciones.get(0).getNombreVariable());
+
+
+        for (int i = 0; i < configuraciones.size(); i++) {
+            if(configuraciones.get(i).getNombreVariable().equals("rector")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+            if(configuraciones.get(i).getNombreVariable().equals("vicerrector_academico")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+            if(configuraciones.get(i).getNombreVariable().equals("vicerrector_administrativo")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+            if(configuraciones.get(i).getNombreVariable().equals("vicerrector_investigaciones")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+            if(configuraciones.get(i).getNombreVariable().equals("vicerrector_cultura_bienestar")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+            if(configuraciones.get(i).getNombreVariable().equals("secretaria_general")){
+                procesarTitulo(0, document,configuraciones.get(i).getContenido());
+                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+            }
+        }
+    }
+
+    private static void procesarTitulo(int saltoslinea,XWPFDocument document, String texto){
+        // Creamos el párrafo y le asignamos el estilo de encabezado 2
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
         paragraph.setAlignment(ParagraphAlignment.CENTER);
-        // Establecemos el tamaño de fuente para que coincida con un encabezado h1
-        run.setFontSize(24);
+        // Establecemos el tamaño de fuente para que coincida con un encabezado h2
+        run.setFontSize(14); // Puedes ajustar el tamaño según tus preferencias
+
+        // Establecemos el formato del texto (puedes agregar más formato según sea necesario)
+        run.setBold(true);
 
         // Agregamos el texto de la etiqueta al párrafo
-        run.setText("Facultad de ");
-
+        run.setText(texto);
         // Agregamos un salto de línea después del párrafo
-        document.createParagraph().createRun().addBreak();
-
-        run.setText("Condiciones de Calidad");
-
-        document.createParagraph().createRun().addBreak();
-
-        run.setText("Programa de " + lstProgramaAcade.get(0).getNombre() );
-
-
+        for(int i=saltoslinea;i>0;i--) {
+            document.createParagraph().createRun().addBreak();
+        }
     }
-
 
     private static void processElement(Element element, XWPFDocument document) throws IOException {
 
@@ -195,7 +251,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         } else if ("ul".equals(tagName) || "ol".equals(tagName)) {
             //processList(element, document, paragraph); //metodo que procesa listas
         } else if ("img".equals(tagName)) {
-            processImage(element, document);
+            processImage(1,document);
             //processImage(element, document, paragraph); //metodo que procesa imagenes
 
         } else if ("h1".equals(tagName) ){
@@ -226,6 +282,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         document.createParagraph().createRun().addBreak();
     }
 
+
     private static void processh2(Element element, XWPFDocument document) {
         // Creamos el párrafo y le asignamos el estilo de encabezado 2
         XWPFParagraph paragraph = document.createParagraph();
@@ -253,9 +310,8 @@ public class DocumentoServiceimple implements IDocumentoService {
     }
 
 
-    private static void processImage(Element element, XWPFDocument document) throws IOException {
+    private static void processImage(int saltosLinea, XWPFDocument document) throws IOException {
         // Extract the image source URL from the element
-        String imageUrl = element.attr("src");
 
         String rutaLocal = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\unicauca.jpg";
 
@@ -269,7 +325,9 @@ public class DocumentoServiceimple implements IDocumentoService {
             run.setText(Files.probeContentType(origen));
             paragraph.setAlignment(ParagraphAlignment.CENTER);
             insertarImagen(run, document, origen, rutaLocal);
-
+            for(int i=saltosLinea;i>0;i--) {
+                document.createParagraph().createRun().addBreak();
+            }
             //Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
         } else {
             throw new IOException("El archivo de origen no existe en la ruta especificada.");
@@ -279,7 +337,7 @@ public class DocumentoServiceimple implements IDocumentoService {
     private static void insertarImagen(XWPFRun run, XWPFDocument document, Path imagePath, String rutaImagen) throws IOException {
         // Obtener el contenido de la imagen como bytes
         try (FileInputStream imageStream = new FileInputStream(rutaImagen)) {
-            run.addPicture(imageStream, XWPFDocument.PICTURE_TYPE_JPEG, "imagen", Units.toEMU(200), Units.toEMU(200));
+            run.addPicture(imageStream, XWPFDocument.PICTURE_TYPE_JPEG, "imagen", Units.toEMU(100), Units.toEMU(100));
         } catch (InvalidFormatException e) {
             throw new RuntimeException(e);
         }
