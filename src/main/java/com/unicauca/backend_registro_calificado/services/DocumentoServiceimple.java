@@ -14,6 +14,7 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +72,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         this.CreatefileDocx(ProgramaAcade,configuraciones);
 
         //ruta del archivo
-        String filepath = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx";
+        String filepath = "C:\\Users\\stive\\OneDrive\\Documentos\\Documentos prueba proyecto 2\\PruebaRegistro.docx";
 
         File file = new File(filepath);
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -80,7 +81,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "registroCalificado.docx");
+        headers.setContentDispositionFormData("attachment", "PruebaRegistro.docx");
 
         //lee el contenido del archivo en un array de bytes
         byte[] fileContent = new byte[(int)file.length()];
@@ -101,30 +102,24 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
 
-        String htmlText = "<h1>Facultad de...</h1>\n" +
-                "    <h2>Condiciones de Calidad</h2>\n" +
-                "    <img src=\"C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\unicauca.jpg\">\n" +
-                "    <p>Programa de (pregrado/posgrado)...</p>\n" +
-                "    <p>Popayán</p>\n" +
-                "    <p>(mes) 2023</p>\n" +
-                "\n" +
-                "    <h1>Deibar René Hurtado Herrera</h1>\n" +
-                "    <h2>Rector</h2>\n" +
-                "\n" +
-                "    <h1>Aida Patricia González Nieva</h1>\n" +
-                "    <h2>Vicerrectora Académica</h2>\n" +
-                "    \n" +
-                "    <h1>Jorge Enrique Barrera Moreno</h1>\n" +
-                "    <h2>Vicerrector Administrativo</h2>\n" +
-                "\n" +
-                "    <h1>Francisco José Pino Correa</h1>\n" +
-                "    <h2>Vicerrector de Investigaciones</h2>\n" +
-                "\n" +
-                "    <h1>César Alfaro Mosquera Dorado</h1>\n" +
-                "    <h2>Vicerrector de Cultura y Bienestar</h2>\n" +
-                "\n" +
-                "    <h1>Laura Ismenia Castellanos Vivas</h1>\n" +
-                "    <h2>Secretaria General</h2>";
+        String htmlText = "<h1>Tabla X informacion del programa</h1>\n" +
+                "    <table>\n" +
+                "    <tr>\n" +
+                "    <td> 1 </td>\n" +
+                "    <td><strong> Denominacion </strong></td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td> 2 </td>\n" +
+                "    <td><a href=\"https://www.ejemplo.com\">Dato 7</a></td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td> 3 </td>\n" +
+                "    <td><em> Vigencia (para renovaciones) </em></td>\n" +
+                "    <td> 7 8 o 10 años </td>\n" +
+                "    </tr>\n" +
+                "    </table>";
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
         portadaFile(document, ProgramaAcade,configuraciones );
@@ -133,6 +128,8 @@ public class DocumentoServiceimple implements IDocumentoService {
         Document doc = Jsoup.parse(htmlText);
         Element body = doc.body();
 
+        Element tableElement = body.select("table").first();
+
         for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
             processElement(element, document);
@@ -140,7 +137,7 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         //crearIndice(document);
 
-        XWPFParagraph p = document.createParagraph();
+        /*XWPFParagraph p = document.createParagraph();
 
         String encodedURI = URLEncoder.encode("#my_bookmark");
         XWPFHyperlinkRun hyperlinkRun = p.createHyperlinkRun(encodedURI);
@@ -155,11 +152,11 @@ public class DocumentoServiceimple implements IDocumentoService {
         //pasear el html y argegar al docuemtno word
         Document doc2 = Jsoup.parse(htmlText);
         Element bodyy = doc2.body();
-        paragraph.createRun().setText(bodyy.text());
+        paragraph.createRun().setText(bodyy.text());*/
 
         //intentamos guardar el documento word
         try {
-            document.write(new FileOutputStream("C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx"));
+            document.write(new FileOutputStream("C:\\Users\\stive\\OneDrive\\Documentos\\Documentos prueba proyecto 2\\PruebaRegistro.docx"));
             document.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -259,6 +256,8 @@ public class DocumentoServiceimple implements IDocumentoService {
             //processParagraph(element, document);
         }else if("h2".equals(tagName)){
             processh2(element, document);
+        }else if("table".equals(tagName)) {
+            processTable(element, document);
         }
         //para procesar sub elementos de ese elemento
         for (Element child : element.children()) {
@@ -313,7 +312,7 @@ public class DocumentoServiceimple implements IDocumentoService {
     private static void processImage(int saltosLinea, XWPFDocument document) throws IOException {
         // Extract the image source URL from the element
 
-        String rutaLocal = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\unicauca.jpg";
+        String rutaLocal = "C:\\Users\\stive\\OneDrive\\Imágenes\\Logo Whalen Gold Fit 1.jpg";
 
         Path origen = Path.of(rutaLocal);
 
@@ -385,7 +384,41 @@ public class DocumentoServiceimple implements IDocumentoService {
         document.createParagraph().createRun().addBreak(BreakType.PAGE);
     }
 
+    public static void processTable(Element element, XWPFDocument document) {
+        // Create a new table in the Word document
+        XWPFTable table = document.createTable();
 
+        // Get the table rows from the HTML element
+        Elements rows = element.select("tr");
+        System.out.println("Rows: " + rows);
+
+        for(Element row : rows) {
+            // Crear fila en Word
+            XWPFTableRow tableRow = table.createRow();
+            // Obtener celdas de esta fila
+            Elements cells = row.select("td");
+            System.out.println("Cells: " + cells);
+            for(Element cell : cells) {
+
+                // Crear celda en Word
+                XWPFTableCell tableCell = tableRow.createCell();
+
+                // Configurar celda
+                tableCell.setText(cell.text());
+            }
+        }
+
+        // Iterate over the rows
+        for (Element row : rows) {
+            // Create a new table row in the Word document
+            XWPFTableRow tableRow = table.createRow();
+            System.out.println("Table row: " + tableRow);
+
+            // Get the table cells from the HTML row
+            Elements cells = row.select("td");
+
+        }
+    }
 
     private static void agregarEntradaIndice(XWPFDocument document, String entrada) {
         // Crear un párrafo para una entrada del índice
