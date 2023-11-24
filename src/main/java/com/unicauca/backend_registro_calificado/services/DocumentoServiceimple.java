@@ -317,7 +317,7 @@ public class DocumentoServiceimple implements IDocumentoService {
     private static void processImage(int saltosLinea, XWPFDocument document) throws IOException {
         // Extract the image source URL from the element
 
-        String rutaLocal = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\unicauca.jpg";
+        String rutaLocal = "src/main/resources/files/unicauca.jpg";
 
         Path origen = Path.of(rutaLocal);
 
