@@ -14,6 +14,8 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -265,6 +267,30 @@ public class DocumentoServiceimple implements IDocumentoService {
         }
     }
 
+    public static void processElementTable(Element element, XWPFTableCell tableCell) {
+        // Obtener el texto del elemento
+        String text = element.text();
+
+        // Crear un nuevo párrafo en la celda
+        XWPFParagraph paragraph = tableCell.addParagraph();
+
+        // Procesar las etiquetas adicionales dentro del elemento
+        for (Node child : element.childNodes()) {
+            if (child instanceof TextNode) {
+                // Agregar el texto sin formato al párrafo
+                paragraph.createRun().setText(((TextNode) child).text());
+            } else if (child instanceof Element) {
+                // Procesar las etiquetas adicionales dentro del elemento
+                processElementTable((Element) child, tableCell);
+            }
+        }
+
+        // Agregar el texto al párrafo si no se ha procesado como etiqueta adicional
+        if (paragraph.getRuns().isEmpty()) {
+            //paragraph.createRun().setText(text);
+        }
+    }
+
 
     private static void processh1(Element element, XWPFDocument document) {
         // Creamos el párrafo y le asignamos el estilo de encabezado 1
@@ -402,14 +428,15 @@ public class DocumentoServiceimple implements IDocumentoService {
 
                 // Crear celda en Word
                 XWPFTableCell tableCell = tableRow.createCell();
-
+                // Procesar el contenido de la celda
+                processElementTable(cell, tableCell);
                 // Configurar celda
-                tableCell.setText(cell.text());
+                //tableCell.setText(cell.text());
             }
         }
 
         // Iterate over the rows
-        for (Element row : rows) {
+        /*for (Element row : rows) {
             // Create a new table row in the Word document
             XWPFTableRow tableRow = table.createRow();
             System.out.println("Table row: " + tableRow);
@@ -417,7 +444,7 @@ public class DocumentoServiceimple implements IDocumentoService {
             // Get the table cells from the HTML row
             Elements cells = row.select("td");
 
-        }
+        }*/
     }
 
     private static void agregarEntradaIndice(XWPFDocument document, String entrada) {
