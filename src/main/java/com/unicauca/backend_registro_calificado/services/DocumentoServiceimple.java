@@ -17,6 +17,7 @@ import org.jsoup.nodes.Element;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -66,35 +68,38 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         List<Configuraciones> configuraciones = this.iConfiguracionesRepo.findAll();
 
+        // Ruta donde se guardará el archivo Word dentro de la carpeta resources
+        String filepath = "src/main/resources/files/prueba.docx";
 
-        //llamamos a la funcion de crear documento
-        this.CreatefileDocx(ProgramaAcade,configuraciones);
+        try {
 
-        //ruta del archivo
-        String filepath = "C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx";
+            this.CreatefileDocx(ProgramaAcade,configuraciones);
+            File file = new File(filepath);
+            FileInputStream fileInputStream = new FileInputStream(file);
 
-        File file = new File(filepath);
-        FileInputStream fileInputStream = new FileInputStream(file);
+            //configuramos los encabezados de respuesta
+            HttpHeaders headers = new HttpHeaders();
 
-        //configuramos los encabezados de respuesta
-        HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "registroCalificado.docx");
 
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "registroCalificado.docx");
+            //lee el contenido del archivo en un array de bytes
+            byte[] fileContent = new byte[(int) file.length()];
+            fileInputStream.read(fileContent);
 
-        //lee el contenido del archivo en un array de bytes
-        byte[] fileContent = new byte[(int)file.length()];
-        fileInputStream.read(fileContent);
+            //cerramos el archivo
+            fileInputStream.close();
 
-        //cerramos el archivo
-        fileInputStream.close();
-
-        //devuelve el archivo como una respuesta http
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(file.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(fileContent);
+            //devuelve el archivo como una respuesta http
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(file.length())
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(fileContent);
+        }catch (Exception e) {
+            logger.error("Error en el archivo: " + e.getMessage());
+            return null;
+        }
     }
 
     public static void CreatefileDocx(ProgramaAcademico ProgramaAcade, List<Configuraciones> configuraciones ) throws IOException {
@@ -159,7 +164,7 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         //intentamos guardar el documento word
         try {
-            document.write(new FileOutputStream("C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\prueba.docx"));
+            document.write(new FileOutputStream("src/main/resources/files/prueba.docx"));
             document.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -194,11 +199,10 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         System.out.println("configuraciones: "+configuraciones.get(0).getNombreVariable());
 
-
         for (int i = 0; i < configuraciones.size(); i++) {
             if(configuraciones.get(i).getNombreVariable().equals("rector")){
                 procesarTitulo(0, document,configuraciones.get(i).getContenido());
-                procesarTitulo(2, document,configuraciones.get(i).getNombreVariable());
+                procesarTitulo(1, document,configuraciones.get(i).getNombreVariable());
             }
             if(configuraciones.get(i).getNombreVariable().equals("vicerrector_academico")){
                 procesarTitulo(0, document,configuraciones.get(i).getContenido());
