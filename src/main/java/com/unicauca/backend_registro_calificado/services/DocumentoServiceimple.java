@@ -18,6 +18,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.modelmapper.ModelMapper;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTHyperlink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -107,19 +108,29 @@ public class DocumentoServiceimple implements IDocumentoService {
         String htmlText = "<h1>Tabla X informacion del programa</h1>\n" +
                 "    <table>\n" +
                 "    <tr>\n" +
-                "    <td> 1 </td>\n" +
-                "    <td><strong> Denominacion </strong></td>\n" +
+                "    <td><b> 1 </b></td>\n" +
+                "    <td><b><span style=\"color: red;\">Denominacion</span></b></td>\n" +
                 "    <td></td>\n" +
                 "    </tr>\n" +
                 "    <tr>\n" +
-                "    <td> 2 </td>\n" +
-                "    <td><a href=\"https://www.ejemplo.com\">Dato 7</a></td>\n" +
+                "    <td><b> 2 </b></td>\n" +
+                "    <td> Titulo que otorga </td>\n" +
                 "    <td></td>\n" +
                 "    </tr>\n" +
                 "    <tr>\n" +
-                "    <td> 3 </td>\n" +
-                "    <td><em> Vigencia (para renovaciones) </em></td>\n" +
-                "    <td> 7 8 o 10 años </td>\n" +
+                "    <td><b> 3 </b></td>\n" +
+                "    <td> Norma interna de creacion </td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 4 </b></td>\n" +
+                "    <td> Codigo SNIES <i> (para renovaciones) </i></td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 5 </b></td>\n" +
+                "    <td><b> Vigencia </b>  <i> (para renovaciones) </i></td>\n" +
+                "    <td><i> 7, 8 o 10 años </i></td>\n" +
                 "    </tr>\n" +
                 "    </table>";
         //crear el documento word
@@ -267,31 +278,57 @@ public class DocumentoServiceimple implements IDocumentoService {
         }
     }
 
-    public static void processElementTable(Element element, XWPFTableCell tableCell) {
-        // Obtener el texto del elemento
-        String text = element.text();
+    private static void processElementTable(Element cellElement, XWPFTableCell tableCell) {
+        // Check if the cell contains child elements
+        if (cellElement.children().isEmpty()) {
+            // Cell contains only text
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            paragraph.createRun().setText(cellElement.text());
+        } else {
+            // Cell contains child elements
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            StringBuilder textBuilder = new StringBuilder();
 
-        // Crear un nuevo párrafo en la celda
-        XWPFParagraph paragraph = tableCell.addParagraph();
-
-        // Procesar las etiquetas adicionales dentro del elemento
-        for (Node child : element.childNodes()) {
-            if (child instanceof TextNode) {
-                // Agregar el texto sin formato al párrafo
-                paragraph.createRun().setText(((TextNode) child).text());
-            } else if (child instanceof Element) {
-                // Procesar las etiquetas adicionales dentro del elemento
-                processElementTable((Element) child, tableCell);
+            for (Node child : cellElement.childNodes()) {
+                if (child instanceof TextNode) {
+                    // Append text to the StringBuilder
+                    textBuilder.append(((TextNode) child).text());
+                }
+            }
+            // Add the combined text to the paragraph
+            paragraph.createRun().setText(textBuilder.toString());
+            // Process child elements of cell
+            for (Element child : cellElement.children()) {
+                if ("b".equals(child.tagName())) {
+                    // Apply bold to run
+                    applyBoldStyle(child, paragraph);
+                } else if ("i".equals(child.tagName())) {
+                    // Apply italic to run
+                    applyItalicStyle(child, paragraph);
+                } /*else if ("span".equals(child.tagName())) {
+                    // Apply color to run
+                    applyColorStyle(child, paragraph);
+                }*/
+                // Similarly check for other tags
             }
         }
-
-        // Agregar el texto al párrafo si no se ha procesado como etiqueta adicional
-        if (paragraph.getRuns().isEmpty()) {
-            //paragraph.createRun().setText(text);
-        }
     }
-
-
+    private static void applyBoldStyle(Element boldElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(boldElement.text());
+        run.setBold(true);
+    }
+    private static void applyItalicStyle(Element italicElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(italicElement.text());
+        run.setItalic(true);
+    }
+    /*private static void applyColorStyle(Element spanElement, XWPFParagraph paragraph) {
+        String color = spanElement.attr("style").replaceAll(".*color:\\s*([^;]+).*", "$1");
+        XWPFRun run = paragraph.createRun();
+        run.setText(spanElement.text());
+        run.setColor(color);
+    }*/
     private static void processh1(Element element, XWPFDocument document) {
         // Creamos el párrafo y le asignamos el estilo de encabezado 1
         XWPFParagraph paragraph = document.createParagraph();
@@ -410,41 +447,54 @@ public class DocumentoServiceimple implements IDocumentoService {
         document.createParagraph().createRun().addBreak(BreakType.PAGE);
     }
 
-    public static void processTable(Element element, XWPFDocument document) {
-        // Create a new table in the Word document
+    private static void processTable(Element element, XWPFDocument document) {
+
         XWPFTable table = document.createTable();
 
-        // Get the table rows from the HTML element
+        // Get table rows
         Elements rows = element.select("tr");
-        System.out.println("Rows: " + rows);
 
         for(Element row : rows) {
-            // Crear fila en Word
+
             XWPFTableRow tableRow = table.createRow();
-            // Obtener celdas de esta fila
+
+            // Get cells in this row
             Elements cells = row.select("td");
-            System.out.println("Cells: " + cells);
+
             for(Element cell : cells) {
 
-                // Crear celda en Word
                 XWPFTableCell tableCell = tableRow.createCell();
-                // Procesar el contenido de la celda
+
+                // Process cell content
                 processElementTable(cell, tableCell);
-                // Configurar celda
-                //tableCell.setText(cell.text());
+
+                // Apply styles to cell
+                applyCellStyles(cell, tableCell);
+
             }
+
         }
 
-        // Iterate over the rows
-        /*for (Element row : rows) {
-            // Create a new table row in the Word document
-            XWPFTableRow tableRow = table.createRow();
-            System.out.println("Table row: " + tableRow);
+    }
 
-            // Get the table cells from the HTML row
-            Elements cells = row.select("td");
+    private static void applyCellStyles(Element cell, XWPFTableCell tableCell) {
+        XWPFParagraph paragraph = tableCell.getParagraphs().get(0);
+        XWPFRun run = paragraph.createRun();
 
-        }*/
+        // Check if the cell content contains <b> tag
+        if (cell.select("b").size() > 0) {
+            run.setBold(true);
+        }
+
+        // Check if the cell content contains <i> tag
+        if (cell.select("i").size() > 0) {
+            run.setItalic(true);
+        }
+        // Get the index of the run
+        int runIndex = paragraph.getRuns().indexOf(run);
+
+        // Remove the run from the paragraph using the index
+        paragraph.removeRun(runIndex);
     }
 
     private static void agregarEntradaIndice(XWPFDocument document, String entrada) {
