@@ -5,17 +5,36 @@ import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.UsuarioDTO;
 import com.unicauca.backend_registro_calificado.model.Observacion;
+import com.unicauca.backend_registro_calificado.model.ProgramaAcademico;
 import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
+import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
+import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepo;
 import com.unicauca.backend_registro_calificado.repository.IRegistroCalifRepository;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,12 +49,16 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
     private final ModelMapper modelMapper;
     private final IRegistroCalifRepository iRegistroCalifRepository;
     private final IObservacionRepository iObservacionRepository;
+    private final IProgramaAcademicoRepo iProgramaAcademicoRepo;
 
-    public RegistroCalifServiceImple(ModelMapper modelMapper, IRegistroCalifRepository registroCalifRepository, IObservacionRepository observacionRepository) {
+    public RegistroCalifServiceImple(ModelMapper modelMapper, IRegistroCalifRepository registroCalifRepository, IObservacionRepository observacionRepository, IProgramaAcademicoRepo iProgramaAcademicoRepo) {
         this.modelMapper = modelMapper;
         this.iRegistroCalifRepository = registroCalifRepository;
         this.iObservacionRepository = observacionRepository;
+        this.iProgramaAcademicoRepo = iProgramaAcademicoRepo;
     }
+
+
 
     @Override
     public Response<RegistroCalificadoDTO> createRegistroCalificado(RegistroCalificadoDTO registroCalificadoDTO) {
@@ -65,8 +88,12 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
             return response;
         }
     }
-
-
+    /**
+     * Este método permite actualizar el estado del documento cuando se aprueba o se rechaza
+     * @param objObservacion es la observación realizada por el administrador
+     * @param estado indica si es rechazado o aprobado
+     * @return un mensaje indicando si la operación se realizó con éxito
+     */
     @Override
     public ResponseEntity<?> updateStateRegistroCalificado(ObservacionDTO objObservacion, EstadoRegistroCal estado) {
         try{
@@ -125,6 +152,7 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
                                     registroCalificado.getFecha_creacion().before(new Date(fin.getTime())) ||
                             registroCalificado.getFecha_creacion().equals(new Date(fin.getTime())))
                     .collect(Collectors.toList());
+
 
             List<RegistroCalificadoDTO> lstRegistroDTO = lstRegistroCal.stream().map(registroCalificado -> modelMapper.map(registroCalificado, RegistroCalificadoDTO.class)).collect(Collectors.toList());
             response.setStatus(200);

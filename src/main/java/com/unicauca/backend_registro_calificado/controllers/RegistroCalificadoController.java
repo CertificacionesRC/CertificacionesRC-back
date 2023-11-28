@@ -6,8 +6,8 @@ import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.model.Item;
 import com.unicauca.backend_registro_calificado.domain.ObservacionDTO;
 import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
-import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
+import com.unicauca.backend_registro_calificado.services.IDocumentoService;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
 import com.unicauca.backend_registro_calificado.services.IitemService;
 import org.apache.poi.xwpf.usermodel.*;
@@ -21,11 +21,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import com.unicauca.backend_registro_calificado.domain.Response;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.List;
 
@@ -42,13 +37,16 @@ import com.unicauca.backend_registro_calificado.model.SubItem;
 public class RegistroCalificadoController {
 
     private final IRegistroCalificadoService registroCalificadoBusiness;
+    private final IDocumentoService documentoService;
 
+    public RegistroCalificadoController(IRegistroCalificadoService registroCalificadoBusiness, IDocumentoService documentoService) {
     private static IitemService iitemService;
 
     @Autowired
     public RegistroCalificadoController(IitemService iitemService, IRegistroCalificadoService registroCalificadoBusiness) {
         this.iitemService = iitemService;
         this.registroCalificadoBusiness = registroCalificadoBusiness;
+        this.documentoService = documentoService;
     }
 
     @PostMapping()
@@ -331,6 +329,4 @@ public class RegistroCalificadoController {
                 .body(fileContent);
 
     }
-
-
 }
