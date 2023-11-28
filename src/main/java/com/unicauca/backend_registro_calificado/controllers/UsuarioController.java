@@ -60,4 +60,10 @@ public class UsuarioController {
     public Response<Boolean> disableUusario(@PathVariable Long id){
         return  this.iUsuarioService.disableUsuario(id);
     }
+
+//    @Secured("ADMIN")
+    @GetMapping("/findUsuarioByEmail/{email}")
+    public Response<UsuarioDTO> findUsuarioByEmail(@PathVariable String email){
+        return this.iUsuarioService.findUsuarioByEmail(email);
+    }
 }

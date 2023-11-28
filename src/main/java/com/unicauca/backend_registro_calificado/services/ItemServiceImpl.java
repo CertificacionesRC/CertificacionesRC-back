@@ -3,6 +3,7 @@ package com.unicauca.backend_registro_calificado.services;
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.Item;
+import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,8 +76,8 @@ public class ItemServiceImpl implements IitemService{
             // actualiza el subItem
             //item.setId(itemUpdate.getId());
             item.setContenido(itemUpdate.getContenido());
-            item.setGuia(itemUpdate.getGuia());
-            item.setNombre(itemUpdate.getNombre());
+//            item.setGuia(itemUpdate.getGuia());
+//            item.setNombre(itemUpdate.getNombre());
 
             this.iitemRepository.save(item);
             ItemDTO item1 = modelMapper.map(item, ItemDTO.class);
@@ -101,8 +104,22 @@ public class ItemServiceImpl implements IitemService{
 
     @Override
     public List<ItemDTO> findAllItem() {
-        System.out.println("ProgramServiceImpl.findAllProgram");
         List<Item> items = this.iitemRepository.findAll();
+
+        //Elimino repetidos
+        List<SubItem> itemsSinRepetidos = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            for (int j = 0; j < items.get(i).getSubItems().size(); j++) {
+                for (int k = 0; k < items.get(i).getSubItems().get(j).getSubItems().size(); k++) {
+                    for (int l = 0; l < items.get(i).getSubItems().size(); l++) {
+                        if (items.get(i).getSubItems().get(j).getSubItems().get(k).getId() == items.get(i).getSubItems().get(l).getId()) {
+                            itemsSinRepetidos.add(items.get(i).getSubItems().get(j).getSubItems().get(k));
+                            items.get(i).getSubItems().remove(l);
+                        }
+                    }
+                }
+            }
+        }
 
         List<ItemDTO> itemDTOS = items.stream().map(item ->  modelMapper.map(item, ItemDTO.class)).collect(Collectors.toList());
         return itemDTOS;

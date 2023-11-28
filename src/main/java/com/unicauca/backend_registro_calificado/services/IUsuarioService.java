@@ -13,4 +13,5 @@ public interface IUsuarioService {
     public Response<UsuarioDTO> updateUsuario(Long id, UsuarioDTO usuario);
     public Response<Boolean> disableUsuario(Long id);
     public Response<Boolean> enableUsuario(Long id);
+    public Response<UsuarioDTO> findUsuarioByEmail(String email);
 }

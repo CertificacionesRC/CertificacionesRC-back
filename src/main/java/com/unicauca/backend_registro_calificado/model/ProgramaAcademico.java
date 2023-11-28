@@ -25,6 +25,7 @@ public class ProgramaAcademico {
 
     @Enumerated(EnumType.STRING)
     private TipoPrograma tipo;
+    private String facultad;
 
     @OneToMany(mappedBy = "programaAcademico")
     private List<RegistroCalificado> registroCalificados;

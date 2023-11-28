@@ -16,4 +16,6 @@ public interface IitemRepository extends JpaRepository<Item, String> {
 
     Optional<Item> findById(Integer idItem);
 
+    List<Item> findAllBySubItems_ParentSubItem_Id(Integer idParent);
+
 }

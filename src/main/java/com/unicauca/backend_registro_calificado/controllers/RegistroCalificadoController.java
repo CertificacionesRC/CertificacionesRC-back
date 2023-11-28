@@ -1,8 +1,13 @@
 package com.unicauca.backend_registro_calificado.controllers;
+
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.model.Item;
+import com.unicauca.backend_registro_calificado.domain.ObservacionDTO;
+import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
+import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
 import com.unicauca.backend_registro_calificado.services.IitemService;
 import org.apache.poi.xwpf.usermodel.*;
@@ -12,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import com.unicauca.backend_registro_calificado.domain.Response;
 
@@ -20,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -48,7 +55,43 @@ public class RegistroCalificadoController {
     public Response<RegistroCalificadoDTO> createRegistro(@RequestBody RegistroCalificadoDTO registroCalificadoDTO) {
         return this.registroCalificadoBusiness.createRegistroCalificado(registroCalificadoDTO);
     }
+    @Secured("ADMIN")
+    @PostMapping("/updateStateRegistroCalificado")
+    public ResponseEntity<?> updateStateRegistroCalificado(@RequestBody ObservacionDTO observacion, @RequestParam EstadoRegistroCal estado) {
+        return this.registroCalificadoBusiness.updateStateRegistroCalificado(observacion, estado);
+    }
+    @Secured("ADMIN")
+    @GetMapping("/findAllByEstado")
+    public Response<List<RegistroCalificadoDTO>> findAllByEstado(@RequestParam EstadoRegistroCal estado){
+        return this.registroCalificadoBusiness.findAllByEstado(estado);
+    }
 
+    @Secured("ADMIN")
+    @GetMapping("/findAllByDate")
+    public Response<List<RegistroCalificadoDTO>> findAllByDate(@RequestParam String fechaInicio, @RequestParam String fechaFin) {
+        try {
+            return this.registroCalificadoBusiness.findAllByDate(fechaInicio, fechaFin);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Secured("COORDINADOR")
+    @GetMapping("/findAll")
+    public Response<List<RegistroCalificadoDTO>> findAll() {
+        return this.registroCalificadoBusiness.findAll();
+    }
+
+    @Secured("COORDINADOR")
+    @GetMapping("/findAllByProgramaAcademico/{programaId}")
+    public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(@PathVariable Long programaId) {
+        return this.registroCalificadoBusiness.findAllByProgramaAcademico(programaId);
+    }
+    @Secured("COORDINADOR")
+    @GetMapping("/findRegistroCalificadoById/{autor}")
+    public Response<RegistroCalificadoDTO> findRegistroCalificadoByAutor(@PathVariable String autor) {
+        return this.registroCalificadoBusiness.findRegistroCalificadoByAutor(autor);
+    }
 
     public static void CreatefileDocx(){
 

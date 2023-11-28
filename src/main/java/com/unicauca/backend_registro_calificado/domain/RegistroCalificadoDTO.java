@@ -13,7 +13,7 @@ public class RegistroCalificadoDTO {
 
     private Integer id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date fecha_creacion;
 
     private String colaboradores;

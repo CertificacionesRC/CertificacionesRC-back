@@ -1,8 +1,7 @@
 --ProgramaAcademico todo temrnar de ahcer lo demas
-INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo) VALUES ('1','sistemas','PREGRADO');
-INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo) VALUES ('2','electronica','PREGRADO');
-INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo) VALUES ('3','civil','PREGRADO');
-
+INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('1','sistemas','PREGRADO', 'Ingeniería elelectrónica y telecomunicaciones');
+INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('2','electronica','PREGRADO', 'Ingeniería elelectrónica y telecomunicaciones');
+INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('3','civil','PREGRADO', 'Ingeniería Civil');
 
 --RegistroCalificado
 --todo verificar como nos deben llegar los colaboradores y autores
@@ -143,7 +142,7 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALU
 
 -- roles
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('1','ADMIN');
-INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','CORDINADOR');
+INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','COORDINADOR');
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('3','SUPERUSUARIO');
 
 
