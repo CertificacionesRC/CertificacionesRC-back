@@ -278,57 +278,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         }
     }
 
-    private static void processElementTable(Element cellElement, XWPFTableCell tableCell) {
-        // Check if the cell contains child elements
-        if (cellElement.children().isEmpty()) {
-            // Cell contains only text
-            XWPFParagraph paragraph = tableCell.addParagraph();
-            paragraph.createRun().setText(cellElement.text());
-        } else {
-            // Cell contains child elements
-            XWPFParagraph paragraph = tableCell.addParagraph();
-            StringBuilder textBuilder = new StringBuilder();
 
-            for (Node child : cellElement.childNodes()) {
-                if (child instanceof TextNode) {
-                    // Append text to the StringBuilder
-                    textBuilder.append(((TextNode) child).text());
-                }
-            }
-            // Add the combined text to the paragraph
-            paragraph.createRun().setText(textBuilder.toString());
-            // Process child elements of cell
-            for (Element child : cellElement.children()) {
-                if ("b".equals(child.tagName())) {
-                    // Apply bold to run
-                    applyBoldStyle(child, paragraph);
-                } else if ("i".equals(child.tagName())) {
-                    // Apply italic to run
-                    applyItalicStyle(child, paragraph);
-                } /*else if ("span".equals(child.tagName())) {
-                    // Apply color to run
-                    applyColorStyle(child, paragraph);
-                }*/
-                // Similarly check for other tags
-            }
-        }
-    }
-    private static void applyBoldStyle(Element boldElement, XWPFParagraph paragraph) {
-        XWPFRun run = paragraph.createRun();
-        run.setText(boldElement.text());
-        run.setBold(true);
-    }
-    private static void applyItalicStyle(Element italicElement, XWPFParagraph paragraph) {
-        XWPFRun run = paragraph.createRun();
-        run.setText(italicElement.text());
-        run.setItalic(true);
-    }
-    /*private static void applyColorStyle(Element spanElement, XWPFParagraph paragraph) {
-        String color = spanElement.attr("style").replaceAll(".*color:\\s*([^;]+).*", "$1");
-        XWPFRun run = paragraph.createRun();
-        run.setText(spanElement.text());
-        run.setColor(color);
-    }*/
     private static void processh1(Element element, XWPFDocument document) {
         // Creamos el párrafo y le asignamos el estilo de encabezado 1
         XWPFParagraph paragraph = document.createParagraph();
@@ -446,61 +396,103 @@ public class DocumentoServiceimple implements IDocumentoService {
         // Agregar un salto de página después del índice
         document.createParagraph().createRun().addBreak(BreakType.PAGE);
     }
-
-    private static void processTable(Element element, XWPFDocument document) {
-
-        XWPFTable table = document.createTable();
-
-        // Get table rows
-        Elements rows = element.select("tr");
-
-        for(Element row : rows) {
-
-            XWPFTableRow tableRow = table.createRow();
-
-            // Get cells in this row
-            Elements cells = row.select("td");
-
-            for(Element cell : cells) {
-
-                XWPFTableCell tableCell = tableRow.createCell();
-
-                // Process cell content
-                processElementTable(cell, tableCell);
-
-                // Apply styles to cell
-                applyCellStyles(cell, tableCell);
-
-            }
-
-        }
-
-    }
-
-    private static void applyCellStyles(Element cell, XWPFTableCell tableCell) {
-        XWPFParagraph paragraph = tableCell.getParagraphs().get(0);
-        XWPFRun run = paragraph.createRun();
-
-        // Check if the cell content contains <b> tag
-        if (cell.select("b").size() > 0) {
-            run.setBold(true);
-        }
-
-        // Check if the cell content contains <i> tag
-        if (cell.select("i").size() > 0) {
-            run.setItalic(true);
-        }
-        // Get the index of the run
-        int runIndex = paragraph.getRuns().indexOf(run);
-
-        // Remove the run from the paragraph using the index
-        paragraph.removeRun(runIndex);
-    }
-
     private static void agregarEntradaIndice(XWPFDocument document, String entrada) {
         // Crear un párrafo para una entrada del índice
         XWPFParagraph indexParagraph = document.createParagraph();
         XWPFRun indexRun = indexParagraph.createRun();
         indexRun.setText(entrada);
     }
+
+    //------------------ Generar Tabla --------------------
+
+    private static void processTable(Element element, XWPFDocument document) {
+        XWPFTable table = document.createTable();
+        // Obtenemos filas de la tabla
+        Elements rows = element.select("tr");
+        for(Element row : rows) {
+            XWPFTableRow tableRow = table.createRow();
+            // Obtenemos las celdas en esta fila
+            Elements cells = row.select("td");
+            for(Element cell : cells) {
+                XWPFTableCell tableCell = tableRow.createCell();
+                // Procesa el contenido de la celda
+                processElementTable(cell, tableCell);
+                // Aplica estilos a la celda
+                applyCellStyles(cell, tableCell);
+            }
+        }
+    }
+    private static void processElementTable(Element cellElement, XWPFTableCell tableCell) {
+        // Comprueba si la celda contiene elementos o etiquetas secundarias
+        if (cellElement.children().isEmpty()) {
+            // La celda contiene solo texto
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            paragraph.createRun().setText(cellElement.text());
+        } else {
+            // La celda conteine elementos adicionales
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            StringBuilder textBuilder = new StringBuilder();
+
+            for (Node child : cellElement.childNodes()) {
+                if (child instanceof TextNode)
+                    // agreagamos el texto con StringBuilder
+                    textBuilder.append(((TextNode) child).text());
+            }
+            // Añade el texto combinado al párrafo.
+            paragraph.createRun().setText(textBuilder.toString());
+            // Procesar elementos secundarios de la celda.
+            for (Element child : cellElement.children()) {
+                if ("b".equals(child.tagName()))
+                    // Aplicamos negrita
+                    applyBoldStyle(child, paragraph);
+                else if ("i".equals(child.tagName()))
+                    // Aplicamos cursiva
+                    applyItalicStyle(child, paragraph);
+                else if ("p".equals(child.tagName()))
+                    // aplicamos parrafo
+                    applyParagraph(child, paragraph);
+                // hacerlo similar para el resto de etiquetas
+            }
+        }
+    }
+
+    private static void applyCellStyles(Element cell, XWPFTableCell tableCell) {
+        XWPFParagraph paragraph = tableCell.getParagraphs().get(0);
+        XWPFRun run = paragraph.createRun();
+        // Comprobar si el contenido de la celda contiene la etiqueta <b>
+        if (cell.select("b").size() > 0)
+            run.setBold(true);
+        // Comprobar si el contenido de la celda contiene la etiqueta <i>
+        if (cell.select("i").size() > 0)
+            run.setItalic(true);
+        // Obtener el índice de la ejecución
+        int runIndex = paragraph.getRuns().indexOf(run);
+        // Eliminar la ejecución del párrafo usando el índice.
+        paragraph.removeRun(runIndex);
+    }
+
+    private static void applyBoldStyle(Element boldElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(boldElement.text());
+        run.setBold(true);
+    }
+    private static void applyItalicStyle(Element italicElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(italicElement.text());
+        run.setItalic(true);
+    }
+
+    private static void applyParagraph(Element element, XWPFParagraph paragraph ) {
+        //obtenemos el texto de la etiqueta
+        XWPFRun run = paragraph.createRun();
+        run.setText(element.text());
+    }
+
+    /*private static void applyColorStyle(Element spanElement, XWPFParagraph paragraph) {
+        String color = spanElement.attr("style").replaceAll(".*color:\\s*([^;]+).*", "$1");
+        XWPFRun run = paragraph.createRun();
+        run.setText(spanElement.text());
+        run.setColor(color);
+    }*/
+
 }

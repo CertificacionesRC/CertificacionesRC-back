@@ -73,8 +73,8 @@ public class ItemServiceImpl implements IitemService{
             // actualiza el subItem
             //item.setId(itemUpdate.getId());
             item.setContenido(itemUpdate.getContenido());
-            item.setGuia(itemUpdate.getGuia());
-            item.setNombre(itemUpdate.getNombre());
+            //item.setGuia(itemUpdate.getGuia());
+            //item.setNombre(itemUpdate.getNombre());
 
             this.iitemRepository.save(item);
             ItemDTO item1 = modelMapper.map(item, ItemDTO.class);
