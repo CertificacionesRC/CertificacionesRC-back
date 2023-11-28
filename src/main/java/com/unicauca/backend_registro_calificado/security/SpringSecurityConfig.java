@@ -66,7 +66,8 @@ public class SpringSecurityConfig {
                 new AntPathRequestMatcher("/subItem/**"),
                 new AntPathRequestMatcher("/item/**"),
                 new AntPathRequestMatcher("/registrocalificado/**"),
-                new AntPathRequestMatcher("/usuario/**")
+                new AntPathRequestMatcher("/usuario/**"),
+                new AntPathRequestMatcher("/programaAcademico/**")
         );
 
         http.authorizeHttpRequests(authorize -> {
