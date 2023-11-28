@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 public class ProgramaAcademicoDTO {
 
     private Integer id;
-
     private String nombre;
-
     private TipoPrograma tipo;
-
+    private String facultad;
     private RegistroCalificadoDTO registroCalificado;
 
 }
