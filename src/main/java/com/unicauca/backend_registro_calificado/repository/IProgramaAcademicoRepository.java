@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface  IProgramaAcademicoRepository extends JpaRepository<ProgramaAcademico, String> {
+    public ProgramaAcademico findById(Long programa_academico_id);
 
 }

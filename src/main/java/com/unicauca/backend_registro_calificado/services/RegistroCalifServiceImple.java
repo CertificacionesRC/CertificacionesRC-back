@@ -10,7 +10,7 @@ import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
-import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepo;
+import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepository;
 import com.unicauca.backend_registro_calificado.repository.IRegistroCalifRepository;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
@@ -49,13 +49,13 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
     private final ModelMapper modelMapper;
     private final IRegistroCalifRepository iRegistroCalifRepository;
     private final IObservacionRepository iObservacionRepository;
-    private final IProgramaAcademicoRepo iProgramaAcademicoRepo;
+    private final IProgramaAcademicoRepository iProgramaAcademicoRepository;
 
-    public RegistroCalifServiceImple(ModelMapper modelMapper, IRegistroCalifRepository registroCalifRepository, IObservacionRepository observacionRepository, IProgramaAcademicoRepo iProgramaAcademicoRepo) {
+    public RegistroCalifServiceImple(ModelMapper modelMapper, IRegistroCalifRepository registroCalifRepository, IObservacionRepository observacionRepository, IProgramaAcademicoRepository iProgramaAcademicoRepository) {
         this.modelMapper = modelMapper;
         this.iRegistroCalifRepository = registroCalifRepository;
         this.iObservacionRepository = observacionRepository;
-        this.iProgramaAcademicoRepo = iProgramaAcademicoRepo;
+        this.iProgramaAcademicoRepository = iProgramaAcademicoRepository;
     }
 
 

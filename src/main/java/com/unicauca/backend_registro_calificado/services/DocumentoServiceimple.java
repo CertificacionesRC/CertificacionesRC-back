@@ -7,7 +7,7 @@ import com.unicauca.backend_registro_calificado.model.RegistroCalificado;
 import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.repository.IConfiguracionesRepo;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
-import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepo;
+import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepository;
 import com.unicauca.backend_registro_calificado.repository.IRegistroCalifRepository;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
@@ -43,18 +43,18 @@ public class DocumentoServiceimple implements IDocumentoService {
     private final ModelMapper modelMapper;
     private final IRegistroCalifRepository iRegistroCalifRepository;
     private final IObservacionRepository iObservacionRepository;
-    private final IProgramaAcademicoRepo iProgramaAcademicoRepo;
+    private final IProgramaAcademicoRepository iProgramaAcademicoRepo;
 
     private final IConfiguracionesRepo iConfiguracionesRepo;
 
     private static IitemService iitemService;
 
     public DocumentoServiceimple(ModelMapper modelMapper, IRegistroCalifRepository iRegistroCalifRepository, IObservacionRepository iObservacionRepository,
-                                 IProgramaAcademicoRepo iProgramaAcademicoRepo, IConfiguracionesRepo iConfiguracionesRepo, IitemService iitemService) {
+                                 IProgramaAcademicoRepository iProgramaAcademicoRepository, IConfiguracionesRepo iConfiguracionesRepo, IitemService iitemService) {
         this.modelMapper = modelMapper;
         this.iRegistroCalifRepository = iRegistroCalifRepository;
         this.iObservacionRepository = iObservacionRepository;
-        this.iProgramaAcademicoRepo = iProgramaAcademicoRepo;
+        this.iProgramaAcademicoRepo = iProgramaAcademicoRepository;
         this.iConfiguracionesRepo = iConfiguracionesRepo;
         this.iitemService = iitemService;
     }
@@ -328,7 +328,7 @@ public class DocumentoServiceimple implements IDocumentoService {
             // Copiar el archivo al destino especificado
             XWPFParagraph paragraph = document.createParagraph();
             XWPFRun run = paragraph.createRun();
-            run.setText(Files.probeContentType(origen));
+            //run.setText(Files.probeContentType(origen));
             paragraph.setAlignment(ParagraphAlignment.CENTER);
             insertarImagen(run, document, origen, rutaLocal);
             for(int i=saltosLinea;i>0;i--) {
