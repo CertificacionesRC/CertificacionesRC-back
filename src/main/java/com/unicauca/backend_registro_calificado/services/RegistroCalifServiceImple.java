@@ -184,6 +184,28 @@ public class RegistroCalifServiceImple implements IRegistroCalificadoService{
             return response;
         }
     }
+
+    @Override
+    public Response<RegistroCalificadoDTO> findRegistroCalificadoByAutor(String autor) {
+        Response<RegistroCalificadoDTO> response = new Response<>();
+        try{
+            RegistroCalificado registroCalificado = this.iRegistroCalifRepository.findByAutor(autor);
+            response.setStatus(registroCalificado != null  ? 200 : 404);
+            response.setUserMessage(registroCalificado != null ? "Registros calificado encontrado con éxito" : "No se encuentraa un registro calificado asociado a este programa academico");
+            response.setDeveloperMessage(registroCalificado != null ? "Registro calificado encontrado con éxito" : null);
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findRegistroCalificadoById");
+            response.setData(registroCalificado != null ? modelMapper.map(registroCalificado, RegistroCalificadoDTO.class) : null);
+            return response;
+        } catch (Exception e){
+            response.setStatus(500);
+            response.setUserMessage("Error al encontrar el registro calificado. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Error al encontrar los registros calificados. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/registrocalificado/findAllByProgramaAcademico");
+            response.setData(null);
+            return response;
+        }
+    }
+
 }
 
 

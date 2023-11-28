@@ -185,4 +185,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return response;
         }
     }
+
+    @Override
+    public Response<UsuarioDTO> findUsuarioByEmail(String email) {
+        Response<UsuarioDTO> response = new Response<>();
+        try {
+            Usuario usuario = this.iUsuarioRepository.findByCorreo(email);
+            UsuarioDTO usuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
+            response.setStatus(200);
+            response.setUserMessage("Usuario encontrado con éxito");
+            response.setDeveloperMessage("Usuario encontrado con éxito");
+            response.setMoreInfo("http://localhost:8081/api/usuraio/findUsuarioByEmail");
+            response.setData(usuarioDTO);
+            return response;
+        }catch (Exception e){
+            System.out.println("Error: "+ e);
+            response.setStatus(404);
+            response.setUserMessage("Usuario no encontrado. Causado por: "+e.getMessage());
+            response.setDeveloperMessage("Usuario no encontrado. Causado por: "+e.getMessage());
+            response.setMoreInfo("http://localhost:8081/api/usuraio/findUsuarioByEmail");
+            response.setData(null);
+            return response;
+        }
+    }
 }

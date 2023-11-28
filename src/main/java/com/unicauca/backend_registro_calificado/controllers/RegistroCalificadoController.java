@@ -82,6 +82,11 @@ public class RegistroCalificadoController {
     public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(@PathVariable Long programaId) {
         return this.registroCalificadoBusiness.findAllByProgramaAcademico(programaId);
     }
+    @Secured("COORDINADOR")
+    @GetMapping("/findRegistroCalificadoById/{autor}")
+    public Response<RegistroCalificadoDTO> findRegistroCalificadoByAutor(@PathVariable String autor) {
+        return this.registroCalificadoBusiness.findRegistroCalificadoByAutor(autor);
+    }
 
     public static void CreatefileDocx(){
 

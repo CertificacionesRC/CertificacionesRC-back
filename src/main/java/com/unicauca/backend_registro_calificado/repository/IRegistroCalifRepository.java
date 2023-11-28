@@ -17,5 +17,6 @@ public interface IRegistroCalifRepository extends JpaRepository<RegistroCalifica
 
     List<RegistroCalificado> findAllByProgramaAcademicoId(Long programaId);
 
+    RegistroCalificado findByAutor(String autor);
 
 }

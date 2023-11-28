@@ -25,4 +25,6 @@ public interface IRegistroCalificadoService {
     public Response<List<RegistroCalificadoDTO>> findAllByDate(String fechaInicio, String fechaFin) throws ParseException;
     public Response<List<RegistroCalificadoDTO>> findAll();
     public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(Long programaId);
+
+    public Response<RegistroCalificadoDTO> findRegistroCalificadoByAutor(String autor);
 }
