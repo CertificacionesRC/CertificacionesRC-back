@@ -23,4 +23,7 @@ public class ItemDTO {
 //    @JsonIgnore()
     private List<SubItem> subItems;
 
+    public String getNombre() {
+        return nombre;
+    }
 }

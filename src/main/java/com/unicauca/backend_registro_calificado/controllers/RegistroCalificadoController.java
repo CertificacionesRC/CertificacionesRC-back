@@ -1,12 +1,14 @@
 package com.unicauca.backend_registro_calificado.controllers;
+import com.unicauca.backend_registro_calificado.domain.ItemDTO;
+import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
+import com.unicauca.backend_registro_calificado.model.Item;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
-import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
+import com.unicauca.backend_registro_calificado.services.IitemService;
 import org.apache.poi.xwpf.usermodel.*;
-import org.openxmlformats.schemas.drawingml.x2006.main.CTHyperlink;
-import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff;
-import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff1;
 
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +20,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSimpleField;
-
-
+import com.unicauca.backend_registro_calificado.model.SubItem;
 
 
 @RestController
@@ -36,7 +36,11 @@ public class RegistroCalificadoController {
 
     private final IRegistroCalificadoService registroCalificadoBusiness;
 
-    public RegistroCalificadoController(IRegistroCalificadoService registroCalificadoBusiness) {
+    private static IitemService iitemService;
+
+    @Autowired
+    public RegistroCalificadoController(IitemService iitemService, IRegistroCalificadoService registroCalificadoBusiness) {
+        this.iitemService = iitemService;
         this.registroCalificadoBusiness = registroCalificadoBusiness;
     }
 
@@ -49,25 +53,29 @@ public class RegistroCalificadoController {
     public static void CreatefileDocx(){
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
-        String htmlText = "<p>Esta es otra prueba</p>";
+        //String htmlText = "<p>Esta es otra prueba</p>";
 
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
 
+        //cremos la tabla de contenido
+        //traemos los items y subItems de la base de datos
+        createTableOfContents(document);
+
         //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
         //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
-        Document doc = Jsoup.parse(htmlText);
-        Element body = doc.body();
+        //Document doc = Jsoup.parse(htmlText);
+        //Element body = doc.body();
 
-        for (Element element : body.children()){
+        //for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
-            processElement(element, document);
-        }
-
+          //  processElement(element, document);
+        //}
 
         //crearIndice(document);
 
-        XWPFParagraph p = document.createParagraph();
+        //creacion de marcador verificar para tabla de contenido //todo
+        /*XWPFParagraph p = document.createParagraph();
 
         String encodedURI = URLEncoder.encode("#my_bookmark");
         XWPFHyperlinkRun hyperlinkRun = p.createHyperlinkRun(encodedURI);
@@ -76,15 +84,15 @@ public class RegistroCalificadoController {
         XWPFParagraph indexParagraph = document.createParagraph();
         indexParagraph.addRun(hyperlinkRun);
         XWPFRun indexRun = indexParagraph.createRun();
-        indexRun.setText("my_bookmark");
+        indexRun.setText("my_bookmark");*/
 
 
-        XWPFParagraph paragraph = document.createParagraph();
+        //XWPFParagraph paragraph = document.createParagraph();
 
         //pasear el html y argegar al docuemtno word
-        Document doc2 = Jsoup.parse(htmlText);
-        Element bodyy = doc2.body();
-        paragraph.createRun().setText(bodyy.text());
+        //Document doc2 = Jsoup.parse(htmlText);
+        //Element bodyy = doc2.body();
+        //paragraph.createRun().setText(bodyy.text());
 
         //intentamos guardar el documento word
         try {
@@ -94,6 +102,77 @@ public class RegistroCalificadoController {
             e.printStackTrace();
         }
 
+    }
+
+    private static void createTableOfContents(XWPFDocument document){
+        //llamamos a funcion que trae los items
+        List Items = getItems();
+        //System.out.println("estos son los items");
+        //System.out.println(Items);
+
+        //recorremos los items y agregamos al documento
+        int mainIndex = 1;
+
+        for (Object item : Items) {
+            //System.out.println("este es el item");
+            //System.out.println(item);
+
+            //System.out.println("este es el nombre del item");
+            ItemDTO itemDTO = (ItemDTO) item;
+
+            String nombreItem = mainIndex + ". " + itemDTO.getNombre();
+            System.out.println(nombreItem);
+
+            //creamos el parrafo y se lo agregarmos al documento
+            XWPFParagraph paragraph = document.createParagraph();
+            XWPFRun run = paragraph.createRun();
+            run.setText(nombreItem);
+
+            //creamos los subitems
+            int subIndex = 1;
+            List<SubItem> subItemsList = itemDTO.getSubItems();
+
+            //iteramos la listade subitems
+            for (SubItem subItem : subItemsList) {
+
+                SubItem padreDeItem = subItem.getParentSubItem();
+
+                System.out.println("este es el subitem: " + subItem.getNombre());
+
+                System.out.println("tiene items: ");
+                System.out.println(padreDeItem);
+
+                //para mapear items de (3) tercer nivel
+                /*if(padreDeItem == null){
+                    System.out.println("el sub item" + mainIndex +":"+ subIndex + "tiene items" );
+                }else{
+                    System.out.println("el sub item" + mainIndex +":"+ subIndex + "no tiene items" );
+                }*/
+
+                String nombreSubItem = "    " + mainIndex + "." + subIndex + ". " + subItem.getNombre();
+                //System.out.println(nombreSubItem);
+
+                //creamos el parrafo y se lo agregarmos al documento
+                XWPFParagraph paragraph2 = document.createParagraph();
+                XWPFRun run2 = paragraph2.createRun();
+                run2.setText(nombreSubItem);
+
+                subIndex++;
+            }
+
+            mainIndex++;
+        }
+    }
+
+
+    /*public static List<SubItemDTO> getSubItemByIdItem(){
+        List<SubItemDTO> listaItems = iitemService.findAllItem();
+        return listaItems;
+    }*/
+
+    public static List<ItemDTO> getItems(){
+        List<ItemDTO> listaItems = iitemService.findAllItem();
+        return listaItems;
     }
 
     private static void processElement(Element element, XWPFDocument document) {
@@ -173,6 +252,7 @@ public class RegistroCalificadoController {
         XWPFRun indexRun = indexParagraph.createRun();
         indexRun.setText(entrada);
     }
+
 
 
     @GetMapping("/getDocumento")
