@@ -15,7 +15,11 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 import org.modelmapper.ModelMapper;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTHyperlink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -201,6 +205,7 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         System.out.println("configuraciones: "+configuraciones.get(0).getNombreVariable());
 
+
         for (int i = 0; i < configuraciones.size(); i++) {
             if(configuraciones.get(i).getNombreVariable().equals("rector")){
                 procesarTitulo(0, document,configuraciones.get(i).getContenido());
@@ -265,6 +270,8 @@ public class DocumentoServiceimple implements IDocumentoService {
             //processParagraph(element, document);
         }else if("h2".equals(tagName)){
             processh2(element, document);
+        }else if("table".equals(tagName)) {
+            processTable(element, document);
         }
         //para procesar sub elementos de ese elemento
         for (Element child : element.children()) {
@@ -425,7 +432,6 @@ public class DocumentoServiceimple implements IDocumentoService {
         titleRun.setText("Tabla de contenido");
 
 
-
         XWPFParagraph p = document.createParagraph();
         XWPFHyperlinkRun hyperlinkRun = p.createHyperlinkRun("my_bookmark");
         hyperlinkRun.setText("Click here to go to the bookmark!");
@@ -500,6 +506,98 @@ public class DocumentoServiceimple implements IDocumentoService {
         indexRun.setText(entrada);
     }
 
+    //------------------ Generar Tabla --------------------
+
+    private static void processTable(Element element, XWPFDocument document) {
+        XWPFTable table = document.createTable();
+        // Obtenemos filas de la tabla
+        Elements rows = element.select("tr");
+        for(Element row : rows) {
+            XWPFTableRow tableRow = table.createRow();
+            // Obtenemos las celdas en esta fila
+            Elements cells = row.select("td");
+            for(Element cell : cells) {
+                XWPFTableCell tableCell = tableRow.createCell();
+                // Procesa el contenido de la celda
+                processElementTable(cell, tableCell);
+                // Aplica estilos a la celda
+                applyCellStyles(cell, tableCell);
+            }
+        }
+    }
+    private static void processElementTable(Element cellElement, XWPFTableCell tableCell) {
+        // Comprueba si la celda contiene elementos o etiquetas secundarias
+        if (cellElement.children().isEmpty()) {
+            // La celda contiene solo texto
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            paragraph.createRun().setText(cellElement.text());
+        } else {
+            // La celda conteine elementos adicionales
+            XWPFParagraph paragraph = tableCell.addParagraph();
+            StringBuilder textBuilder = new StringBuilder();
+
+            for (Node child : cellElement.childNodes()) {
+                if (child instanceof TextNode)
+                    // agreagamos el texto con StringBuilder
+                    textBuilder.append(((TextNode) child).text());
+            }
+            // Añade el texto combinado al párrafo.
+            paragraph.createRun().setText(textBuilder.toString());
+            // Procesar elementos secundarios de la celda.
+            for (Element child : cellElement.children()) {
+                if ("b".equals(child.tagName()))
+                    // Aplicamos negrita
+                    applyBoldStyle(child, paragraph);
+                else if ("i".equals(child.tagName()))
+                    // Aplicamos cursiva
+                    applyItalicStyle(child, paragraph);
+                else if ("p".equals(child.tagName()))
+                    // aplicamos parrafo
+                    applyParagraph(child, paragraph);
+                // hacerlo similar para el resto de etiquetas
+            }
+        }
+    }
+
+    private static void applyCellStyles(Element cell, XWPFTableCell tableCell) {
+        XWPFParagraph paragraph = tableCell.getParagraphs().get(0);
+        XWPFRun run = paragraph.createRun();
+        // Comprobar si el contenido de la celda contiene la etiqueta <b>
+        if (cell.select("b").size() > 0)
+            run.setBold(true);
+        // Comprobar si el contenido de la celda contiene la etiqueta <i>
+        if (cell.select("i").size() > 0)
+            run.setItalic(true);
+        // Obtener el índice de la ejecución
+        int runIndex = paragraph.getRuns().indexOf(run);
+        // Eliminar la ejecución del párrafo usando el índice.
+        paragraph.removeRun(runIndex);
+    }
+
+    private static void applyBoldStyle(Element boldElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(boldElement.text());
+        run.setBold(true);
+    }
+    private static void applyItalicStyle(Element italicElement, XWPFParagraph paragraph) {
+        XWPFRun run = paragraph.createRun();
+        run.setText(italicElement.text());
+        run.setItalic(true);
+    }
+
+    private static void applyParagraph(Element element, XWPFParagraph paragraph ) {
+        //obtenemos el texto de la etiqueta
+        XWPFRun run = paragraph.createRun();
+        run.setText(element.text());
+    }
+
+    /*private static void applyColorStyle(Element spanElement, XWPFParagraph paragraph) {
+        String color = spanElement.attr("style").replaceAll(".*color:\\s*([^;]+).*", "$1");
+        XWPFRun run = paragraph.createRun();
+        run.setText(spanElement.text());
+        run.setColor(color);
+    }*/
+
     public static void CreatefileDocx(){
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
@@ -553,4 +651,7 @@ public class DocumentoServiceimple implements IDocumentoService {
         }
 
     }
+}
+
+
 }
