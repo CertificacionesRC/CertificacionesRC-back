@@ -112,30 +112,8 @@ public class DocumentoServiceimple implements IDocumentoService {
 
         //el String se reemplaza con la inormacion de tynyeditor de cada item
 
-        /*String htmlText = "<h1>Facultad de...</h1>\n" +
-                "    <h2>Condiciones de Calidad</h2>\n" +
-                "    <img src=\"C:\\Users\\Windows 10\\Documents\\202302\\proyecto2\\unicauca.jpg\">\n" +
-                "    <p>Programa de (pregrado/posgrado)...</p>\n" +
-                "    <p>Popayán</p>\n" +
-                "    <p>(mes) 2023</p>\n" +
-                "\n" +
-                "    <h1>Deibar René Hurtado Herrera</h1>\n" +
-                "    <h2>Rector</h2>\n" +
-                "\n" +
-                "    <h1>Aida Patricia González Nieva</h1>\n" +
-                "    <h2>Vicerrectora Académica</h2>\n" +
-                "    \n" +
-                "    <h1>Jorge Enrique Barrera Moreno</h1>\n" +
-                "    <h2>Vicerrector Administrativo</h2>\n" +
-                "\n" +
-                "    <h1>Francisco José Pino Correa</h1>\n" +
-                "    <h2>Vicerrector de Investigaciones</h2>\n" +
-                "\n" +
-                "    <h1>César Alfaro Mosquera Dorado</h1>\n" +
-                "    <h2>Vicerrector de Cultura y Bienestar</h2>\n" +
-                "\n" +
-                "    <h1>Laura Ismenia Castellanos Vivas</h1>\n" +
-                "    <h2>Secretaria General</h2>";*/
+        String htmlText = "";
+
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
         portadaFile(document, ProgramaAcade,configuraciones );
@@ -654,4 +632,4 @@ public class DocumentoServiceimple implements IDocumentoService {
 }
 
 
-}
+
