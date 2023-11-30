@@ -59,13 +59,13 @@ public class RegistroCalificadoController {
         }
     }
 
-    @Secured("COORDINADOR")
+    @Secured({"COORDINADOR", "ADMIN"})
     @GetMapping("/findAll")
     public Response<List<RegistroCalificadoDTO>> findAll() {
         return this.registroCalificadoBusiness.findAll();
     }
 
-    @Secured("COORDINADOR")
+    @Secured({"COORDINADOR", "ADMIN"})
     @GetMapping("/findAllByProgramaAcademico/{programaId}")
     public Response<List<RegistroCalificadoDTO>> findAllByProgramaAcademico(@PathVariable Long programaId) {
         return this.registroCalificadoBusiness.findAllByProgramaAcademico(programaId);
