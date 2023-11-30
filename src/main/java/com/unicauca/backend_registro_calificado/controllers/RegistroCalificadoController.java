@@ -34,6 +34,11 @@ public class RegistroCalificadoController {
         return documentoService.downloadWordFile(IdRegistroCalificado);
     }
 
+    @GetMapping("/getDocumentoPDF")
+    public ResponseEntity<byte[]> downloadPDFFile(@RequestParam Integer IdRegistroCalificado) throws Exception {
+        return documentoService.downloadPDFFile(IdRegistroCalificado);
+    }
+
     @PostMapping()
     public Response<RegistroCalificadoDTO> createRegistro(@RequestBody RegistroCalificadoDTO registroCalificadoDTO) {
         return this.registroCalificadoBusiness.createRegistroCalificado(registroCalificadoDTO);

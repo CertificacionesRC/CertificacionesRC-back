@@ -1,5 +1,8 @@
 package com.unicauca.backend_registro_calificado.services;
 
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.model.Configuraciones;
 import com.unicauca.backend_registro_calificado.model.ProgramaAcademico;
@@ -9,6 +12,10 @@ import com.unicauca.backend_registro_calificado.repository.IConfiguracionesRepo;
 import com.unicauca.backend_registro_calificado.repository.IObservacionRepository;
 import com.unicauca.backend_registro_calificado.repository.IProgramaAcademicoRepository;
 import com.unicauca.backend_registro_calificado.repository.IRegistroCalifRepository;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
@@ -22,15 +29,14 @@ import org.modelmapper.ModelMapper;
 import org.openxmlformats.schemas.drawingml.x2006.main.CTHyperlink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,6 +68,55 @@ public class DocumentoServiceimple implements IDocumentoService {
         this.iConfiguracionesRepo = iConfiguracionesRepo;
         this.iitemService = iitemService;
     }
+
+
+    @Override
+    public ResponseEntity<byte[]> downloadPDFFile(Integer IdRegistroCalificado) throws IOException {
+
+    /*    String wordFilePath = "src/main/resources/files/prueba.docx";
+
+        //solucion 2
+        Resource wordResource = new ClassPathResource(wordFilePath);
+        InputStream wordInputStream = wordResource.getInputStream();
+        XWPFDocument document = new XWPFDocument(wordInputStream);
+
+        // Directorio y nombre del archivo PDF de salida
+        String pdfFileName = "prueba.pdf";
+        String pdfFilePath = "src/main/resources/files/" + pdfFileName;
+
+        convertDocxToPDF(document, pdfFilePath);*/
+
+        return null;
+
+    }
+
+
+    /*private void convertDocxToPDF(XWPFDocument document_2, String outputPath) throws IOException {
+        try (OutputStream outputStream = new FileOutputStream(outputPath)) {
+            PdfWriter writer = PdfWriter.getInstance(document_2,outputStream);
+            com.itextpdf.text.Document itextDocument = new com.itextpdf.text.Document();
+
+            writer.open();
+            itextDocument.open();
+
+            // Convertir cada párrafo del XWPFDocument a PDF
+            for (org.apache.poi.xwpf.usermodel.XWPFParagraph paragraph : document.getParagraphs()) {
+                for (org.apache.poi.xwpf.usermodel.XWPFRun run : paragraph.getRuns()) {
+                    String text = run.getText(0);
+                    if (text != null && !text.isEmpty()) {
+                        Font font = new Font();
+                        font.setStyle(Font.BOLD);
+                        itextDocument.add(new Paragraph(text, font));
+                    }
+                }
+            }
+
+            // Cerrar el documento PDF
+            itextDocument.close();
+            writer.close();
+        }
+    }*/
+
 
     @Override
     public ResponseEntity<byte[]> downloadWordFile(Integer IdRegistroCalificado) throws IOException {
@@ -110,36 +165,93 @@ public class DocumentoServiceimple implements IDocumentoService {
 
     public static void CreatefileDocx(ProgramaAcademico ProgramaAcade, List<Configuraciones> configuraciones ) throws IOException {
 
-        //el String se reemplaza con la inormacion de tynyeditor de cada item
+        String htmlText_item1 = "<h1>Documento Institucional</h1>\n" +
+                "<p><b>1. Denominación del Programa</b></p>\n" +
+                "<p>La institución deberá especificar la denominación o nombre del programa, en correspondencia con el título que se va a otorgar, el nivel de formación, los contenidos curriculares del programa y el perfil del egresado; lo anterior de acuerdo con la normatividad vigente.</p>\n" +
+                "<p>Los programas técnicos profesionales y tecnológicos deben adoptar denominaciones que correspondan con las competencias propias de su campo de conocimiento, de tal manera que su denominación sea diferenciable y permita una clara distinción de las ocupaciones, disciplinas y profesiones.</p>\n" +
+                "<p>Los programas de especialización deben definir denominaciones que correspondan al área específica de estudio. En el caso de los programas de maestría y doctorado podrán adoptar una denominación disciplinar o interdisciplinar.</p>\n" +
+                "<p>Parágrafo. Las denominaciones no existentes en el Sistema Nacional de Información de la Educación Superior -SNIES deberán incluir una argumentación desde el (los) campo(s) del conocimiento y desde la pertinencia con las necesidades del país y de las regiones, en concordancia con el campo de ocupación, las normas que regulan el ejercicio de la profesión y el marco nacional de cualificaciones. Se podrá tener en cuenta referentes internacionales como los dados por: nomenclatura internacional de la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura -UNESCO, estándares internacionales los campos de ciencia y tecnología, Clasificación Internacional Uniforme de Ocupaciones -CIUO, en inglés ISCO, entre otras.</p>";
 
-        String htmlText = "";
+        String htmlText_tabla = "<table>\n" +
+                "    <tr>\n" +
+                "    <td><b> 1 </b></td>\n" +
+                "    <td><b>Denominacion</b></td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 2 </b></td>\n" +
+                "    <td> Titulo que otorga </td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 3 </b></td>\n" +
+                "    <td> Norma interna de creacion </td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 4 </b></td>\n" +
+                "    <td> Codigo SNIES <i> (para renovaciones) </i></td>\n" +
+                "    <td></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "    <td><b> 5 </b></td>\n" +
+                "    <td><b> Vigencia </b>  <i> (para renovaciones) </i></td>\n" +
+                "    <td><i> 7, 8 o 10 años </i></td>\n" +
+                "    </tr>\n" +
+                "    </table>";
 
         //crear el documento word
         XWPFDocument document = new XWPFDocument();
+
+        //crea la portada del documento
         portadaFile(document, ProgramaAcade,configuraciones );
+
+        //crea la tabla de contenido
+        createTableOfContents(document);
+
+
+
         //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
         //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
-        //Document doc = Jsoup.parse(htmlText);
-        //Element body = doc.body();
+        Document doc = Jsoup.parse(htmlText_item1);
+        Element body = doc.body();
 
-        /*for (Element element : body.children()){
+        document.createParagraph().createRun().addBreak(BreakType.PAGE);
+        //mapea item
+        for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
             processElement(element, document);
-        }*/
+        }
+
+        //_____________________________________________
+
+        //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
+        //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
+        Document doc_2 = Jsoup.parse(htmlText_tabla);
+        Element body_2 = doc_2.body();
+
+        //mapea los items del documento
+        for (Element element : body_2.children()){
+            //funcion que va aprocesar cada nodo del arbol html
+            processElement(element, document);
+        }
+
+
+
 
         //crearIndice(document);
 
-        XWPFParagraph p = document.createParagraph();
+        //XWPFParagraph p = document.createParagraph();
 
-        String encodedURI = URLEncoder.encode("#my_bookmark");
-        XWPFHyperlinkRun hyperlinkRun = p.createHyperlinkRun(encodedURI);
+        //String encodedURI = URLEncoder.encode("#my_bookmark");
+        //XWPFHyperlinkRun hyperlinkRun = p.createHyperlinkRun(encodedURI);
         //hyperlinkRun.setText("Click here to go to the bookmark!");
 
-        XWPFParagraph indexParagraph = document.createParagraph();
-        indexParagraph.addRun(hyperlinkRun);
-        XWPFRun indexRun = indexParagraph.createRun();
+        //XWPFParagraph indexParagraph = document.createParagraph();
+        //indexParagraph.addRun(hyperlinkRun);
+       //XWPFRun indexRun = indexParagraph.createRun();
         //indexRun.setText("my_bookmark");
-        XWPFParagraph paragraph = document.createParagraph();
+        //XWPFParagraph paragraph = document.createParagraph();
 
         //pasear el html y argegar al docuemtno word
         //Document doc2 = Jsoup.parse(htmlText);
@@ -336,6 +448,16 @@ public class DocumentoServiceimple implements IDocumentoService {
 
     //metodo para crear la tabla de contenido
     private static void createTableOfContents(XWPFDocument document){
+        //crear titulo
+        /*XWPFParagraph paragraph = document.createParagraph();
+        XWPFRun run = paragraph.createRun();
+        run.setText("Tabla de contenido");
+        run.setBold(true);
+        paragraph.setAlignment(ParagraphAlignment.CENTER);*/
+        document.createParagraph().createRun().addBreak(BreakType.PAGE);
+
+        procesarTitulo(1,document,"Tabla de contenido");
+
         //llamamos a funcion que trae los items
         List Items = getItems();
         //System.out.println("estos son los items");
@@ -355,9 +477,11 @@ public class DocumentoServiceimple implements IDocumentoService {
             System.out.println(nombreItem);
 
             //creamos el parrafo y se lo agregarmos al documento
-            XWPFParagraph paragraph = document.createParagraph();
-            XWPFRun run = paragraph.createRun();
-            run.setText(nombreItem);
+            XWPFParagraph paragraph_title = document.createParagraph();
+            XWPFRun run_title = paragraph_title.createRun();
+            run_title.setText(nombreItem);
+
+
 
             //creamos los subitems
             int subIndex = 1;
