@@ -70,73 +70,73 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALU
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('35','','','Mecanismos de interacción entre estudiante-profesor y estudiante-estudiante','4',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('36','','','Actividades académicas apoyadas en TIC','4',null);
 --4.2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('37','null','null','Número de créditos obligatorios','4','33');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('38','null','null','Número de créditos electivos','4','33');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('37','','','Número de créditos obligatorios','4','33');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('38','','','Número de créditos electivos','4','33');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('39','null','null','Declaración para el programa académico, de la incorporación de la investigación, innovación y/o creación artística y cultural para el desarrollo del conocimiento, según el nivel de formación del programa y la tipología y misión institucional','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('40','null','null','Formación en investigación','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('41','null','null','Organización de la investigación, innovación y/o creación artística y cultural en el programa','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('42','null','null','Resultados de la investigación, innovación y/o creación artística y cultural','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('43','null','null','Políticas Institucionales','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('44','null','null','Objetivos del Sistema de Investigaciones','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('45','null','null','Políticas del Sistema de Investigaciones','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('46','null','null','Estímulos para la Investigación','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('47','null','null','La incorporación de las TIC en la formación investigativa','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('39','','','Declaración para el programa académico, de la incorporación de la investigación, innovación y/o creación artística y cultural para el desarrollo del conocimiento, según el nivel de formación del programa y la tipología y misión institucional','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('40','','','Formación en investigación','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('41','','','Organización de la investigación, innovación y/o creación artística y cultural en el programa','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('42','','','Resultados de la investigación, innovación y/o creación artística y cultural','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('43','','','Políticas Institucionales','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('44','','','Objetivos del Sistema de Investigaciones','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('45','','','Políticas del Sistema de Investigaciones','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('46','','','Estímulos para la Investigación','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('47','','','La incorporación de las TIC en la formación investigativa','5',null);
 --5.2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('48','null','null','Estrategias para la formación en investigación-creación-innovación','5','40');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('49','null','null','Desarrollo del pensamiento crítico y/o creativo','5','40');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('48','','','Estrategias para la formación en investigación-creación-innovación','5','40');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('49','','','Desarrollo del pensamiento crítico y/o creativo','5','40');
 --5.3
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('50','null','null','Áreas, líneas y/o temáticas de investigación, innovación y/o Creación artística y cultural','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('51','null','null','Grupos de investigación','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('52','null','null','Semilleros de investigación','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('53','null','null','Investigadores reconocidos en el Sistema Nacional de Ciencia, Tecnología e Innovación','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('50','','','Áreas, líneas y/o temáticas de investigación, innovación y/o Creación artística y cultural','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('51','','','Grupos de investigación','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('52','','','Semilleros de investigación','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('53','','','Investigadores reconocidos en el Sistema Nacional de Ciencia, Tecnología e Innovación','5','41');
 --5.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','null','null','Proyectos de investigación, innovación y/o creación artística y cultural','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('55','null','null','Desarrollo de nuevos productos, procesos y usos de productos ya existentes','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('56','null','null','Capacidad para dar respuestas transformadoras a problemas locales, regionales y globales','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('57','null','null','Productos de investigación, innovación y/o creación artística y cultural','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','','','Proyectos de investigación, innovación y/o creación artística y cultural','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('55','','','Desarrollo de nuevos productos, procesos y usos de productos ya existentes','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('56','','','Capacidad para dar respuestas transformadoras a problemas locales, regionales y globales','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('57','','','Productos de investigación, innovación y/o creación artística y cultural','5','42');
 --5.5
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','null','null','El Sistema de Investigaciones de la Universidad del Cauca','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','null','null','El Consejo de Investigaciones','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','null','null','Comités de Facultad para la Investigación y Posgrados','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','null','null','Grupos de Investigación','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','','','El Sistema de Investigaciones de la Universidad del Cauca','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','','','El Consejo de Investigaciones','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','','','Comités de Facultad para la Investigación y Posgrados','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('54','','','Grupos de Investigación','5','43');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('55','null','null','Mecanismos y estrategias para lograr la vinculación de la comunidad y el sector productivo, social, cultural, público y privado con el programa','6',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('56','null','null','Mecanismos y estrategias para lograr la articulación de los profesores y estudiantes con la dinámica social, productiva, creativa y cultural de su contexto','6',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('55','','','Mecanismos y estrategias para lograr la vinculación de la comunidad y el sector productivo, social, cultural, público y privado con el programa','6',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('56','','','Mecanismos y estrategias para lograr la articulación de los profesores y estudiantes con la dinámica social, productiva, creativa y cultural de su contexto','6',null);
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('57','null','null','Profesores del programa','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('58','null','null','Estrategias para la vinculación y permanencia de profesores','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('59','null','null','Dedicación de los profesores','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('60','null','null','Escalafón docente','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('61','null','null','Estrategias de desarrollo de profesores','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('62','null','null','Evaluación de profesores','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('57','','','Profesores del programa','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('58','','','Estrategias para la vinculación y permanencia de profesores','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('59','','','Dedicación de los profesores','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('60','','','Escalafón docente','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('61','','','Estrategias de desarrollo de profesores','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('62','','','Evaluación de profesores','7',null);
 
 --7.1
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('63','null','null','Características del grupo de profesores','7','57');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('64','null','null','Vinculación de los profesores al programa académico','7','57');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('65','null','null','Dedicación y desarrollo de los profesores del programa','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('63','','','Características del grupo de profesores','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('64','','','Vinculación de los profesores al programa académico','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('65','','','Dedicación y desarrollo de los profesores del programa','7','57');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('66','null','null','Dotación de medios educativos con los que cuenta el programa','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('67','null','null','Ambientes de aprendizaje físicos y/o virtuales','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('68','null','null','Mecanismos de capacitación y apropiación de los medios educativos para estudiantes y profesores','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('69','null','null','Plan de mantenimiento, actualización y reposición de los medios educativos','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('70','null','null','Disponibilidad de medios educativos','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('71','null','null','Estrategias para atender las barreras de acceso y las características de la población','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('72','null','null','Bibliotecas de la Universidad del Cauca','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('72','null','null','Servicios que prestan las Bibliotecas','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('73','null','null','Recursos bibliográficos de las Bibliotecas','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('66','','','Dotación de medios educativos con los que cuenta el programa','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('67','','','Ambientes de aprendizaje físicos y/o virtuales','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('68','','','Mecanismos de capacitación y apropiación de los medios educativos para estudiantes y profesores','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('69','','','Plan de mantenimiento, actualización y reposición de los medios educativos','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('70','','','Disponibilidad de medios educativos','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('71','','','Estrategias para atender las barreras de acceso y las características de la población','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('72','','','Bibliotecas de la Universidad del Cauca','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('72','','','Servicios que prestan las Bibliotecas','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('73','','','Recursos bibliográficos de las Bibliotecas','8',null);
 
 --8.9
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('74','null','null','Convenios Interinstitucionales','8','73');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('75','null','null','Revistas y bases de datos','8','73');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('76','null','null','Bibliografía','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('74','','','Convenios Interinstitucionales','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('75','','','Revistas y bases de datos','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('76','','','Bibliografía','8','73');
 
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('77','null','null','Infraestructura física del programa','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('78','null','null','Infraestructura tecnológica del programa','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('79','null','null','Disponibilidad de la infraestructura física y tecnológica','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('80','null','null','Escenarios de práctica (programas de salud)','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('81','null','null','Infraestructura de la Universidad del Cauca','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('77','','','Infraestructura física del programa','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('78','','','Infraestructura tecnológica del programa','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('79','','','Disponibilidad de la infraestructura física y tecnológica','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('80','','','Escenarios de práctica (programas de salud)','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('81','','','Infraestructura de la Universidad del Cauca','9',null);
 
 
 
