@@ -9,66 +9,66 @@ INSERT INTO `registro_calificado` (registro_calificado_id,autor,colaboradores,es
 
 --Item
 --todo validar el tema de la guia por cada item y subitem
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('1','null','null','Denominación del Programa','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('2','null','null','Justificación del Programa','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('3','null','null','Aspectos Curriculares','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('4','null','null','Organización de actividades académicas y proceso formativo','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('1','','','Denominación del Programa','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('2','','','Justificación del Programa','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('3','','','Aspectos Curriculares','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('4','','','Organización de actividades académicas y proceso formativo','1');
 
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('5','null','null','Investigación, innovación y/o creación artística y cultural','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('6','null','null','Relación con el sector externo','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('7','null','null','Profesores','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('8','null','null','Medios Educativos','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('9','null','null','Infraestructura física y tecnológica','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('10','null','null','Bibliografía','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('5','','','Investigación, innovación y/o creación artística y cultural','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('6','','','Relación con el sector externo','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('7','','','Profesores','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('8','','','Medios Educativos','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('9','','','Infraestructura física y tecnológica','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('10','','','Bibliografía','1');
 
 --SubItem
 --1
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('1','null','null','Información básica del programa','1',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('2','null','null','Análisis de la coherencia entre la denominación, el título a otorgar, el nivel de formación, los contenidos curriculares y el perfil de egreso','1',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('1','','','Información básica del programa','1',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('2','','','Análisis de la coherencia entre la denominación, el título a otorgar, el nivel de formación, los contenidos curriculares y el perfil de egreso','1',null);
 --2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('3','null','null','Estado de la oferta de educación en el área del programa a nivel nacional y global','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('4','null','null','Necesidades de la región y del país','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('5','null','null','Justificación de atributos o factores que constituyen los rasgos distintivos del programa','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('6','null','null','Análisis por periodos académicos de indicadores para los programas similares de referencia y las acciones adoptadas por la institución frente a los mismos','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('7','null','null','Pertinencia del programa académico frente al desarrollo, social, cultural, ambiental, económico y científico','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('3','','','Estado de la oferta de educación en el área del programa a nivel nacional y global','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('4','','','Necesidades de la región y del país','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('5','','','Justificación de atributos o factores que constituyen los rasgos distintivos del programa','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('6','','','Análisis por periodos académicos de indicadores para los programas similares de referencia y las acciones adoptadas por la institución frente a los mismos','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('7','','','Pertinencia del programa académico frente al desarrollo, social, cultural, ambiental, económico y científico','2',null);
 --2.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('8','null','null','Personas inscritas, admitidas y matriculadas','2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('9','null','null','Total de matriculados y graduados','2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('10','null','null','Tasas de deserción por cohorte','2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('11','null','null','Empleabilidad de los egresados','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('8','','','Personas inscritas, admitidas y matriculadas','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('9','','','Total de matriculados y graduados','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('10','','','Tasas de deserción por cohorte','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('11','','','Empleabilidad de los egresados','2','6');
 --3
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('12','null','null','Componentes Formativos','3',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('13','null','null','Componentes pedagógicos','3',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('14','null','null','Componentes de interacción','3',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('15','null','null','Conceptualización teórica y epistemológica del programa','3',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('16','null','null',' Mecanismos de evaluación','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('12','','','Componentes Formativos','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('13','','','Componentes pedagógicos','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('14','','','Componentes de interacción','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('15','','','Conceptualización teórica y epistemológica del programa','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('16','','',' Mecanismos de evaluación','3',null);
 --3.1
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('17','null','null','Plan general de estudios representado en Créditos Académicos','3','12');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('18','null','null','Resultados de aprendizaje del programa','3','12');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('19','null','null','Formación integral','3','12');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('20','null','null','Estrategias de flexibilización curricular','3','12');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('21','null','null','Perfil de egreso','3','12');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('17','','','Plan general de estudios representado en Créditos Académicos','3','12');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('18','','','Resultados de aprendizaje del programa','3','12');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('19','','','Formación integral','3','12');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('20','','','Estrategias de flexibilización curricular','3','12');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('21','','','Perfil de egreso','3','12');
 --3.2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('22','null','null','Modelo pedagógico y didáctico del programa','3','13');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('23','null','null','Innovación pedagógica y didáctica del programa','3','13');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('22','','','Modelo pedagógico y didáctico del programa','3','13');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('23','','','Innovación pedagógica y didáctica del programa','3','13');
 --3.3
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('24','null','null','Articulación con los contextos locales, regionales y globales','3','14');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('25','null','null','Desarrollo de habilidades en estudiantes y profesores para la interacción nacional e internacional','3','14');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('26','null','null','Internacionalización del currículo','3','14');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('27','null','null','Competencias comunicativas en una segunda lengua','3','14');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('24','','','Articulación con los contextos locales, regionales y globales','3','14');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('25','','','Desarrollo de habilidades en estudiantes y profesores para la interacción nacional e internacional','3','14');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('26','','','Internacionalización del currículo','3','14');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('27','','','Competencias comunicativas en una segunda lengua','3','14');
 --3.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('27','null','null','Fundamentos teóricos y conceptuales del programa','3','15');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('28','null','null','Objeto de estudio y formas de conocimiento del programa','3','15');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('27','','','Fundamentos teóricos y conceptuales del programa','3','15');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('28','','','Objeto de estudio y formas de conocimiento del programa','3','15');
 --3.5
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('29','null','null','Instrumentos de medición y seguimiento del desempeño de profesores','3','16');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('30','null','null','Instrumentos de medición y seguimiento del desempeño de estudiantes','3','16');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('31','null','null','Seguimiento y evaluación de resultados de aprendizaje','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('29','','','Instrumentos de medición y seguimiento del desempeño de profesores','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('30','','','Instrumentos de medición y seguimiento del desempeño de estudiantes','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('31','','','Seguimiento y evaluación de resultados de aprendizaje','3','16');
 
-ISRT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('32','null','null','Diseño y contenido curricular','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('33','null','null','Créditos por semestres','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('34','null','null','Proyecto educativo del programa','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('35','null','null','Mecanismos de interacción entre estudiante-profesor y estudiante-estudiante','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('36','null','null','Actividades académicas apoyadas en TIC','4',null);
+ISRT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('32','','','Diseño y contenido curricular','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('33','','','Créditos por semestres','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('34','','','Proyecto educativo del programa','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('35','','','Mecanismos de interacción entre estudiante-profesor y estudiante-estudiante','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('36','','','Actividades académicas apoyadas en TIC','4',null);
 --4.2
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('37','null','null','Número de créditos obligatorios','4','33');
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('38','null','null','Número de créditos electivos','4','33');
