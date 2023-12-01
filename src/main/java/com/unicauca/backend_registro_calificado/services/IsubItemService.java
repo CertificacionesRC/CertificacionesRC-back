@@ -4,6 +4,7 @@ import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 
 import  com.unicauca.backend_registro_calificado.domain.SubItemDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface IsubItemService {
 
     public Response<List<SubItemDTO>> findAllByParentId(Integer parentId);
 
+    public ResponseEntity<?> updateStateSubItem(Integer idSubitem);
 }

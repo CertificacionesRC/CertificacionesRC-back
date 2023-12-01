@@ -4,11 +4,14 @@ import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.model.Item;
 import com.unicauca.backend_registro_calificado.model.SubItem;
 import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoItem;
 import com.unicauca.backend_registro_calificado.repository.ISubItemRepository;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import org.modelmapper.ModelMapper;
@@ -63,6 +66,19 @@ public class subitemServiceImpl implements IsubItemService {
         }
 
         return response;
+    }
+
+    @Override
+    public ResponseEntity<?> updateStateSubItem(Integer idSubitem) {
+        try{
+            SubItem subitem = this.subitemRepository.findById(idSubitem).get();
+            subitem.setEstado(EstadoItem.Completado);
+            System.out.println("ANTES: "+ subitem.getEstado());
+            SubItem prueba = this.subitemRepository.save(subitem);
+            return new ResponseEntity("Estado actualizado con exito", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("El estado no se ha podido actualizar. Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
@@ -141,6 +157,7 @@ public class subitemServiceImpl implements IsubItemService {
         logger.debug("Init createSubItem: {}", subItemDTO.toString());
         Response<SubItemDTO> response = new Response<>();
         SubItem subItem = modelMapper.map(subItemDTO, SubItem.class);
+        subItem.setEstado(EstadoItem.EnProceso);
         SubItemDTO subItemDTO1 = modelMapper.map(subitemRepository.save(subItem), SubItemDTO.class);
         response.setStatus(200);
         response.setUserMessage("SubItem creado exitosamente");

@@ -3,8 +3,10 @@ package com.unicauca.backend_registro_calificado.security.auth.Filter;
 import java.io.IOException;
 
 import com.unicauca.backend_registro_calificado.model.Usuario;
+import com.unicauca.backend_registro_calificado.security.auth.exception.UserDisabledException;
 import com.unicauca.backend_registro_calificado.security.auth.service.JWTService;
 import com.unicauca.backend_registro_calificado.security.auth.service.JWTServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -106,13 +108,20 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("mensaje","Error de autenticación: username o password incorrecto");
-		body.put("error", failed.getMessage());
-		
+		Map<String, Object> body = new HashMap<>();
+		Throwable cause = failed.getCause();
+		// Verifica si la causa de la excepción es una instancia de la clase UserDisabledException
+		if (cause instanceof UserDisabledException) {
+			// Excepción específica para usuario deshabilitado
+			body.put("mensaje", "El usuario está deshabilitado");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		} else {
+			// Manejo genérico para otras excepciones
+			body.put("mensaje", "Error de autenticación: username o password incorrecto");
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+		}
 		// ObjectMapper: convertir el objeto map a un objeto de tipo json
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-		response.setStatus(401);
 		response.setContentType("application/json");
 	}
 

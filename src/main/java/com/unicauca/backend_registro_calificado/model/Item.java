@@ -1,6 +1,7 @@
 package com.unicauca.backend_registro_calificado.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoItem;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,8 @@ public class Item {
    private String guia;
 
    private String nombre;
+   @Enumerated(EnumType.STRING)
+   private EstadoItem estado;
 
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "registroCalificado_id")

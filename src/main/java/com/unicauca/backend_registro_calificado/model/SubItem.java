@@ -1,6 +1,7 @@
 package com.unicauca.backend_registro_calificado.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoItem;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,8 @@ public class SubItem {
 
     @Column(columnDefinition = "LONGTEXT")
     private String guia;
+    @Enumerated(EnumType.STRING)
+    private EstadoItem estado;
 
     //De cada subitem se debe saber a que subitem pertenece
     //Muchos subitems pueden estar en un subitem
