@@ -28,24 +28,23 @@ Para programas en Renovación de Registro Calificado, además de lo anterior, ve
 Análisis con datos verificables del desempeño de los egresados del programa.
 Evaluación del impacto que ha tenido el programa frente a la sociedad y su relación con otros programas de nivel superior de la Institución.
 ','Justificación del Programa','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('3','','','Aspectos Curriculares','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('4','','','Organización de actividades académicas y proceso formativo','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('3','','','Aspectos Curriculares','EnProceso','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('4','','','Organización de actividades académicas y proceso formativo','EnProceso','1');
 
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('5','','','Investigación, innovación y/o creación artística y cultural','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('6','','','Relación con el sector externo','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('7','','','Profesores','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('8','','','Medios Educativos','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('9','','','Infraestructura física y tecnológica','1');
-INSERT INTO `item` (item_id,contenido,guia,nombre,registro_calificado_id) VALUES ('10','','','Bibliografía','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('5','','','Investigación, innovación y/o creación artística y cultural','EnProceso','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('6','','','Relación con el sector externo','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('7','','','Profesores','EnProceso','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('8','','','Medios Educativos','EnProceso','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('9','','','Infraestructura física y tecnológica','EnProceso','1');
+INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('10','','','Bibliografía','EnProceso','1');
 
 --SubItem
 --1
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('1','','El Programa de… fue creado mediante el Acuerdo N° XXXX…, expedido por el Consejo Superior de la Universidad del Cauca, con Registro Calificado otorgado por medio de la Resolución N° XXXX… del (día) de (mes) del (año). (Información solo para programas que soliciten renovación) de conformidad con su naturaleza universitaria, nivel profesional, modalidad… y metodología… otorga el título de…
-','Información básica del programa','1',null);
+
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('2','','','Análisis de la coherencia entre la denominación, el título a otorgar, el nivel de formación, los contenidos curriculares y el perfil de egreso','1',null);
 --2
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('3','','','Estado de la oferta de educación en el área del programa a nivel nacional y global','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('4','','','Necesidades de la región y del país','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('4','','','Necesidades de la región y del país','EnProceso','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('5','','','Justificación de atributos o factores que constituyen los rasgos distintivos del programa','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('6','','','Análisis por periodos académicos de indicadores para los programas similares de referencia y las acciones adoptadas por la institución frente a los mismos','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('7','','','Pertinencia del programa académico frente al desarrollo, social, cultural, ambiental, económico y científico','2',null);
@@ -55,7 +54,7 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALU
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('10','','','Tasas de deserción por cohorte','2','6');
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('11','','','Empleabilidad de los egresados','2','6');
 --3
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('12','','','Componentes Formativos','3',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('12','','','Componentes Formativos','EnProceso','3',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('13','','','Componentes pedagógicos','3',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('14','','','Componentes de interacción','3',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,item_id,parent_id) VALUES ('15','','','Conceptualización teórica y epistemológica del programa','3',null);

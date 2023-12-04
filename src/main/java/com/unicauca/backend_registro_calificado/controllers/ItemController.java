@@ -1,6 +1,7 @@
 package com.unicauca.backend_registro_calificado.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import com.unicauca.backend_registro_calificado.services.IitemService;
@@ -46,6 +47,9 @@ public class    ItemController {
         System.out.println("llega al controlador de update");
         return this.iitemService.updateItem(id, ItemDTO);
     }
-
-
+    @Secured("COORDINADOR")
+    @PatchMapping(value = "/updateState/{id}", produces = "application/json")
+    public ResponseEntity<?> updateState(@PathVariable Integer id){
+        return this.iitemService.updateStateItem(id);
+    }
 }

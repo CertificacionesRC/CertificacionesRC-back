@@ -53,6 +53,10 @@ public class SubItemController {
         return ResponseEntity.status(HttpStatus.OK).body(this.isubItemService.findSubItemsByItem_IdAndParent_IdIsNull(idItem));
     }
 
-
+    @Secured("COORDINADOR")
+    @PatchMapping(value = "/updateState/{id}", produces = "application/json")
+    public ResponseEntity<?> updateState(@PathVariable Integer id){
+        return this.isubItemService.updateStateSubItem(id);
+    }
 
 }

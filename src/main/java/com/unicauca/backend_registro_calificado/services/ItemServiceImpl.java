@@ -4,10 +4,13 @@ import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.model.Item;
 import com.unicauca.backend_registro_calificado.model.SubItem;
+import com.unicauca.backend_registro_calificado.model.enums.EstadoItem;
 import com.unicauca.backend_registro_calificado.repository.IitemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -130,6 +133,7 @@ public class ItemServiceImpl implements IitemService{
         logger.debug("Init createItem Business: {}", itemDTO.toString());
         Response<ItemDTO> response = new Response<>();
         Item item = modelMapper.map(itemDTO, Item.class);
+        item.setEstado(EstadoItem.EnProceso);
         ItemDTO itemDTO1 = modelMapper.map(iitemRepository.save(item), ItemDTO.class);
         response.setStatus(200);
         response.setUserMessage("Item creado exitosamente");
@@ -140,6 +144,18 @@ public class ItemServiceImpl implements IitemService{
         logger.debug("Finish createItem");
         return response;
 
+    }
+
+    @Override
+    public ResponseEntity<?> updateStateItem(Integer idItem) {
+        try{
+            Item item = this.iitemRepository.findById(idItem).get();
+            item.setEstado(EstadoItem.Completado);
+            this.iitemRepository.save(item);
+            return new ResponseEntity("Estado actualizado con exito", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity("El estado no se ha podido actualizar. Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

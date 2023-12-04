@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ISubItemRepository extends JpaRepository<SubItem, String> {
+public interface ISubItemRepository extends JpaRepository<SubItem, Integer> {
     SubItem findSubItemById(Integer subItemId);
 
     @Query(value = "SELECT * FROM sub_item WHERE parent_id = :parent_id",nativeQuery = true)
