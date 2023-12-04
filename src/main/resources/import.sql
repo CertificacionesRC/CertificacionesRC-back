@@ -19,7 +19,6 @@ INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id)
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('8','','','Medios Educativos','EnProceso','1');
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('9','','','Infraestructura física y tecnológica','EnProceso','1');
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('10','','','Bibliografía','EnProceso','1');
-
 --SubItem
 --1
 
