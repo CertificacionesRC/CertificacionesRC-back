@@ -164,35 +164,34 @@ public class DocumentoServiceimple implements IDocumentoService {
         //crea la tabla de contenido
         createTableOfContents(document);
 
-
+        generarContenidoItems(document);
 
         //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
         //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
-        Document doc = Jsoup.parse(htmlText_item1);
+        /*Document doc = Jsoup.parse(htmlText_item1);
         Element body = doc.body();
 
         document.createParagraph().createRun().addBreak(BreakType.PAGE);
+
+
         //mapea item
         for (Element element : body.children()){
             //funcion que va aprocesar cada nodo del arbol html
             processElement(element, document);
-        }
+        }*/
 
         //_____________________________________________
 
         //vamos a tratar la respuesta de la vista y buscamos las etiquetas p strong list table img etc
         //convertimos la respueta del front a un formato de arbol y nodos con la libreria Jsoup
-        Document doc_2 = Jsoup.parse(htmlText_tabla);
+        /*Document doc_2 = Jsoup.parse(htmlText_tabla);
         Element body_2 = doc_2.body();
 
         //mapea los items del documento
         for (Element element : body_2.children()){
             //funcion que va aprocesar cada nodo del arbol html
             processElement(element, document);
-        }
-
-
-
+        }*/
 
         //crearIndice(document);
 
@@ -219,6 +218,52 @@ public class DocumentoServiceimple implements IDocumentoService {
             document.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private static void generarContenidoItems(XWPFDocument document) throws IOException {
+
+        document.createParagraph().createRun().addBreak(BreakType.PAGE);
+
+        //llamamos a funcion que trae los items
+        List Items = getItems();
+
+        //recorremos los items y agregamos al documento
+        //int mainIndex = 1;
+
+        for (Object item : Items) {
+
+            ItemDTO itemDTO = (ItemDTO) item;
+
+            String contenidoItem = itemDTO.getContenido();
+
+            if (contenidoItem != null && !contenidoItem.isEmpty()) {
+                Document doc = Jsoup.parse(contenidoItem);
+                Element arbolContenido = doc.body();
+
+                for (Element element : arbolContenido.children()){
+                    //funcion que va aprocesar cada nodo del arbol html
+                    processElement(element, document);
+                }
+                //break;
+            }
+
+            List<SubItem> subItemsList = itemDTO.getSubItems();
+
+            //iteramos la lista de subitems
+
+            for (SubItem subItem : subItemsList) {
+                String contenidoSubItem = subItem.getContenido();
+                if(contenidoSubItem != null && !contenidoSubItem.isEmpty()){
+                    Document doc = Jsoup.parse(contenidoSubItem);
+                    Element arbolContenido = doc.body();
+                    for (Element element : arbolContenido.children()){
+                        //funcion que va aprocesar cada nodo del arbol html
+                        processElement(element, document);
+                    }
+                }
+            }
         }
     }
 
