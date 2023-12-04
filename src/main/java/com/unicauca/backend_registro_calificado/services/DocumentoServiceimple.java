@@ -1,7 +1,10 @@
 package com.unicauca.backend_registro_calificado.services;
 
+
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+//import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.model.Configuraciones;
@@ -18,6 +21,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
+//import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.xwpf.usermodel.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -68,55 +72,6 @@ public class DocumentoServiceimple implements IDocumentoService {
         this.iConfiguracionesRepo = iConfiguracionesRepo;
         this.iitemService = iitemService;
     }
-
-
-    @Override
-    public ResponseEntity<byte[]> downloadPDFFile(Integer IdRegistroCalificado) throws IOException {
-
-    /*    String wordFilePath = "src/main/resources/files/prueba.docx";
-
-        //solucion 2
-        Resource wordResource = new ClassPathResource(wordFilePath);
-        InputStream wordInputStream = wordResource.getInputStream();
-        XWPFDocument document = new XWPFDocument(wordInputStream);
-
-        // Directorio y nombre del archivo PDF de salida
-        String pdfFileName = "prueba.pdf";
-        String pdfFilePath = "src/main/resources/files/" + pdfFileName;
-
-        convertDocxToPDF(document, pdfFilePath);*/
-
-        return null;
-
-    }
-
-
-    /*private void convertDocxToPDF(XWPFDocument document_2, String outputPath) throws IOException {
-        try (OutputStream outputStream = new FileOutputStream(outputPath)) {
-            PdfWriter writer = PdfWriter.getInstance(document_2,outputStream);
-            com.itextpdf.text.Document itextDocument = new com.itextpdf.text.Document();
-
-            writer.open();
-            itextDocument.open();
-
-            // Convertir cada párrafo del XWPFDocument a PDF
-            for (org.apache.poi.xwpf.usermodel.XWPFParagraph paragraph : document.getParagraphs()) {
-                for (org.apache.poi.xwpf.usermodel.XWPFRun run : paragraph.getRuns()) {
-                    String text = run.getText(0);
-                    if (text != null && !text.isEmpty()) {
-                        Font font = new Font();
-                        font.setStyle(Font.BOLD);
-                        itextDocument.add(new Paragraph(text, font));
-                    }
-                }
-            }
-
-            // Cerrar el documento PDF
-            itextDocument.close();
-            writer.close();
-        }
-    }*/
-
 
     @Override
     public ResponseEntity<byte[]> downloadWordFile(Integer IdRegistroCalificado) throws IOException {

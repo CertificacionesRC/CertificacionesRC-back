@@ -3,6 +3,7 @@ import com.unicauca.backend_registro_calificado.domain.ObservacionDTO;
 import com.unicauca.backend_registro_calificado.domain.RegistroCalificadoDTO;
 import com.unicauca.backend_registro_calificado.model.enums.EstadoRegistroCal;
 import com.unicauca.backend_registro_calificado.services.IDocumentoService;
+import com.unicauca.backend_registro_calificado.services.IPdfService;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
 import com.unicauca.backend_registro_calificado.services.IitemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,15 @@ public class RegistroCalificadoController {
     private final IRegistroCalificadoService registroCalificadoBusiness;
     private final IDocumentoService documentoService;
 
+    private  final IPdfService pdfService;
+
     private static IitemService iitemService;
 
-    public RegistroCalificadoController(IitemService iitemService, IRegistroCalificadoService registroCalificadoBusiness, IDocumentoService documentoService) {
+    public RegistroCalificadoController(IitemService iitemService, IRegistroCalificadoService registroCalificadoBusiness, IDocumentoService documentoService, IPdfService pdfService) {
         this.iitemService = iitemService;
         this.registroCalificadoBusiness = registroCalificadoBusiness;
         this.documentoService = documentoService;
+        this.pdfService = pdfService;
     }
 
     @GetMapping("/getDocumento")
@@ -36,7 +40,8 @@ public class RegistroCalificadoController {
 
     @GetMapping("/getDocumentoPDF")
     public ResponseEntity<byte[]> downloadPDFFile(@RequestParam Integer IdRegistroCalificado) throws Exception {
-        return documentoService.downloadPDFFile(IdRegistroCalificado);
+        //return documentoService.downloadPDFFile(IdRegistroCalificado);
+        return pdfService.downloadPDFFile(IdRegistroCalificado);
     }
 
     @PostMapping()
