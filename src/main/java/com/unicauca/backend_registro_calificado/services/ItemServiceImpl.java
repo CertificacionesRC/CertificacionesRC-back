@@ -150,9 +150,19 @@ public class ItemServiceImpl implements IitemService{
     public ResponseEntity<?> updateStateItem(Integer idItem) {
         try{
             Item item = this.iitemRepository.findById(idItem).get();
-            item.setEstado(EstadoItem.Completado);
-            this.iitemRepository.save(item);
-            return new ResponseEntity("Estado actualizado con exito", HttpStatus.OK);
+            boolean todosEnProceso = true;
+            for (SubItem subitem : item.getSubItems()) {
+                if ("EnProceso".equalsIgnoreCase(String.valueOf(subitem.getEstado()))) {
+                    todosEnProceso = false;
+                    break;
+                }
+            }
+            if (todosEnProceso) {
+                item.setEstado(EstadoItem.Completado);
+                this.iitemRepository.save(item);
+                return new ResponseEntity("Estado actualizado con exito", HttpStatus.OK);
+            }
+            return new ResponseEntity("El estado no se ha podido actualizar porque algunos subitems no han sido completados", HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity("El estado no se ha podido actualizar. Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
