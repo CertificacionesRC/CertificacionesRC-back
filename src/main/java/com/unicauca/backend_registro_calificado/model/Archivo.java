@@ -11,14 +11,14 @@ import lombok.*;
 @Builder
 @Table(name = "archivo")
 public class Archivo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "archivo_id")
     private long id;
-
     private String contenido;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subItem_id")
     private SubItem subItem;
+
 }

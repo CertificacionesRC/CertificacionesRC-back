@@ -20,34 +20,24 @@ public class PdfServiceImpl implements IPdfService{
 
         InputStream docxInputStream = new FileInputStream("src/main/resources/files/prueba.docx");
 
-
         try (XWPFDocument document = new XWPFDocument(docxInputStream);
+
              OutputStream pdfOutputStream = new FileOutputStream("src/main/resources/files/prueba.pdf");) {
             Document pdfDocument = new Document();
             PdfWriter.getInstance(pdfDocument, pdfOutputStream);
             pdfDocument.open();
 
             List<XWPFParagraph> paragraphs = document.getParagraphs();
+
             for (XWPFParagraph paragraph : paragraphs) {
                 pdfDocument.add(new Paragraph(paragraph.getText()));
             }
+
             pdfDocument.close();
+
         } catch (DocumentException e) {
             throw new RuntimeException(e);
         }
-
-    /*    String wordFilePath = "src/main/resources/files/prueba.docx";
-
-        //solucion 2
-        Resource wordResource = new ClassPathResource(wordFilePath);
-        InputStream wordInputStream = wordResource.getInputStream();
-        XWPFDocument document = new XWPFDocument(wordInputStream);
-
-        // Directorio y nombre del archivo PDF de salida
-        String pdfFileName = "prueba.pdf";
-        String pdfFilePath = "src/main/resources/files/" + pdfFileName;
-
-        convertDocxToPDF(document, pdfFilePath);*/
 
         return null;
 

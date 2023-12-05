@@ -21,8 +21,8 @@ public class Usuario {
     private String contrasena;
     @Nullable
     private Boolean estado;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
+
 }

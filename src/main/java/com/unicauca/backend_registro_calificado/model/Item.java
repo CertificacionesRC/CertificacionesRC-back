@@ -15,29 +15,24 @@ import java.util.List;
 @Builder
 @Table(name = "item")
 public class Item {
+
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "item_id")
    private long id;
-
    @Column(columnDefinition = "LONGTEXT")
    private String contenido;
-
    @Column(columnDefinition = "LONGTEXT")
    private String guia;
-
    private String nombre;
    @Enumerated(EnumType.STRING)
    private EstadoItem estado;
-
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "registroCalificado_id")
    private RegistroCalificado registroCalificado;
-
-//   @JsonIgnore()
    @OneToMany(mappedBy = "item")
    private List<SubItem> subItems;
-
    @OneToMany(mappedBy = "item")
    private List<ObservacionItem> observaciones;
+
 }

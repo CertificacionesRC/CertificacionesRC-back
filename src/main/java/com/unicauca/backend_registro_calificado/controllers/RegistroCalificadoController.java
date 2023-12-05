@@ -6,7 +6,6 @@ import com.unicauca.backend_registro_calificado.services.IDocumentoService;
 import com.unicauca.backend_registro_calificado.services.IPdfService;
 import com.unicauca.backend_registro_calificado.services.IRegistroCalificadoService;
 import com.unicauca.backend_registro_calificado.services.IitemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,6 @@ public class RegistroCalificadoController {
 
     @GetMapping("/getDocumentoPDF")
     public ResponseEntity<byte[]> downloadPDFFile(@RequestParam Integer IdRegistroCalificado) throws Exception {
-        //return documentoService.downloadPDFFile(IdRegistroCalificado);
         return pdfService.downloadPDFFile(IdRegistroCalificado);
     }
 

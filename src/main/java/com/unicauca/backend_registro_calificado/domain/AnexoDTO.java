@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnexoDTO {
     private Integer id;
-
     private String contenido;
-
     private RegistroCalificadoDTO registroCalificado;
 
 }

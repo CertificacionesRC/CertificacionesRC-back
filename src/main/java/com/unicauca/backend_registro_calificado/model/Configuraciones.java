@@ -16,13 +16,10 @@ public class Configuraciones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "configuraciones_id")
     private long id;
-
     @Column(columnDefinition = "LONGTEXT")
     private String nombreVariable;
-
     @Column(columnDefinition = "LONGTEXT")
     private String contenido;
-
 
 }
 

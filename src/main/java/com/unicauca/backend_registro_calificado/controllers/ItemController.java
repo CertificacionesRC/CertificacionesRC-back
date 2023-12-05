@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/item")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class    ItemController {
     private final IitemService iitemService;
-
     @Autowired
     public ItemController(IitemService iitemService) {
         this.iitemService = iitemService;
@@ -35,7 +33,6 @@ public class    ItemController {
     }
 
     @GetMapping("/getItemById")
-    //public Response<ItemDTO> findItemById(@RequestParam String idItem) {
     public Response<ItemDTO> findItemById(@RequestParam Integer  idItem) {
         return this.iitemService.findItemById(idItem);
     }
@@ -44,7 +41,6 @@ public class    ItemController {
     @ResponseBody
     public Response<ItemDTO> updateItem(@RequestBody ItemDTO ItemDTO,
                                                       @PathVariable Integer id) {
-        System.out.println("llega al controlador de update");
         return this.iitemService.updateItem(id, ItemDTO);
     }
     @Secured("COORDINADOR")

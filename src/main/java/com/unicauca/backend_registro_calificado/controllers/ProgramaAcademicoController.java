@@ -10,13 +10,10 @@ import java.util.List;
 @RequestMapping("/programaAcademico")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProgramaAcademicoController {
-
    private final IProgramaAcademicoService service;
-
     public ProgramaAcademicoController(IProgramaAcademicoService service){
         this.service = service;
     }
-
     @GetMapping("/findAll")
     public List<ProgramaAcademicoDTO> findAll(){
         return service.findAll();

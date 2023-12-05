@@ -1,6 +1,5 @@
 package com.unicauca.backend_registro_calificado.controllers;
 
-import com.unicauca.backend_registro_calificado.domain.ItemDTO;
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.SubItemDTO;
 import com.unicauca.backend_registro_calificado.services.IsubItemService;
@@ -16,9 +15,7 @@ import java.util.List;
 @RequestMapping("/subItem")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SubItemController {
-
     private final IsubItemService isubItemService;
-
     @Autowired
     public SubItemController(IsubItemService isubItemService) {
         this.isubItemService = isubItemService;
@@ -26,7 +23,6 @@ public class SubItemController {
 
     @GetMapping("/getSubItemById")
     public Response<SubItemDTO> findSubItemById(@RequestParam Integer idSubItem) {
-        //return  null;
         return this.isubItemService.findSubItemById(idSubItem);
     }
 
@@ -34,7 +30,6 @@ public class SubItemController {
     @ResponseBody
     public Response<SubItemDTO> updateSubItem(@RequestBody SubItemDTO SubItemDTO,
                                         @PathVariable Integer id) {
-        System.out.println("llega al controlador de update");
         return this.isubItemService.updateSubItem(id, SubItemDTO);
     }
 

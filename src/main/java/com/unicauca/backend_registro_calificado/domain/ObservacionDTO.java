@@ -10,11 +10,7 @@ import lombok.NoArgsConstructor;
 public class ObservacionDTO {
 
     private long id;
-
     private String contenido;
-
     private RegistroCalificadoDTO registroCalificado;
-
-
 
 }

@@ -7,7 +7,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class RolDTO {
+
     private Long rolId;
     private String rolNombre;
     private List<UsuarioDTO> lstUsuarios;
+
 }

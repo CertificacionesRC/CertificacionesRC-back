@@ -2,7 +2,6 @@ package com.unicauca.backend_registro_calificado.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
@@ -12,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Rol {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rol_id")
@@ -21,5 +21,6 @@ public class Rol {
     private String nombre;
 
     @OneToMany(mappedBy = "rol")
-    private List<Usuario> LstUsuarioRol ;
+    private List<Usuario> LstUsuarioRol;
+
 }

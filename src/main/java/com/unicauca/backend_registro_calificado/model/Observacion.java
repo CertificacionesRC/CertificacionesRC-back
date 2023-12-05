@@ -11,13 +11,12 @@ import lombok.*;
 @Builder
 @Table(name = "observacion")
 public class Observacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "observacion_id")
     private long id;
-
     private String contenido;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registroCalificado_id")
     private RegistroCalificado registroCalificado;

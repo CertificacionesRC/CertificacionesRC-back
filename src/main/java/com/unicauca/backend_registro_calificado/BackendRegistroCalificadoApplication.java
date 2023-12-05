@@ -13,7 +13,7 @@ public class BackendRegistroCalificadoApplication {
 	private BCryptPasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(BackendRegistroCalificadoApplication.class, args);
-		System.out.println("Inicio app");
+		System.out.println("Api Rest Registro Calificado corriendo...");
 	}
 
 	@PostConstruct
@@ -24,6 +24,7 @@ public class BackendRegistroCalificadoApplication {
 			String bcryptPassword = passwordEncoder.encode(password);
 			System.out.println(bcryptPassword);
 		}
+
 	}
 
 }

@@ -1,14 +1,12 @@
---ProgramaAcademico todo temrnar de ahcer lo demas
+--ProgramaAcademico
 INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('1','sistemas','PREGRADO', 'Ingeniería elelectrónica y telecomunicaciones');
 INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('2','electronica','PREGRADO', 'Ingeniería elelectrónica y telecomunicaciones');
 INSERT INTO `programa_academico` (programa_academico_id,nombre,tipo, facultad) VALUES ('3','civil','PREGRADO', 'Ingeniería Civil');
 
 --RegistroCalificado
---todo verificar como nos deben llegar los colaboradores y autores
 INSERT INTO `registro_calificado` (registro_calificado_id,autor,colaboradores,estado,fecha_creacion,programa_id) VALUES ('1','Deibar René Hurtado Herrera','Aida Patricia González Nieva, Jorge Enrique Barrera Moreno, Francisco José Pino Correa, César Alfaro Mosquera Dorado, Laura Ismenia Castellanos Vivas','PorAprobar','2023-10-11 19:33:42','1');
 
 --Item
---todo validar el tema de la guia por cada item y subitem
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('1','','La institución deberá especificar la denominación o nombre del programa, en correspondencia con el título que se va a otorgar, el nivel de formación, los contenidos curriculares del programa y el perfil del egresado, lo anterior de acuerdo con la normatividad vigente. Los programas técnicos profesionales y tecnológicos deben adoptar denominaciones que correspondan con las competencias propias de su campo de conocimiento, de tal manera que su denominación sea diferenciable y permita una clara distinción de las ocupaciones, disciplinas y profesiones. Los programas de especialización deben definir denominaciones que correspondan al área específica de estudio. En el caso de los programas de maestría y doctorado podrán adoptar una denominación disciplinar o interdisciplinar. Parágrafo. Las denominaciones no existentes en el Sistema Nacion de Información de la Educación Superior -SNIES deberán incluir una argumentación desde el (los) campo(s) del conocimiento y desde la pertinencia con las necesidades del país y de las regiones, en concordancia con el campo de ocupación, las normas que regulan el ejercicio de la profesión y el marco nacional de cualificaciones. Se podrá tener en cuenta referentes internacionales como los dados por: nomenclatura internacional de la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura -UNESCO, estándares internacionales los campos de ciencia y tecnología, Clasificación Internacional Uniforme de Ocupaciones -CIUO, en inglés ISCO, entre otras.','Denominación del Programa','EnProceso','1');
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('2','','La institución deberá presentar una justificación que sustente el contenido curricular, los perfiles de egreso y la (s) modalidad (es), en que se desea ofrecer el programa para que este sea pertinente al desarrollo social, cultural, ambiental, económico y científico, frente a las necesidades del país y la región, con fundamento en un estudio que por lo menos contenga los siguientes componentes: a) El estado de la oferta de educación del área del programa, y de la ocupación, profesión, arte, u oficio, cuando sea del caso, en los ámbitos nacional y de las proyecciones del conocimiento en el contexto global. b) Las necesidades de la región y del país que, según la propuesta, tengan relación directa con el programa en armonía con referentes internacionales, si estos vienen al caso, atendiendo a las dimensiones que determinan las modalidades (presencial, a distancia, virtual, dual u otros desarrollos que combinen e integren las anteriores modalidades) y las asociadas al registro calificado solicitado. c) Una justificación de atributos o factores que constituyen los rasgos distintivos del programa con relación a los ya existentes en el área o las áreas del conocimiento y la(s) región(es) donde se desarrollará el programa, en coherencia con su naturaleza jurídica, tipología e identidad institucional. Se espera que la IES plasme dentro del documento, los estudios que realizó para promover la posible apertura del programa, teniendo en cuenta la pertinencia y viabilidad en el entorno local, regional e internacional. Un análisis previo permitirá desarrollar todas las actividades asociadas a la planeación curricular y a la articulación institucional en torno del programa propuesto. La propuesta académica está articulada a los Planes de Desarrollo locales, regionales y nacionales, y al Plan Estratégico de la Institución. Utiliza información confiable, actualizada y verificable, con respeto a los derechos de autor. Justifica no sólo el Programa sino también la metodología en la que se ofrece en relación con la misión y visión institucional expresada en el PEI. Para programas en Renovación de Registro Calificado, además de lo anterior, verifique que la Justificación incluya: Análisis con datos verificables del desempeño de los egresados del programa. Evaluación del impacto que ha tenido el programa frente a la sociedad y su relación con otros programas de nivel superior de la Institución.','Justificación del Programa','EnProceso','1');
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('3','','La institución deberá diseñar el contenido curricular del programa según el área de conocimiento y en coherencia con las modalidades (presencial, a distancia, virtual, dual u otros desarrollos que combinen e integren las anteriores modalidades), los niveles de formación, su naturaleza jurídica, tipología e identidad institucional. El cual deberá contar, por lo menos con: Componente formativos, Componentes pedagógicos, Componentes de interacción, Conceptualización teórica y epistemológica del program,  Mecanismos de evaluación ','Aspectos Curriculares','EnProceso','1');
@@ -20,21 +18,18 @@ INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id)
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('9','','','Infraestructura física y tecnológica','EnProceso','1');
 INSERT INTO `item` (item_id,contenido,guia,nombre,estado,registro_calificado_id) VALUES ('10','','','Bibliografía','EnProceso','1');
 --SubItem
---1
-
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('1','','El Programa de… fue creado mediante el Acuerdo N° XXXX…, expedido por el Consejo Superior de la Universidad del Cauca, con Registro Calificado otorgado por medio de la Resolución N° XXXX… del (día) de (mes) del (año). (Información solo para programas que soliciten renovación) de conformidad con su naturaleza universitaria, nivel profesional, modalidad… y metodología… otorga el título de…','Información básica del programa','EnProceso','1',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('2','','','Análisis de la coherencia entre la denominación, el título a otorgar, el nivel de formación, los contenidos curriculares y el perfil de egreso','EnProceso','1',null);
---2
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('3','','','Estado de la oferta de educación en el área del programa a nivel nacional y global','EnProceso','2',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('4','','','Necesidades de la región y del país','EnProceso','EnProceso','2',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('4','','','Necesidades de la región y del país','EnProceso','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('5','','','Justificación de atributos o factores que constituyen los rasgos distintivos del programa','EnProceso','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('6','','','Análisis por periodos académicos de indicadores para los programas similares de referencia y las acciones adoptadas por la institución frente a los mismos','EnProceso','2',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('7','','','Pertinencia del programa académico frente al desarrollo, social, cultural, ambiental, económico y científico','EnProceso','2',null);
 --2.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('8','','','Personas inscritas, admitidas y matriculadas''EnProceso',,'2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('9','','','Total de matriculados y graduados''EnProceso',,'2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('10','','','Tasas de deserción por cohorte''EnProceso',,'2','6');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('11','','','Empleabilidad de los egresados''EnProceso',,'2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('8','','','Personas inscritas, admitidas y matriculadas','EnProceso','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('9','','','Total de matriculados y graduados','EnProceso','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('10','','','Tasas de deserción por cohorte','EnProceso','2','6');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('11','','','Empleabilidad de los egresados','EnProceso','2','6');
 --3
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('12','','Se refieren a la definición del plan general de estudios, deberá estar representado en créditos académicos conforme con los resultados de aprendizaje proyectados, la formación integral, las actividades académicas que evidencien estrategias de flexibilización curricular, y los perfiles de egreso, en armonía con las habilidades del contexto internacional, nacional, y local orientadas desarrollo de las capacidades para aprender a aprender.','Componentes Formativos','EnProceso','3',null);
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('13','','','Componentes pedagógicos','EnProceso','3',null);
@@ -56,94 +51,91 @@ INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_i
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('26','','','Internacionalización del currículo','EnProceso','3','14');
 INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('27','','','Competencias comunicativas en una segunda lengua','EnProceso','3','14');
 --3.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('27','','','Fundamentos teóricos y conceptuales del programa','EnProceso','3','15');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('28','','','Objeto de estudio y formas de conocimiento del programa','EnProceso','3','15');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('28','','','Fundamentos teóricos y conceptuales del programa','EnProceso','3','15');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('29','','','Objeto de estudio y formas de conocimiento del programa','EnProceso','3','15');
 --3.5
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('29','','','Instrumentos de medición y seguimiento del desempeño de profesores','EnProceso','3','16');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('30','','','Instrumentos de medición y seguimiento del desempeño de estudiantes','EnProceso','3','16');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('31','','','Seguimiento y evaluación de resultados de aprendizaje','EnProceso','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('30','','','Instrumentos de medición y seguimiento del desempeño de profesores','EnProceso','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('31','','','Instrumentos de medición y seguimiento del desempeño de estudiantes','EnProceso','3','16');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('32','','','Seguimiento y evaluación de resultados de aprendizaje','EnProceso','3','16');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('32','','','Diseño y contenido curricular','EnProceso','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('33','','','Créditos por semestres','EnProceso','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('34','','','Proyecto educativo del programa','EnProceso','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('35','','','Mecanismos de interacción entre estudiante-profesor y estudiante-estudiante','EnProceso','4',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('36','','','Actividades académicas apoyadas en TIC','EnProceso','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('33','','','Diseño y contenido curricular','EnProceso','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('34','','','Créditos por semestres','EnProceso','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('35','','','Proyecto educativo del programa','EnProceso','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('36','','','Mecanismos de interacción entre estudiante-profesor y estudiante-estudiante','EnProceso','4',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('37','','','Actividades académicas apoyadas en TIC','EnProceso','4',null);
 --4.2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('37','','','Número de créditos obligatorios','EnProceso','4','33');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('38','','','Número de créditos electivos','EnProceso','4','33');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('38','','','Número de créditos obligatorios','EnProceso','4','33');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('39','','','Número de créditos electivos','EnProceso','4','33');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('39','','','Declaración para el programa académico, de la incorporación de la investigación, innovación y/o creación artística y cultural para el desarrollo del conocimiento, según el nivel de formación del programa y la tipología y misión institucional','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('40','','','Formación en investigación','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('41','','','Organización de la investigación, innovación y/o creación artística y cultural en el programa','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('42','','','Resultados de la investigación, innovación y/o creación artística y cultural','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('43','','','Políticas Institucionales','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('44','','','Objetivos del Sistema de Investigaciones','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('45','','','Políticas del Sistema de Investigaciones','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('46','','','Estímulos para la Investigación','EnProceso','5',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('47','','','La incorporación de las TIC en la formación investigativa','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('40','','','Declaración para el programa académico, de la incorporación de la investigación, innovación y/o creación artística y cultural para el desarrollo del conocimiento, según el nivel de formación del programa y la tipología y misión institucional','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('41','','','Formación en investigación','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('42','','','Organización de la investigación, innovación y/o creación artística y cultural en el programa','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('43','','','Resultados de la investigación, innovación y/o creación artística y cultural','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('44','','','Políticas Institucionales','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('45','','','Objetivos del Sistema de Investigaciones','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('46','','','Políticas del Sistema de Investigaciones','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('47','','','Estímulos para la Investigación','EnProceso','5',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('48','','','La incorporación de las TIC en la formación investigativa','EnProceso','5',null);
 --5.2
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('48','','','Estrategias para la formación en investigación-creación-innovación','EnProceso','5','40');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('49','','','Desarrollo del pensamiento crítico y/o creativo','EnProceso','5','40');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('49','','','Estrategias para la formación en investigación-creación-innovación','EnProceso','5','40');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('50','','','Desarrollo del pensamiento crítico y/o creativo','EnProceso','5','40');
 --5.3
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('50','','','Áreas, líneas y/o temáticas de investigación, innovación y/o Creación artística y cultural','EnProceso','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('51','','','Grupos de investigación','EnProceso','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('52','','','Semilleros de investigación','EnProceso','5','41');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('53','','','Investigadores reconocidos en el Sistema Nacional de Ciencia, Tecnología e Innovación','EnProceso','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('51','','','Áreas, líneas y/o temáticas de investigación, innovación y/o Creación artística y cultural','EnProceso','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('52','','','Grupos de investigación','EnProceso','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('53','','','Semilleros de investigación','EnProceso','5','41');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','Investigadores reconocidos en el Sistema Nacional de Ciencia, Tecnología e Innovación','EnProceso','5','41');
 --5.4
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','Proyectos de investigación, innovación y/o creación artística y cultural','EnProceso','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('55','','','Desarrollo de nuevos productos, procesos y usos de productos ya existentes','EnProceso','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('56','','','Capacidad para dar respuestas transformadoras a problemas locales, regionales y globales','EnProceso','5','42');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('57','','','Productos de investigación, innovación y/o creación artística y cultural','EnProceso','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('55','','','Proyectos de investigación, innovación y/o creación artística y cultural','EnProceso','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('56','','','Desarrollo de nuevos productos, procesos y usos de productos ya existentes','EnProceso','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('57','','','Capacidad para dar respuestas transformadoras a problemas locales, regionales y globales','EnProceso','5','42');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('58','','','Productos de investigación, innovación y/o creación artística y cultural','EnProceso','5','42');
 --5.5
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','El Sistema de Investigaciones de la Universidad del Cauca','EnProceso','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','El Consejo de Investigaciones','EnProceso','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','Comités de Facultad para la Investigación y Posgrados','EnProceso','5','43');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('54','','','Grupos de Investigación','EnProceso','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('59','','','El Sistema de Investigaciones de la Universidad del Cauca','EnProceso','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('60','','','El Consejo de Investigaciones','EnProceso','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('61','','','Comités de Facultad para la Investigación y Posgrados','EnProceso','5','43');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('62','','','Grupos de Investigación','EnProceso','5','43');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('55','','','Mecanismos y estrategias para lograr la vinculación de la comunidad y el sector productivo, social, cultural, público y privado con el programa','EnProceso','6',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('56','','','Mecanismos y estrategias para lograr la articulación de los profesores y estudiantes con la dinámica social, productiva, creativa y cultural de su contexto','EnProceso','6',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('63','','','Mecanismos y estrategias para lograr la vinculación de la comunidad y el sector productivo, social, cultural, público y privado con el programa','EnProceso','6',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('64','','','Mecanismos y estrategias para lograr la articulación de los profesores y estudiantes con la dinámica social, productiva, creativa y cultural de su contexto','EnProceso','6',null);
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('57','','','Profesores del programa','EnProceso','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('58','','','Estrategias para la vinculación y permanencia de profesores','EnProceso','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('59','','','Dedicación de los profesores','EnProceso','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('60','','','Escalafón docente','EnProceso','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('61','','','Estrategias de desarrollo de profesores','EnProceso','7',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('62','','','Evaluación de profesores','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('65','','','Profesores del programa','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('66','','','Estrategias para la vinculación y permanencia de profesores','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('67','','','Dedicación de los profesores','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('68','','','Escalafón docente','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('69','','','Estrategias de desarrollo de profesores','EnProceso','7',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('70','','','Evaluación de profesores','EnProceso','7',null);
 
 --7.1
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('63','','','Características del grupo de profesores','EnProceso','7','57');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('64','','','Vinculación de los profesores al programa académico','EnProceso','7','57');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('65','','','Dedicación y desarrollo de los profesores del programa','EnProceso','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('71','','','Características del grupo de profesores','EnProceso','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('72','','','Vinculación de los profesores al programa académico','EnProceso','7','57');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('73','','','Dedicación y desarrollo de los profesores del programa','EnProceso','7','57');
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('66','','','Dotación de medios educativos con los que cuenta el programa','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('67','','','Ambientes de aprendizaje físicos y/o virtuales','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('68','','','Mecanismos de capacitación y apropiación de los medios educativos para estudiantes y profesores','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('69','','','Plan de mantenimiento, actualización y reposición de los medios educativos','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('70','','','Disponibilidad de medios educativos','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('71','','','Estrategias para atender las barreras de acceso y las características de la población','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('72','','','Bibliotecas de la Universidad del Cauca','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('72','','','Servicios que prestan las Bibliotecas','EnProceso','8',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('73','','','Recursos bibliográficos de las Bibliotecas','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('74','','','Dotación de medios educativos con los que cuenta el programa','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('75','','','Ambientes de aprendizaje físicos y/o virtuales','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('76','','','Mecanismos de capacitación y apropiación de los medios educativos para estudiantes y profesores','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('77','','','Plan de mantenimiento, actualización y reposición de los medios educativos','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('78','','','Disponibilidad de medios educativos','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('79','','','Estrategias para atender las barreras de acceso y las características de la población','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('80','','','Bibliotecas de la Universidad del Cauca','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('81','','','Servicios que prestan las Bibliotecas','EnProceso','8',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('82','','','Recursos bibliográficos de las Bibliotecas','EnProceso','8',null);
 
 --8.9
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('74','','','Convenios Interinstitucionales','EnProceso','8','73');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('75','','','Revistas y bases de datos','EnProceso','8','73');
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('76','','','Bibliografía','EnProceso','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('83','','','Convenios Interinstitucionales','EnProceso','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('84','','','Revistas y bases de datos','EnProceso','8','73');
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('85','','','Bibliografía','EnProceso','8','73');
 
 
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('77','','','Infraestructura física del programa','EnProceso','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('78','','','Infraestructura tecnológica del programa','EnProceso','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('79','','','Disponibilidad de la infraestructura física y tecnológica','EnProceso','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('80','','','Escenarios de práctica (programas de salud)','EnProceso','9',null);
-INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('81','','','Infraestructura de la Universidad del Cauca','EnProceso','9',null);
-
-
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('86','','','Infraestructura física del programa','EnProceso','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('87','','','Infraestructura tecnológica del programa','EnProceso','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('88','','','Disponibilidad de la infraestructura física y tecnológica','EnProceso','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('89','','','Escenarios de práctica (programas de salud)','EnProceso','9',null);
+INSERT INTO `sub_item` (subitem_id,contenido,guia,nombre,estado,item_id,parent_id) VALUES ('90','','','Infraestructura de la Universidad del Cauca','EnProceso','9',null);
 
 -- roles
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('1','ADMIN');
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('2','COORDINADOR');
 INSERT INTO `rol` (rol_id,nombre_rol) VALUES ('3','SUPERUSUARIO');
-
 
 -- usuarios
 INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('1','1','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','aaa@gmail.com','juan',1);
@@ -151,8 +143,6 @@ INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES
 INSERT INTO `usuario` (rol_id,usuario_id,contrasena,correo,nombre,estado) VALUES ('3','3','$2a$10$Ew1CWKviOWFnlp0hhHd7xuv954E3lKtRV5Ee8hQe8UP6tmRSSDU92','ccc@gmail.com','pedro',1);
 
 --Configuraciones
-
-
 INSERT INTO `configuraciones` (nombre_variable, contenido) values ('rector','Deibar René Hurtado Herrera');
 INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_academico','Aida Patricia González Nieva');
 INSERT INTO `configuraciones` (nombre_variable, contenido) values ('vicerrector_administrativo','Jorge Enrique Barrera Moreno');

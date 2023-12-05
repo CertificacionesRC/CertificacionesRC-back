@@ -11,18 +11,14 @@ import lombok.*;
 @Builder
 @Table(name = "anexo")
 public class Anexo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "anexo_id")
     private long id;
-
     private String contenido;
-
-    //Muchos anexos pueden estar en un registro calificado
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "registroCalificado_id")
     private RegistroCalificado registroCalificado;
-
-
 
 }

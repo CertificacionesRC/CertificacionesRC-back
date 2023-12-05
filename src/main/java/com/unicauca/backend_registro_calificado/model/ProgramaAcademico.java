@@ -20,13 +20,10 @@ public class ProgramaAcademico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "programa_academico_id")
     private long id;
-
     private String nombre;
-
     @Enumerated(EnumType.STRING)
     private TipoPrograma tipo;
     private String facultad;
-
     @OneToMany(mappedBy = "programaAcademico")
     private List<RegistroCalificado> registroCalificados;
 

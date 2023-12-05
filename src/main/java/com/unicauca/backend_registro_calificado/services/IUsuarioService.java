@@ -2,7 +2,6 @@ package com.unicauca.backend_registro_calificado.services;
 
 import com.unicauca.backend_registro_calificado.domain.Response;
 import com.unicauca.backend_registro_calificado.domain.UsuarioDTO;
-import com.unicauca.backend_registro_calificado.model.Usuario;
 
 import java.util.List;
 
@@ -14,4 +13,5 @@ public interface IUsuarioService {
     public Response<Boolean> disableOrEnableUsuario(Long id);
     public Response<Boolean> enableUsuario(Long id);
     public Response<UsuarioDTO> findUsuarioByEmail(String email);
+
 }
