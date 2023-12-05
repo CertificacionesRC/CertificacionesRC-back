@@ -56,9 +56,9 @@ public class UsuarioController {
         return this.iUsuarioService.updateUsuario(id, usuario);
     }
     @Secured("ADMIN")
-    @PatchMapping("/disableUsuario/{id}")
-    public Response<Boolean> disableUusario(@PathVariable Long id){
-        return  this.iUsuarioService.disableUsuario(id);
+    @PatchMapping("/disableOrEnableUsuario/{id}")
+    public Response<Boolean> disableOrEnableUsuario(@PathVariable Long id){
+        return  this.iUsuarioService.disableOrEnableUsuario(id);
     }
 
 //    @Secured("ADMIN")

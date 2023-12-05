@@ -124,24 +124,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public Response<Boolean> disableUsuario(Long id) {
+    public Response<Boolean> disableOrEnableUsuario(Long id) {
 
         Response<Boolean> response = new Response<>();
         try {
             Usuario userEntity = this.iUsuarioRepository.findById(id).get();
-            if (userEntity.getEstado() == true) {
-                // el usuario aun no esta deshabilitado
-                userEntity.setEstado(false);
+            if (userEntity.getEstado() != null) {
+                userEntity.setEstado(!userEntity.getEstado());
                 this.iUsuarioRepository.save(userEntity);
                 response.setStatus(200);
-                response.setUserMessage("Usuario deshabilitado con éxito");
-                response.setMoreInfo("http://localhost:8081/api/usuario/DisableUsuario/{id}");
+                response.setUserMessage("Estado modificado con éxito");
+                response.setDeveloperMessage("Estado modificado con éxito");
+                response.setMoreInfo("http://localhost:8081/api/usuario/disableOrEnableUsuario/{id}");
                 response.setData(true);
             } else {
                 // el usuario ya esta deshabilitado
                 response.setStatus(500);
-                response.setUserMessage("El usuario ya esta deshabilitado");
-                response.setMoreInfo("http://localhost:8081/api/usuario/DisableUsuario/{id}");
+                response.setUserMessage("Error al modificar el estado");
+                response.setDeveloperMessage("Error al modificar el estado");
+                response.setMoreInfo("http://localhost:8081/api/usuario/disableOrEnableUsuario/{id}");
                 response.setData(false);
             }
             return response;
